@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# script.sh
+# Copyright (C) HymiR <leghissa@fim.uni-passau.de>
+# 
+# 
+# script.sh is free software.
+# 
+# You may redistribute it and/or modify it under the terms of the
+# GNU General Public License, as published by the Free Software
+# Foundation; either version 2 of the License, or (at your option)
+# any later version.
+# 
+# script.sh is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with script.sh.  If not, write to:
+# 	The Free Software Foundation, Inc.,
+# 	51 Franklin Street, Fifth Floor
+# 	Boston, MA  02110-1301, USA.
+
+
+# clean all the cmake crap
+
+echo purge all that nasty cmake crap!
+rm -fv ./CMakeCache.txt
+rm -rfv ./CMakeFiles
+rm -rfv ./.deps
+rm -fv ./cmake_install.cmake
+rm -fv ./install_manifest.txt
+rm -fv ./Makefile
+echo done.
