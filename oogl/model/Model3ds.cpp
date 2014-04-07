@@ -38,7 +38,7 @@ namespace oogl
 	namespace model
 	{
 		/**
-		 * TODO are references a better solution here for parameters?
+		 * 
 		 */
 		Model3ds::Model3ds(std::string fileName, Model::LoadOptions options)
 			: Model(fileName, options), currentFrame(0)

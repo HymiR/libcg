@@ -38,14 +38,17 @@ namespace oogl
 			buttonState |= LEFT_DOWN;
 		else
 			buttonState &= ~LEFT_DOWN;
+
 		if (button == 2 && state == 0)
 			buttonState |= RIGHT_DOWN;
 		else
 			buttonState &= ~RIGHT_DOWN;
+
 		if (button == 1 && state == 0)
 			buttonState |= MIDDLE_DOWN;
 		else
 			buttonState &= ~MIDDLE_DOWN;
+
 		lastMouse = glm::ivec2(x, y);
 	}
 

@@ -17,7 +17,10 @@
 
 namespace oogl
 {
-	Model::Model(const std::string fileName, Model::LoadOptions options): fileName(fileName), loadOptions(options) {}
+	Model::Model(const std::string fileName, Model::LoadOptions options)
+		: fileName(fileName), loadOptions(options) {}
+
+
 	Model::~Model() {}
 
 

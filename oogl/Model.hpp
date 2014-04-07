@@ -12,9 +12,15 @@
 #include <string>
 #include <memory>
 
+
 namespace oogl
 {
-	struct BoundingBox {glm::vec3 min, max;};
+	struct BoundingBox
+	{
+		glm::vec3 min
+		glm::vec3 max;
+	};
+
 
 	struct BoundingSphere
 	{
@@ -22,18 +28,20 @@ namespace oogl
 		glm::vec3 center;
 	};
 
+
 	class Model
 	{
 		public:
+			typedef unsigned int RenderOptions;
+			typedef unsigned int LoadOptions;
+
 			enum RenderOption
 			{
-				RENDER_NO_TEXTURES = 1<<0,
-				RENDER_NO_MATERIALS = 1<<1,
-				RENDER_NO_CULL_FACE = 1<<2,
+				RENDER_NO_TEXTURES = 1 << 0,
+				RENDER_NO_MATERIALS = 1 << 1,
+				RENDER_NO_CULL_FACE = 1 << 2,
 				RENDER_NO_DISLAYLIST = 1 << 3
 			};
-
-			typedef unsigned int RenderOptions;
 
 			enum LoadOption
 			{
@@ -42,7 +50,6 @@ namespace oogl
 				LOAD_SET_SMOOTHING_GROUP = 1 << 2
 			};
 
-			typedef unsigned int LoadOptions;
 
 			Model(const std::string fileName,Model::LoadOptions options);
 			virtual ~Model();
