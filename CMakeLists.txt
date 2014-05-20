@@ -36,6 +36,7 @@ add_definitions(-std=c++11 -Wall)
 # source file list
 set(SRC
 	"cgutil/timer.cpp"
+	"cgutil/shader.cpp"
 	"oogl/Model.cpp"
 	"oogl/FrameBufferObject.cpp"
 	"oogl/Navigator.cpp"
@@ -55,6 +56,7 @@ set(SRC
 # header file list
 set(HDR
 	"cgutil/timer.hpp"
+	"cgutil/shader.hpp"
 	"cgutil/log.hpp"
 	"cgutil/loglevels.hpp"
 	"cgutil/math.hpp"
