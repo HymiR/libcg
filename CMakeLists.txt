@@ -30,7 +30,7 @@ set(MODULES
 add_definitions(-std=c++11 -Wall)
 
 
-# listing the soruce files hardcoded instead by a find command has the
+# listing the source files hardcoded instead by a find command has the
 # advantage that only changed files were recompiled on performing
 # incremental builds. (bug-fixing or development...)
 # source file list
@@ -80,14 +80,14 @@ set(HDR
 )
 
 
-# determin some libraries (the ones which cmake has a find_module for) to link against
+# determine some libraries (the ones which cmake has a find_module for) to link against
 # to check for existing find_modules  hit: cmake --help-module-list in your terminal.
 # to check for info and variables set hit: cmake --help-module Find<ModuleName> in your terminal.
 find_package(DevIL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(OpenGL REQUIRED)
 
-# add the tetermined hader dirs as well as teh project root to be used by cmake
+# add the determined header dirs as well as teh project root to be used by cmake
 # for all others we just can hope were installed to the default unix dirs,
 # namely:(3ds, glm GLee)
 include_directories(
