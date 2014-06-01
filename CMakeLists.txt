@@ -20,10 +20,10 @@ set(V_LIB ${V_MAJOR}.${V_MINOR}.${V_PATCH})
 set(LIBNAME ${PROJECT_NAME})
 
 # tell cmake to use our custom find-modules:
-#set(CMAKE_MODULE_PATH
-#	${CMAKE_MODULE_PATH}
-#	"${CMAKE_SOURCE_DIR}/cmake/modules/"
-#)
+set(CMAKE_MODULE_PATH
+	${CMAKE_MODULE_PATH}
+	"${PROJECT_SOURCE_DIR}/cmake/modules/"
+)
 
 # define a list containing the directories of our "library modules"
 set(MODULES
@@ -42,7 +42,6 @@ add_definitions(-std=c++11 -Wall)
 # source file list
 set(SRC
 	"cgutil/timer.cpp"
-	"cgutil/shader.cpp"
 	"oogl/Model.cpp"
 	"oogl/FrameBufferObject.cpp"
 	"oogl/Navigator.cpp"
@@ -92,13 +91,22 @@ set(HDR
 find_package(DevIL REQUIRED)
 find_package(OpenGL REQUIRED)
 
-# add the determined header dirs as well as teh project root to be used by cmake
-# for all others we just can hope were installed to the default unix dirs,
-# namely:(3ds, glm GLee)
+# our custom find-modules in ./cmake/modules
+find_package(GLee REQUIRED)
+find_package(Glm REQUIRED)
+find_package(GLM REQUIRED)
+find_package(Lib3ds REQUIRED)
+
+
+# add the determined header dirs as well as the project root to be used by cmake
 include_directories(
 	${PROJECT_SOURCE_DIR}
 	${IL_INCLUDE_DIRS}
 	${OpenGL_INCLUDE_DIRS}
+	${GLEE_INCLUDE_DIR}
+	${Glm_INCLUDE_DIR}
+	${GLM_INCLUDE_DIRS}
+	${Lib3ds_INCLUDE_DIRS}
 )
 
 # build a shared lib from the source files and link against libs
@@ -110,7 +118,9 @@ target_link_libraries(${LIBNAME}
 	${ILU_LIBRARIES}
 	${ILUT_LIBRARIES}
 	${OpenGL_LIBRARIES}
-	3ds glm GLee # <-- these namely listed libs don't have pkg-config nor FindModule
+	${GLEE_LIB}
+	${Glm_LIB}
+	${Lib3ds_LIBRARIES}
 )
 
 
