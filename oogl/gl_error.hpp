@@ -5,15 +5,19 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/glIncludes.hpp>
+
 #if defined(__APPLE__) || defined(__APPLE_CC__)
 # include <OpenGL/glu.h>
 #else
 # include <GL/glu.h>
 #endif
 #include <cgutil/log.hpp>
+
+
+#ifndef GL_ERROR_HPP
+#define GL_ERROR_HPP
 
 #define LOG_GL_ERRORS() \
 {\
@@ -28,3 +32,5 @@ namespace oogl
 	void dumpGLInfos();
 }
 
+
+#endif // GL_ERROR_HPP

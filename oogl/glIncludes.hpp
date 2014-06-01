@@ -5,7 +5,6 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <GL/GLee.h>
 #ifdef WIN32
@@ -15,4 +14,3 @@
 #else
 # include <GL/glu.h>
 #endif
-

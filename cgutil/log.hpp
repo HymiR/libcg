@@ -5,12 +5,14 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <iostream>
 
 #include <cgutil/loglevels.hpp>
 
+
+#ifndef LOG_HPP
+#define LOG_HPP
 
 //which log level as default
 #ifndef LOG_LEVEL
@@ -50,3 +52,5 @@
 # define LOG_ERROR if(false) std::cout
 # define LOG_IS_ERROR_ENABLED false
 #endif
+
+#endif // LOG_HPP

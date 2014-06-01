@@ -5,10 +5,13 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/Texture.hpp>
 #include <oogl/Image.hpp>
+
+
+#ifndef TEXTURE_2D_HPP
+#define TEXTURE_2D_HPP
 
 
 namespace oogl
@@ -42,3 +45,5 @@ namespace oogl
 	};
 }
 
+
+#endif // TEXTURE_2D_HPP

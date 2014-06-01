@@ -5,7 +5,6 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/glIncludes.hpp>
 #include <oogl/GLSLShader.hpp>
@@ -18,6 +17,10 @@
 #include <vector>
 #include <map>
 #include <memory>
+
+
+#ifndef GLSL_PROGRAM_HPP
+#define GLSL_PROGRAM_HPP
 
 
 namespace oogl
@@ -116,3 +119,7 @@ namespace oogl
 			void link();
 	};
 }
+
+
+#endif // GLSL_PROGRAM_HPP
+

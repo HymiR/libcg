@@ -5,7 +5,6 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_access.hpp>
@@ -13,8 +12,12 @@
 #include <ostream>
 #include <iomanip>
 
-#define GLM_FORMATTING std::setw(5) << std::setw(3) << std::fixed << std::setfill('0')
 
+#ifndef GLM_OSTREAM_HPP
+#define GLM_OSTREAM_HPP
+
+
+#define GLM_FORMATTING std::setw(5) << std::setw(3) << std::fixed << std::setfill('0')
 
 
 template<typename U, glm::precision P>
@@ -118,3 +121,5 @@ std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat4x4<U, P> &v
 }
 
 #undef GLM_FORMATTING
+
+#endif // GLM_OSTREAM_HPP

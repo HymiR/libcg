@@ -5,11 +5,14 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/glIncludes.hpp>
 
 #include <cgutil/log.hpp>
+
+
+#ifndef GLSL_SHADER_HPP
+#define GLSL_SHADER_HPP
 
 
 namespace oogl
@@ -48,3 +51,6 @@ namespace oogl
 
 	GLuint loadShader(const std::string& filename, GLenum type);
 }
+
+
+#endif // GLSL_SHADER_HPP

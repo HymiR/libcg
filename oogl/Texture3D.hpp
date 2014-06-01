@@ -5,10 +5,13 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/Texture.hpp>
 #include <oogl/Image.hpp>
+
+
+#ifndef TEXTURE_3D_HPP
+#define TEXTURE_3D_HPP
 
 
 namespace oogl
@@ -36,3 +39,6 @@ namespace oogl
 			glm::uvec3 dim;
 	};
 }
+
+
+#endif // TEXTURE_3D_HPP

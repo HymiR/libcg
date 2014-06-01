@@ -19,6 +19,12 @@ set(V_PATCH 1)
 set(V_LIB ${V_MAJOR}.${V_MINOR}.${V_PATCH})
 set(LIBNAME ${PROJECT_NAME})
 
+# tell cmake to use our custom find-modules:
+#set(CMAKE_MODULE_PATH
+#	${CMAKE_MODULE_PATH}
+#	"${CMAKE_SOURCE_DIR}/cmake/modules/"
+#)
+
 # define a list containing the directories of our "library modules"
 set(MODULES
 	${PROJECT_SOURCE_DIR}/cgutil
@@ -60,7 +66,7 @@ set(HDR
 	"cgutil/log.hpp"
 	"cgutil/loglevels.hpp"
 	"cgutil/math.hpp"
-	"oogl/glutIncludes.hpp"
+	"oogl/glfwIncludes.hpp"
 	"oogl/Model.hpp"
 	"oogl/glIncludes.hpp"
 	"oogl/Texture.hpp"
@@ -84,7 +90,6 @@ set(HDR
 # to check for existing find_modules  hit: cmake --help-module-list in your terminal.
 # to check for info and variables set hit: cmake --help-module Find<ModuleName> in your terminal.
 find_package(DevIL REQUIRED)
-find_package(GLUT REQUIRED)
 find_package(OpenGL REQUIRED)
 
 # add the determined header dirs as well as teh project root to be used by cmake
@@ -93,7 +98,6 @@ find_package(OpenGL REQUIRED)
 include_directories(
 	${PROJECT_SOURCE_DIR}
 	${IL_INCLUDE_DIRS}
-	${GLUT_INCLUDE_DIRS}
 	${OpenGL_INCLUDE_DIRS}
 )
 
@@ -105,7 +109,6 @@ target_link_libraries(${LIBNAME}
 	${IL_LIBRARIES}
 	${ILU_LIBRARIES}
 	${ILUT_LIBRARIES}
-	${GLUT_LIBRARIES}
 	${OpenGL_LIBRARIES}
 	3ds glm GLee # <-- these namely listed libs don't have pkg-config nor FindModule
 )

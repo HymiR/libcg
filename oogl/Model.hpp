@@ -5,12 +5,15 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <glm/glm.hpp>
 
 #include <string>
 #include <memory>
+
+
+#ifndef MODEL_HPP
+#define MODEL_HPP
 
 
 namespace oogl
@@ -80,3 +83,5 @@ namespace oogl
 	Model* loadModel(const std::string& fileName, Model::LoadOptions options = 0);
 }
 
+
+#endif // MODEL_HPP

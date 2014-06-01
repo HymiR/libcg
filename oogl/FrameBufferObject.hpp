@@ -5,7 +5,6 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/glIncludes.hpp>
 #include <oogl/Texture2D.hpp>
@@ -14,6 +13,10 @@
 
 #include <vector>
 #include <memory>
+
+
+#ifndef FRAMEBUFFEROBJECT_HPP
+#define FRAMEBUFFEROBJECT_HPP
 
 
 namespace oogl
@@ -62,3 +65,5 @@ namespace oogl
 	};
 }
 
+
+#endif // FRAMEBUFFEROBJECT_HPP

@@ -5,12 +5,16 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <string>
 #include <glm/glm.hpp>
 
 #include <oogl/glIncludes.hpp>
+
+
+#ifndef IMAGE_HPP
+#define IMAGE_HPP
+
 
 namespace oogl
 {
@@ -56,3 +60,5 @@ namespace oogl
 	Image* loadImage(const std::string &fileName);
 }
 
+
+#endif // IMAGE_HPP

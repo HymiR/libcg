@@ -4,10 +4,14 @@
  *  Created on: 21.05.2011
  *      Author: sam
  */
-#pragma once
+
 
 #include <string>
 #include <cgutil/timer.hpp>
+
+
+#ifndef OOGL_TIMER_HPP
+#define OOGL_TIMER_HPP
 
 
 namespace oogl
@@ -22,3 +26,7 @@ namespace oogl
 			virtual void stop();
 	};
 }
+
+
+#endif // OOGL_TIMER_HPP
+

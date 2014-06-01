@@ -5,7 +5,6 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <cgutil/log.hpp>
 
@@ -14,6 +13,10 @@
 
 #include <oogl/glIncludes.hpp>
 #include <glm/glm.hpp>
+
+
+#ifndef TEXTURE_HPP
+#define TEXTURE_HPP
 
 
 namespace oogl
@@ -66,3 +69,5 @@ namespace oogl
 	Texture* loadTexture(const std::string& fileName);
 }
 
+
+#endif // TEXTURE_HPP

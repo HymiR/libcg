@@ -3,11 +3,18 @@
  *
  *  Created on: 10.02.2011
  *      Author: sam
+ *
+ *  @deprecated {
+ *  	This file should not be used anymore.
+ *  	We don't support GLUT anymore, because it's archaic and outdated.
+ *  	GLFW is used instead.
+ *  	This file is only kept as fallback and will be deleted soon.
+ *  }
  */
 
-#pragma once
 
 #include <GL/GLee.h>
+
 #ifdef WIN32
 # include <GL/glu.h>
 # include <GL/glut.h>
@@ -18,4 +25,3 @@
 # include <GL/glu.h>
 # include <GL/glut.h>
 #endif
-

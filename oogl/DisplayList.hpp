@@ -5,9 +5,12 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <oogl/glIncludes.hpp>
+
+
+#ifndef DISPLAY_SIST_HPP
+#define DISPLAY_LIST_HPP
 
 
 namespace oogl
@@ -32,3 +35,4 @@ namespace oogl
 	};
 }
 
+#endif // DISPLAY_LIST_HPP

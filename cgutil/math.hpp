@@ -25,10 +25,12 @@
  * 	Boston, MA  02110-1301, USA.
  */
 
-#pragma once
 
 #include <cmath>
 
+
+#ifndef MATH_HPP
+#define MATH_HPP
 
 namespace cgutil
 {
@@ -59,3 +61,5 @@ namespace cgutil
 		return afmod(180 / M_PI * rad);
 	};
 }
+
+#endif // MATH_HPP

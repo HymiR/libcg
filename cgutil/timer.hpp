@@ -4,10 +4,12 @@
  *  Created on: 10.07.2010
  *      Author: sam
  */
-#pragma once
 
 #include <string>
 
+
+#ifndef TIMER_HPP
+#define TIMER_HPP
 
 struct timer_;
 
@@ -29,4 +31,4 @@ namespace cgutil
 	};
 }
 
-#pragma once
+#endif // TIMER_HPP

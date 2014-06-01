@@ -5,9 +5,13 @@
  *      Author: sam
  */
 
-#pragma once
 
 #include <glm/glm.hpp>
+
+
+#ifndef NAVIGATOR_HPP
+#define NAVIGATOR_HPP
+
 
 namespace oogl
 {
@@ -18,9 +22,9 @@ namespace oogl
 	{
 		public:
 			Navigator(
-					glm::vec2 rotateFactor = glm::vec2(1.0f,-1.0f),
+					glm::vec2 rotateFactor = glm::vec2(1.0f, -1.0f),
 					float scaleFactor = 0.01f,
-					glm::vec2 translateFactor = glm::vec2(0.01f,-0.01f));
+					glm::vec2 translateFactor = glm::vec2(0.01f, -0.01f));
 
 			virtual ~Navigator();
 
@@ -38,9 +42,9 @@ namespace oogl
 		private:
 			enum State
 			{
-				LEFT_DOWN = 1<<0,
-				MIDDLE_DOWN = 1<<1,
-				RIGHT_DOWN = 1<<2
+				LEFT_DOWN = 1 << 0,
+				MIDDLE_DOWN = 1 << 1,
+				RIGHT_DOWN = 1 << 2
 			};
 
 			glm::mat4 matrix;
@@ -51,3 +55,6 @@ namespace oogl
 			glm::vec2 translateFactor;
 	};
 }
+
+
+#endif // NAVIGATOR_HPP
