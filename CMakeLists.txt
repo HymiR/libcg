@@ -30,6 +30,7 @@ set(MODULES
 	${PROJECT_SOURCE_DIR}/cgutil
 	${PROJECT_SOURCE_DIR}/oogl
 	${PROJECT_SOURCE_DIR}/glm
+	${PROJECT_SOURCE_DIR}/Obj3D
 )
 
 # cflags to prevent build from failing
@@ -56,6 +57,16 @@ set(SRC
 	"oogl/GLSLProgram.cpp"
 	"oogl/model/ModelObj.cpp"
 	"oogl/model/Model3ds.cpp"
+	"Obj3D/Mesh3D.cpp"
+	"Obj3D/Obj3D.cpp"
+	"Obj3D/vboindexer.cpp"
+	"Obj3D/Model.cpp"
+	"Obj3D/objloader.cpp"
+	"Obj3D/VertexArray.cpp"
+	"Obj3D/ModelObj.cpp"
+	"Obj3D/Renderable.cpp"
+	"Obj3D/NormalArray.cpp"
+	"Obj3D/UVArray.cpp"
 )
 
 # header file list
@@ -82,6 +93,16 @@ set(HDR
 	"oogl/model/Model3ds.hpp"
 	"oogl/model/ModelObj.hpp"
 	"glm/glm_ostream.hpp"
+	"Obj3D/Mesh3D.h"
+	"Obj3D/ModelObj.h"
+	"Obj3D/Obj3D.h"
+	"Obj3D/UVArray.h"
+	"Obj3D/Model.h"
+	"Obj3D/NormalArray.h"
+	"Obj3D/Renderable.h"
+	"Obj3D/VertexArray.h"
+	"Obj3D/objloader.hpp"
+	"Obj3D/vboindexer.hpp"
 )
 
 
