@@ -8,6 +8,7 @@
 #ifndef MODEL_H
 #define	MODEL_H
 #include <cstring>
+#include "Renderable.h"
 
 class Model : public Renderable {
 public:

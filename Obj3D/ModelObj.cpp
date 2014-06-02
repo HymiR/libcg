@@ -26,7 +26,7 @@ void Model::loadModel() {
 	std::vector<glm::vec2> uvs;
 	std::vector<glm::vec3> normals;
 	  
-	loadOBJ(this->filepath, vertices, uvs, normals);
+	loadOBJ(this->filepath.c_str(), vertices, uvs, normals);
 	
 	addCoordinates(vertices, uvs, normals);
 }

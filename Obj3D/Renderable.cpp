@@ -5,6 +5,7 @@
  * Created on 31. Mai 2014, 14:12
  */
 
+#include <GL/glew.h>
 #include "Renderable.h"
 #include "vboindexer.hpp"
 

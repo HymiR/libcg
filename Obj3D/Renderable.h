@@ -8,6 +8,7 @@
 #ifndef RENDERABLE_H
 #define	RENDERABLE_H
 #include <vector>
+#include <string>
 #include <GL/gl.h>
 #include "UVArray.h"
 #include "NormalArray.h"
