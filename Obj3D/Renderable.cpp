@@ -5,9 +5,7 @@
  * Created on 31. Mai 2014, 14:12
  */
 
-#include <GL/glew.h>
 #include "Renderable.h"
-#include "vboindexer.hpp"
 
 Renderable::Renderable() {
 }
@@ -71,7 +69,32 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 }
 
 void Renderable::addShader(std::string path_vs, std::string path_fs) {
+	
+	Shader shader;
 	  
+	//create program
+	GLuint programID = glCreateProgram();
+
+	//compile shaders
+	GLuint vertexshader = oogl::loadShader(path_vs,GL_VERTEX_SHADER);
+	GLuint fragmentshader = oogl::loadShader(path_fs,GL_FRAGMENT_SHADER);
+
+	//attach shaders
+	glAttachShader(programID, vertexshader);
+	glAttachShader(programID, fragmentshader);
+
+	//link program
+	glLinkProgram(programID);
+	
+	shader.GLSLProgramHandle = programID;
+	shader.MVPHandle = glGetUniformLocation(programID, "MVP");
+	shader.MHandle = glGetUniformLocation(programID, "M");
+	shader.VHandle = glGetUniformLocation(programID, "V");
+	shader.vertexNormal_modelspaceHandle = glGetAttribLocation(programID, "vertexNormal_modelspace");
+	shader.vertexPosition_modelspaceHandle = glGetAttribLocation(programID, "vertexPosition_modelspace");
+	shader.vertexUVHandle = glGetAttribLocation(programID, "vertexUV");
+	
+	shaders.push_back(shader);
 }
 
 void Renderable::render() {

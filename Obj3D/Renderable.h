@@ -9,7 +9,9 @@
 #define	RENDERABLE_H
 #include <vector>
 #include <string>
-#include <GL/gl.h>
+#include <oogl/GLSLShader.hpp>
+#include <oogl/GLSLProgram.hpp>
+#include "vboindexer.hpp"
 #include "UVArray.h"
 #include "NormalArray.h"
 #include "VertexArray.h"
