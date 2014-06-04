@@ -67,6 +67,7 @@ set(SRC
 	"Obj3D/Renderable.cpp"
 	"Obj3D/NormalArray.cpp"
 	"Obj3D/UVArray.cpp"
+	"Obj3D/TheMatrix.cpp"
 )
 
 # header file list
@@ -103,6 +104,8 @@ set(HDR
 	"Obj3D/VertexArray.h"
 	"Obj3D/objloader.hpp"
 	"Obj3D/vboindexer.hpp"
+	"Obj3D/Matrices.h"
+	"Obj3D/TheMatrix.h"
 )
 
 

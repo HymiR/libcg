@@ -11,12 +11,15 @@
 #include <string>
 #include <oogl/GLSLShader.hpp>
 #include <oogl/GLSLProgram.hpp>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "vboindexer.hpp"
 #include "UVArray.h"
 #include "NormalArray.h"
 #include "VertexArray.h"
+#include "TheMatrix.h"
 
-typedef struct COORDINATES {
+typedef struct GEOMETRY {
 	UVArray uv, iuv; // original geometry and indexed geometry of UV ...
 	NormalArray no, ino; // ... Normals
 	VertexArray vt, ivt; // ... Vertices
@@ -25,7 +28,9 @@ typedef struct COORDINATES {
 	GLuint uvbuffer; // ... UVs
 	GLuint normalbuffer; // ... Normals
 	GLuint elementbuffer; // ... Indices
-}Coordinates;
+	GLuint ShaderID;
+	glm::vec3 InitialPosition;
+}Geometry;
 
 typedef struct SHADER {
 	  GLuint ShaderID;
@@ -37,14 +42,6 @@ typedef struct SHADER {
 	  GLuint vertexUVHandle;
 	  GLuint vertexNormal_modelspaceHandle;
 }Shader;
-
-// TODO: überlegen wo Kopien und wo Referenzen sinnvoll wären
-typedef struct MATRICES {
-	  glm::mat4 MVP;
-	  glm::mat4 M;
-	  glm::mat4 V;
-	  glm::mat4 P;
-}Matrices;
 
 class Renderable {
 	  public:
@@ -58,7 +55,7 @@ class Renderable {
 		    void addShader(std::string path_vs, std::string path_fs);
 		    
 	  protected:
-		    std::vector<Coordinates> coordinates;
+		    std::vector<Geometry> geometries;
 		    std::vector<Shader> shaders;
 };
 

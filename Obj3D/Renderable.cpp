@@ -20,10 +20,10 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 				std::vector<glm::vec2> uvs,
 				std::vector<glm::vec3> normals)
 {
-	Coordinates coords;
-	coords.vt = VertexArray(vertices);
-	coords.uv = UVArray(uvs);
-	coords.no = NormalArray(normals);
+	Geometry geoms;
+	geoms.vt = VertexArray(vertices);
+	geoms.uv = UVArray(uvs);
+	geoms.no = NormalArray(normals);
 	  
 	std::vector<unsigned short> indices;
 	std::vector<glm::vec3> indexed_vertices;
@@ -33,10 +33,10 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 	// index those coodinates
 	indexVBO(vertices, uvs, normals, indices, indexed_vertices, indexed_uvs, indexed_normals);
 	  
-	coords.ivt = VertexArray(indexed_vertices);
-	coords.iuv = UVArray(indexed_uvs);
-	coords.ino = NormalArray(indexed_normals);
-	coords.ind = indices;
+	geoms.ivt = VertexArray(indexed_vertices);
+	geoms.iuv = UVArray(indexed_uvs);
+	geoms.ino = NormalArray(indexed_normals);
+	geoms.ind = indices;
 	  
 	// initialise VBO and load coordinates
 	GLuint vertexbuffer;
@@ -60,12 +60,14 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0] , GL_STATIC_DRAW);
 	
-	coords.vertexbuffer = vertexbuffer;
-	coords.uvbuffer = uvbuffer;
-	coords.normalbuffer = normalbuffer;
-	coords.elementbuffer = elementbuffer;
+	geoms.vertexbuffer = vertexbuffer;
+	geoms.uvbuffer = uvbuffer;
+	geoms.normalbuffer = normalbuffer;
+	geoms.elementbuffer = elementbuffer;
+	// Think of something to make this modifyable
+	geoms.InitialPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	
-	coordinates.push_back(coords);
+	geometries.push_back(geoms);
 }
 
 void Renderable::addShader(std::string path_vs, std::string path_fs) {
@@ -98,4 +100,107 @@ void Renderable::addShader(std::string path_vs, std::string path_fs) {
 }
 
 void Renderable::render() {
+	/**
+	 * TODO:
+	 * (Lichter setzen)
+	 * Matrizen mit Shader verknüpfen
+	 * Shader auswählen
+	 * 
+	 * neue Matrizen berechnen
+	 * (texturen aktivieren)
+	 * Geometrie aktivieren
+	 * Geometrie rendern
+	 * aufräumen
+         */
+	  
+	// For now we only use first geometric object and first shader
+	// later we will use a little bit more sophisticated selection procedure
+	// (vector.at(0))
+	  
+	  // Use our shader
+	glUseProgram(shaders.at(0).GLSLProgramHandle);
+	
+	// we do the lights later
+	//glm::vec3 lightPos = glm::vec3(4,4,4);
+	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+	
+	// We just use the global View Matrix
+	glUniformMatrix4fv(shaders.at(0).VHandle,
+			   1,
+			   GL_FALSE,
+			   &(Pipeline.getPipeline()->V[0][0])
+	);
+		
+	// We want to render this at its initial coordinates relative to (0,0,0)
+	glm::mat4 ModelMatrix = glm::translate(Pipeline.getIdentityMatrix(),
+					       geometries.at(0).InitialPosition
+	);
+		
+	// We create a new MVP matrix for this object using global Perspective Matrix
+	// and global View Matrix
+	glm::mat4 MVP = Pipeline.getPipeline()->P * 
+			Pipeline.getPipeline()->V *
+			ModelMatrix;
+
+	// Send our transformation to the currently bound shader, 
+	// in the "MVP" uniform of our currently loaded shader
+	glUniformMatrix4fv(shaders.at(0).MVPHandle, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(shaders.at(0).MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
+
+
+	// We look into textutes later
+	// Bind our texture in Texture Unit 0
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, Texture);
+	// Set our "myTextureSampler" sampler to user Texture Unit 0
+	//glUniform1i(TextureID, 0);
+
+	// Activate and configure the geometry we want to render
+	// Vertices:
+	glEnableVertexAttribArray(shaders.at(0).vertexPosition_modelspaceHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).vertexbuffer);
+	glVertexAttribPointer(
+		shaders.at(0).vertexPosition_modelspaceHandle, // The attribute we want to configure
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+	// UVs:
+	glEnableVertexAttribArray(shaders.at(0).vertexUVHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).uvbuffer);
+	glVertexAttribPointer(
+		shaders.at(0).vertexUVHandle,     // The attribute we want to configure
+		2,                                // size : U+V => 2
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// Normals:
+	glEnableVertexAttribArray(shaders.at(0).vertexNormal_modelspaceHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).normalbuffer);
+	glVertexAttribPointer(
+		shaders.at(0).vertexNormal_modelspaceHandle, // The attribute we want to configure
+		3,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// Index buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, geometries.at(0).elementbuffer);
+
+	// Draw the triangles !
+	glDrawElements(
+		GL_TRIANGLES,      // mode
+		geometries.at(0).ind.size(),    // count
+		GL_UNSIGNED_SHORT,   // type
+		(void*)0           // element array buffer offset
+	);
+	  
 }
