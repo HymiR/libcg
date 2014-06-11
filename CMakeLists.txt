@@ -124,6 +124,8 @@ find_package(Glm REQUIRED)
 find_package(GLM REQUIRED)
 find_package(Lib3ds REQUIRED)
 
+# Anti-Masochist-Library
+find_package(Boost REQUIRED)
 
 # add the determined header dirs as well as the project root to be used by cmake
 include_directories(

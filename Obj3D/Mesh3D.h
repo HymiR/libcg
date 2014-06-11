@@ -10,6 +10,7 @@
 #include "Model.h"
 #include <vector>
 #include "Paths.h"
+#include <boost/filesystem.hpp>
 #include <sys/stat.h>
 /**
  * A Mesh3D object contains one to any number of models that make one single
@@ -34,6 +35,7 @@ public:
 private:
 	  bool folderExists(std::string path);
 	  std::string getExt(std::string path);
+	  std::vector<std::string> getFilesFromFolder(std::string path);
 	  std::vector<Model*> Models;
 };
 

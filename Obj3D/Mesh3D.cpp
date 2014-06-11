@@ -21,17 +21,26 @@ Mesh3D::~Mesh3D() {
 void Mesh3D::addModel(std::string name) {
 	  
 	Model* model = NULL;
-	  
-	if(folderExists(MODELPATH + name)) {
-		std::string ext = getExt(name);
-		if(ext == "3ds" || ext == "3DS" || ext == "3Ds" || ext == "3dS") {
-			  model = new Model3DS(MODELPATH + name);
-		} else if (ext == "obj" || ext == "OBJ" || ext == "OBj" || ext == "ObJ") {
-			  model = new ModelObj(MODELPATH + name);
-		} 
-	} else if(folderExists(SHADERPATH + name)) {
+	
+	std::string modelspath = MODELPATH + "/" + name;
+	std::string shaderspath = SHADERPATH + "/" + name;
+	std::string texturespath = TEXTUREPATH + "/" + name;
+	
+	if(folderExists(modelspath)) {
+		std::vector<std::string> modelfiles = getFilesFromFolder(modelspath);
 		
-	} else if (folderExists(TEXTUREPATH + name)) {
+		// For now we take only the first model in the list
+		std::string firstmodel = modelfiles.at(0);
+		std::string ext = getExt(firstmodel);
+		if(ext == "3ds" || ext == "3DS" || ext == "3Ds" || ext == "3dS") {
+			  model = new Model3DS(firstmodel);
+		} else if (ext == "obj" || ext == "OBJ" || ext == "OBj" || ext == "ObJ") {
+			  model = new ModelObj(firstmodel);
+		}
+		
+	} else if(folderExists(shaderspath)) {
+		
+	} else if (folderExists(texturespath)) {
 		  
 	}
 	Models.push_back(model);
@@ -50,4 +59,17 @@ std::string Mesh3D::getExt(std::string path) {
 	if(path.find_last_of(".") != std::string::npos)
 		ext = path.substr(path.find_last_of(".")+1);
 	return ext;
+}
+
+std::vector<std::string> Mesh3D::getFilesFromFolder(std::string path) {
+	boost::filesystem::path meshfilepath(path);
+	std::vector<std::string> files;
+	  
+	boost::filesystem::directory_iterator end_itr;
+	for(boost::filesystem::directory_iterator itr( meshfilepath );
+	    itr != end_itr; ++itr ) {
+		files.push_back(itr->path().c_str());
+	}
+	  
+	return files;
 }
