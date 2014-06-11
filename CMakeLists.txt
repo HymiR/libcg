@@ -64,6 +64,7 @@ set(SRC
 	"Obj3D/objloader.cpp"
 	"Obj3D/VertexArray.cpp"
 	"Obj3D/ModelObj.cpp"
+	"Obj3D/Model3DS.cpp"
 	"Obj3D/Renderable.cpp"
 	"Obj3D/NormalArray.cpp"
 	"Obj3D/UVArray.cpp"
@@ -106,6 +107,8 @@ set(HDR
 	"Obj3D/vboindexer.hpp"
 	"Obj3D/Matrices.h"
 	"Obj3D/TheMatrix.h"
+	"Obj3D/Paths.h"
+	"Obj3D/Model3DS.h"
 )
 
 

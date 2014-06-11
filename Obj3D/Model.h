@@ -8,6 +8,7 @@
 #ifndef MODEL_H
 #define	MODEL_H
 #include <cstring>
+#include <vector>
 #include "Renderable.h"
 
 class Model : public Renderable {
@@ -24,10 +25,16 @@ public:
 	  virtual void loadModel() = 0;
 	  
 	  std::string getFilepath();
+	  std::vector<std::string> getTextures();
+	  std::vector<std::string> getShaders();
 	  
 	  void setFilepath(std::string path);
+	  void addTexture(std::string texturepath);
+	  void addShader(std::string shaderpath);
 protected:
 	  std::string filepath;
+	  std::vector<std::string> shaderpaths;
+	  std::vector<std::string> texturepaths;
 
 };
 

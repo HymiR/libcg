@@ -15,6 +15,7 @@ public:
 	  ModelObj(std::string path);
 	  ModelObj(const ModelObj& orig);
 	  virtual ~ModelObj();
+	  void loadModel();
 protected:
 
 };

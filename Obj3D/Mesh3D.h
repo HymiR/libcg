@@ -9,7 +9,8 @@
 #define	MESH3D_H
 #include "Model.h"
 #include <vector>
-
+#include "Paths.h"
+#include <sys/stat.h>
 /**
  * A Mesh3D object contains one to any number of models that make one single
  * 3D object (Obj3D) that will be rendered. The source file for the model can 
@@ -20,8 +21,20 @@ public:
 	  Mesh3D();
 	  Mesh3D(const Mesh3D& orig);
 	  virtual ~Mesh3D();
+	  /**
+           * @param The name of the folder/s where the files of the object is
+	   * located, for example if name contains "canon" the function will 
+	   * search in:
+	   * models/canon
+	   * shaders/canon
+	   * sounds/canon
+	   * ...
+           */
+	  void addModel(std::string name);
 private:
-	  std::vector<Model>* Models;
+	  bool folderExists(std::string path);
+	  std::string getExt(std::string path);
+	  std::vector<Model*> Models;
 };
 
 #endif	/* MESH3D_H */
