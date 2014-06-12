@@ -26,12 +26,13 @@ void Mesh3D::addModel(std::string name) {
 	std::string shaderspath = SHADERPATH + "/" + name;
 	std::string texturespath = TEXTUREPATH + "/" + name;
 	
-	if(folderExists(modelspath)) {
-		std::vector<std::string> modelfiles = getFilesFromFolder(modelspath);
+	
+	if(Helpers::folderExists(modelspath)) {
+		std::vector<std::string> modelfiles = Helpers::getFilesFromFolder(modelspath);
 		
 		// For now we take only the first model in the list
 		std::string firstmodel = modelfiles.at(0);
-		std::string ext = getExt(firstmodel);
+		std::string ext = Helpers::getExt(firstmodel);
 		if(ext == "3ds" || ext == "3DS" || ext == "3Ds" || ext == "3dS") {
 			  model = new Model3DS(firstmodel);
 		} else if (ext == "obj" || ext == "OBJ" || ext == "OBj" || ext == "ObJ") {
@@ -39,37 +40,19 @@ void Mesh3D::addModel(std::string name) {
 		}
 		
 	} else if(folderExists(shaderspath)) {
-		
+		  if(model) { // It would make no sense to add a shader to a non existing model
+			  std::vector<std::string> shaderfiles = Helpers::getFilesFromFolder(shaderspath);
+			  for( std::string s : shaderfiles ) {
+				    model->addShader(s);
+			  }
+		  }
 	} else if (folderExists(texturespath)) {
-		  
+		  if(model) { // It would make no sense to add a texture to a non existing model
+			std::vector<std::string> texturefiles = Helpers::getFilesFromFolder(texturespath);
+			for( std::string t : texturefiles ) {
+				model->addTexture(t);
+			}  
+		  }
 	}
 	Models.push_back(model);
-}
-
-bool Mesh3D::folderExists(std::string path) {
-	struct stat buf;
-	if (stat(path.c_str(), &buf) != -1) {
-		return true;
-	}
-	return false;
-}
-
-std::string Mesh3D::getExt(std::string path) {
-	std::string ext = "";
-	if(path.find_last_of(".") != std::string::npos)
-		ext = path.substr(path.find_last_of(".")+1);
-	return ext;
-}
-
-std::vector<std::string> Mesh3D::getFilesFromFolder(std::string path) {
-	boost::filesystem::path meshfilepath(path);
-	std::vector<std::string> files;
-	  
-	boost::filesystem::directory_iterator end_itr;
-	for(boost::filesystem::directory_iterator itr( meshfilepath );
-	    itr != end_itr; ++itr ) {
-		files.push_back(itr->path().c_str());
-	}
-	  
-	return files;
 }

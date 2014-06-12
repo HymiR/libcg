@@ -10,8 +10,8 @@
 #include "Model.h"
 #include <vector>
 #include "Paths.h"
-#include <boost/filesystem.hpp>
-#include <sys/stat.h>
+#include "Helpers.h"
+
 /**
  * A Mesh3D object contains one to any number of models that make one single
  * 3D object (Obj3D) that will be rendered. The source file for the model can 

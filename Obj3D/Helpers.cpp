@@ -1,0 +1,45 @@
+/* 
+ * File:   Helpers.cpp
+ * Author: vidar
+ * 
+ * Created on 12. Juni 2014, 11:29
+ */
+
+#include "Helpers.h"
+
+Helpers::Helpers() {
+}
+
+Helpers::Helpers(const Helpers& orig) {
+}
+
+Helpers::~Helpers() {
+}
+
+std::string Helpers::getExt(std::string path) {
+	std::string ext = "";
+	if(path.find_last_of(".") != std::string::npos)
+		ext = path.substr(path.find_last_of(".")+1);
+	return ext;
+}
+
+std::vector<std::string> Helpers::getFilesFromFolder(std::string path) {
+	boost::filesystem::path meshfilepath(path);
+	std::vector<std::string> files;
+	  
+	boost::filesystem::directory_iterator end_itr;
+	for(boost::filesystem::directory_iterator itr( meshfilepath );
+	    itr != end_itr; ++itr ) {
+		files.push_back(itr->path().c_str());
+	}
+	  
+	return files;
+}
+
+bool Helpers::folderExists(std::string path) {
+	struct stat buf;
+	if (stat(path.c_str(), &buf) != -1) {
+		return true;
+	}
+	return false;
+}

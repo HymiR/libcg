@@ -24,6 +24,13 @@ public:
 	   */
 	  virtual void loadModel() = 0;
 	  
+	  /*
+	   * Loading shaders works always the same so we need just a simple
+	   * non abstract function to add the vertex and fragment shaders 
+	   * to our model
+	   */
+	  void loadShaders();
+	  
 	  std::string getFilepath();
 	  std::vector<std::string> getTextures();
 	  std::vector<std::string> getShaders();

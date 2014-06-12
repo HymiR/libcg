@@ -69,6 +69,7 @@ set(SRC
 	"Obj3D/NormalArray.cpp"
 	"Obj3D/UVArray.cpp"
 	"Obj3D/TheMatrix.cpp"
+	"Obj3D/Helpers.cpp"
 )
 
 # header file list
@@ -109,6 +110,7 @@ set(HDR
 	"Obj3D/TheMatrix.h"
 	"Obj3D/Paths.h"
 	"Obj3D/Model3DS.h"
+	"Obj3D/Helpers.h"
 )
 
 

@@ -39,3 +39,12 @@ std::vector<std::string> Model::getTextures() {
 std::vector<std::string> Model::getShaders() {
 	  return this->shaderpaths;
 }
+
+void Model::loadShaders() {
+	  std::vector<std::string> vertexshaders;
+	  std::vector<std::string> fragmentshaders;
+	  
+	  for(std::string shader : this->shaderpaths) {
+		  
+	  }
+}
