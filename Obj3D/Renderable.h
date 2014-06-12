@@ -11,6 +11,8 @@
 #include <string>
 #include <oogl/GLSLShader.hpp>
 #include <oogl/GLSLProgram.hpp>
+#include <oogl/Image.hpp>
+#include <oogl/Texture.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "vboindexer.hpp"
@@ -43,6 +45,18 @@ typedef struct SHADER {
 	  GLuint vertexNormal_modelspaceHandle;
 }Shader;
 
+typedef struct MATERIAL {
+	GLfloat ambient[4];
+	GLfloat diffuse[4];
+	GLfloat specular[4];
+	GLfloat emission[4];
+}Material;
+
+typedef struct LIGHT {
+	glm::vec3 position;
+	GLuint LightHandle;
+}Light;
+
 class Renderable {
 	  public:
 		    Renderable();
@@ -54,9 +68,15 @@ class Renderable {
 					std::vector<glm::vec3> normals);
 		    void addShader(std::string path_vs, std::string path_fs);
 		    
+		    void addTexture(std::string path_texture);
+		    
+		    void addLight(glm::vec3 position);
+		    
 	  protected:
 		    std::vector<Geometry> geometries;
 		    std::vector<Shader> shaders;
+		    std::vector<Light> lights;
+		    oogl::Texture* texture;
 };
 
 #endif	/* RENDERABLE_H */

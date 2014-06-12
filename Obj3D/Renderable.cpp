@@ -8,12 +8,16 @@
 #include "Renderable.h"
 
 Renderable::Renderable() {
+	  this->texture = NULL;
 }
 
 Renderable::Renderable(const Renderable& orig) {
 }
 
 Renderable::~Renderable() {
+	  if(texture) {
+		  delete texture;
+	  }
 }
 
 void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
@@ -99,6 +103,17 @@ void Renderable::addShader(std::string path_vs, std::string path_fs) {
 	shaders.push_back(shader);
 }
 
+void Renderable::addLight(glm::vec3 position) {
+	  Light light;
+	  light.position = position;
+	  // TODO: combine with shader
+	  this->lights.push_back(light);
+}
+
+void Renderable::addTexture(std::string path_texture) {
+	this->texture = oogl::loadTexture(path_texture);
+}
+
 void Renderable::render() {
 	/**
 	 * TODO:
@@ -106,10 +121,8 @@ void Renderable::render() {
 	 * Matrizen mit Shader verknüpfen
 	 * Shader auswählen
 	 * 
-	 * neue Matrizen berechnen
 	 * (texturen aktivieren)
-	 * Geometrie aktivieren
-	 * Geometrie rendern
+	 * textur mit shader verbinden
 	 * aufräumen
          */
 	  
@@ -117,12 +130,18 @@ void Renderable::render() {
 	// later we will use a little bit more sophisticated selection procedure
 	// (vector.at(0))
 	  
-	  // Use our shader
+	// Use our shader
 	glUseProgram(shaders.at(0).GLSLProgramHandle);
 	
 	// we do the lights later
 	//glm::vec3 lightPos = glm::vec3(4,4,4);
 	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+	
+	if(this->lights.size() > 0) {
+		//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
+		//glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+	}
+	
 	
 	// We just use the global View Matrix
 	glUniformMatrix4fv(shaders.at(0).VHandle,
@@ -146,14 +165,11 @@ void Renderable::render() {
 	// in the "MVP" uniform of our currently loaded shader
 	glUniformMatrix4fv(shaders.at(0).MVPHandle, 1, GL_FALSE, &MVP[0][0]);
 	glUniformMatrix4fv(shaders.at(0).MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
-
-
-	// We look into textutes later
-	// Bind our texture in Texture Unit 0
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, Texture);
-	// Set our "myTextureSampler" sampler to user Texture Unit 0
-	//glUniform1i(TextureID, 0);
+	
+	// We activate the texture of this object if we have one
+	if(this->texture) {
+		  this->texture->bind(0);
+	}
 
 	// Activate and configure the geometry we want to render
 	// Vertices:
@@ -202,5 +218,10 @@ void Renderable::render() {
 		GL_UNSIGNED_SHORT,   // type
 		(void*)0           // element array buffer offset
 	);
-	  
+	
+	if(this->texture){
+		  this->texture->unbind();
+		  glDisable(GL_TEXTURE_2D);
+	}
+	
 }
