@@ -39,8 +39,8 @@ public:
 	  std::vector<std::string> getShaders();
 	  
 	  void setFilepath(std::string path);
-	  void addTexture(std::string texturepath);
-	  void addShader(std::string shaderpath);
+	  void addTexturePath(std::string texturepath);
+	  void addShaderPath(std::string shaderpath);
 protected:
 	  std::string filepath;
 	  std::vector<std::string> shaderpaths;

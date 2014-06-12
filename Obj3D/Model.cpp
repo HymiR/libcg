@@ -21,11 +21,11 @@ void Model::setFilepath(std::string path) {
 	  this->filepath = path;
 }
 
-void Model::addTexture(std::string texturepath) {
+void Model::addTexturePath(std::string texturepath) {
 	  this->texturepaths.push_back(texturepath);
 }
 
-void Model::addShader(std::string shaderpath) {
+void Model::addShaderPath(std::string shaderpath) {
 	  this->shaderpaths.push_back(shaderpath);
 }
 
@@ -56,8 +56,8 @@ void Model::loadShaders() {
 	}
 	
 	// TODO: REALLY test this abominable shit later on!
-	for(int v = 0; v < vertexshaders.size(); v++) {
-		for(int f = 0; f < fragmentshaders.size(); f++) {
+	for(size_t v = 0; v < vertexshaders.size(); v++) {
+		for(size_t f = 0; f < fragmentshaders.size(); f++) {
 			if(Helpers::getFileName(vertexshaders.at(v)) == Helpers::getFileName(fragmentshaders.at(f))) {
 				// We found the associated fragmentshader for this vertexshader
 				addShader(vertexshaders.at(v), fragmentshaders.at(f));

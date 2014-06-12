@@ -43,14 +43,14 @@ void Mesh3D::addModel(std::string name) {
 		  if(model) { // It would make no sense to add a shader to a non existing model
 			  std::vector<std::string> shaderfiles = Helpers::getFilesFromFolder(shaderspath);
 			  for( std::string s : shaderfiles ) {
-				    model->addShader(s);
+				    model->addShaderPath(s);
 			  }
 		  }
 	} else if (folderExists(texturespath)) {
 		  if(model) { // It would make no sense to add a texture to a non existing model
 			std::vector<std::string> texturefiles = Helpers::getFilesFromFolder(texturespath);
 			for( std::string t : texturefiles ) {
-				model->addTexture(t);
+				model->addTexturePath(t);
 			}  
 		  }
 	}
