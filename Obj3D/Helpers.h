@@ -21,6 +21,7 @@ public:
 	  static std::string getExt(std::string path);
 	  static std::vector<std::string> getFilesFromFolder(std::string path);
 	  static bool folderExists(std::string path);
+	  static std::string getFileName(std::string path);
 	  
 private:
 

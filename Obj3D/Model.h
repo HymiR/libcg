@@ -28,6 +28,9 @@ public:
 	   * Loading shaders works always the same so we need just a simple
 	   * non abstract function to add the vertex and fragment shaders 
 	   * to our model
+	   * 
+	   * IMPORTANT: Shaders come ALWAYS in pairs: one vertex and one fragment
+	   * with the same file name and vertexshader/fragmentshader as extension
 	   */
 	  void loadShaders();
 	  

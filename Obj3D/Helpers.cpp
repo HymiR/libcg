@@ -6,6 +6,7 @@
  */
 
 #include "Helpers.h"
+#include "Renderable.h"
 
 Helpers::Helpers() {
 }
@@ -21,6 +22,15 @@ std::string Helpers::getExt(std::string path) {
 	if(path.find_last_of(".") != std::string::npos)
 		ext = path.substr(path.find_last_of(".")+1);
 	return ext;
+}
+
+std::string Helpers::getFileName(std::string path) {
+	std::string FileName = "";
+	if(path.find_last_of("/") != std::string::npos) {
+		FileName = path.substr(path.find_last_of("/")+1);
+		FileName = FileName.substr(0, FileName.find_last_of("."));
+	}
+	return FileName;
 }
 
 std::vector<std::string> Helpers::getFilesFromFolder(std::string path) {

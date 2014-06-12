@@ -6,6 +6,7 @@
  */
 
 #include "Model.h"
+#include "Helpers.h"
 
 Model::Model() {
 }
@@ -44,7 +45,25 @@ void Model::loadShaders() {
 	  std::vector<std::string> vertexshaders;
 	  std::vector<std::string> fragmentshaders;
 	  
-	  for(std::string shader : this->shaderpaths) {
-		  
+	for(std::string shader : this->shaderpaths) {
+		if(Helpers::getExt(shader) == "vertexshader" || Helpers::getExt(shader) == "vertex") {
+			vertexshaders.push_back(shader);
+		} else if(Helpers::getExt(shader) == "fragmentshader" || Helpers::getExt(shader) == "fragment") {
+			fragmentshaders.push_back(shader);
+		} else {
+			  std::cout << "Shader: " + shader + " : unknown extension!\n";
+		}
+	}
+	
+	// TODO: REALLY test this abominable shit later on!
+	for(int v = 0; v < vertexshaders.size(); v++) {
+		for(int f = 0; f < fragmentshaders.size(); f++) {
+			if(Helpers::getFileName(vertexshaders.at(v)) == Helpers::getFileName(fragmentshaders.at(f))) {
+				// We found the associated fragmentshader for this vertexshader
+				addShader(vertexshaders.at(v), fragmentshaders.at(f));
+				break;
+			}
+		}
+		// TODO: what to do with single shaders??
 	  }
 }
