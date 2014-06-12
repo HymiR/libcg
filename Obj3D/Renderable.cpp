@@ -134,12 +134,11 @@ void Renderable::render() {
 	glUseProgram(shaders.at(0).GLSLProgramHandle);
 	
 	// we do the lights later
-	//glm::vec3 lightPos = glm::vec3(4,4,4);
-	//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-	
 	if(this->lights.size() > 0) {
-		//glUniform3f(LightID, lightPos.x, lightPos.y, lightPos.z);
-		//glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &ViewMatrix[0][0]);
+		for(Light l : this->lights) {
+			glUniform3f(l.LightHandle, l.position.x, l.position.y, l.position.z);
+			glUniformMatrix4fv(shaders.at(0).VHandle, 1, GL_FALSE, &(Pipeline.getPipeline()->V[0][0]));	  
+		}
 	}
 	
 	
