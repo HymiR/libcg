@@ -8,6 +8,12 @@
 #include "TheMatrix.h"
 
 const glm::mat4 TheMatrix::IdentityMatrix = glm::mat4(1);
+Matrices TheMatrix::PipelineMatrices = {
+					glm::mat4(),
+					glm::mat4(),
+					glm::mat4(),
+					glm::mat4()
+};
 
 TheMatrix::TheMatrix() {
 }

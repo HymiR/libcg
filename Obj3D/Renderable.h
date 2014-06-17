@@ -72,11 +72,14 @@ class Renderable {
 		    
 		    void addLight(glm::vec3 position);
 		    
+		    void addInitialPosition(uint geomnumber, glm::vec3 position);
+		    
+		    
 	  protected:
 		    std::vector<Geometry> geometries;
 		    std::vector<Shader> shaders;
 		    std::vector<Light> lights;
-		    oogl::Texture* texture;
+		    std::vector<oogl::Texture*>textures;
 };
 
 #endif	/* RENDERABLE_H */

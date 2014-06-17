@@ -8,15 +8,14 @@
 #include "Renderable.h"
 
 Renderable::Renderable() {
-	  this->texture = NULL;
 }
 
 Renderable::Renderable(const Renderable& orig) {
 }
 
 Renderable::~Renderable() {
-	  if(texture) {
-		  delete texture;
+	  if(textures.at(0)) {
+		  delete textures.at(0);
 	  }
 }
 
@@ -74,6 +73,10 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 	geometries.push_back(geoms);
 }
 
+void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {
+	geometries.at(geomnumber).InitialPosition = position;
+}
+
 void Renderable::addShader(std::string path_vs, std::string path_fs) {
 	
 	Shader shader;
@@ -111,7 +114,7 @@ void Renderable::addLight(glm::vec3 position) {
 }
 
 void Renderable::addTexture(std::string path_texture) {
-	this->texture = oogl::loadTexture(path_texture);
+	this->textures.push_back(oogl::loadTexture(path_texture));
 }
 
 void Renderable::render() {
@@ -119,11 +122,11 @@ void Renderable::render() {
 	 * TODO:
 	 * (Lichter setzen)
 	 * Matrizen mit Shader verknüpfen
-	 * Shader auswählen
-	 * 
-	 * (texturen aktivieren)
-	 * textur mit shader verbinden
-	 * aufräumen
+	 * think of a way to individually select:
+	 *  -shaders
+	 *  -textures
+	 *  -geometries
+	 * cleanup
          */
 	  
 	// For now we only use first geometric object and first shader
@@ -166,8 +169,8 @@ void Renderable::render() {
 	glUniformMatrix4fv(shaders.at(0).MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
 	
 	// We activate the texture of this object if we have one
-	if(this->texture) {
-		  this->texture->bind(0);
+	if(this->textures.at(0)) {
+		  this->textures.at(0)->bind(0);
 	}
 
 	// Activate and configure the geometry we want to render
@@ -218,8 +221,12 @@ void Renderable::render() {
 		(void*)0           // element array buffer offset
 	);
 	
-	if(this->texture){
-		  this->texture->unbind();
+	glDisableVertexAttribArray(shaders.at(0).vertexPosition_modelspaceHandle);
+	glDisableVertexAttribArray(shaders.at(0).vertexUVHandle);
+	glDisableVertexAttribArray(shaders.at(0).vertexNormal_modelspaceHandle);
+	
+	if(this->textures.at(0)){
+		  this->textures.at(0)->unbind();
 		  glDisable(GL_TEXTURE_2D);
 	}
 	

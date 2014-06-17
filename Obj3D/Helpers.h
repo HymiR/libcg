@@ -11,6 +11,7 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 #include <sys/stat.h>
+#include <cmath>
 
 class Helpers {
 public:
@@ -22,6 +23,8 @@ public:
 	  static std::vector<std::string> getFilesFromFolder(std::string path);
 	  static bool folderExists(std::string path);
 	  static std::string getFileName(std::string path);
+	  static float rad2deg(float rad);
+	  static float deg2rad(float deg);
 	  
 private:
 

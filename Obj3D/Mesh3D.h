@@ -17,7 +17,7 @@
  * 3D object (Obj3D) that will be rendered. The source file for the model can 
  * be any filetype that is supported.
  */
-class Mesh3D : public Model {
+class Mesh3D {
 public:
 	  Mesh3D();
 	  Mesh3D(const Mesh3D& orig);
@@ -32,10 +32,17 @@ public:
 	   * ...
            */
 	  void addModel(std::string name);
+	  
+	  /**
+	   * This function sets the initial position of the meshes
+	   * It also calculates offsets of the single meshes from the center 
+	   * point of the whole model which can consist of several meshes
+	   */
+	  void setInitialPosition(GLfloat x, GLfloat y, GLfloat z);
+	  
+	  std::vector<Model*> getModels();
+	  
 private:
-	  bool folderExists(std::string path);
-	  std::string getExt(std::string path);
-	  std::vector<std::string> getFilesFromFolder(std::string path);
 	  std::vector<Model*> Models;
 };
 

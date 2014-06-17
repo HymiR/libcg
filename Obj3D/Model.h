@@ -34,6 +34,8 @@ public:
 	   */
 	  void loadShaders();
 	  
+	  void setPosition(GLfloat x, GLfloat y, GLfloat z);
+	  
 	  std::string getFilepath();
 	  std::vector<std::string> getTextures();
 	  std::vector<std::string> getShaders();

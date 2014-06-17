@@ -53,3 +53,11 @@ bool Helpers::folderExists(std::string path) {
 	}
 	return false;
 }
+
+float Helpers::deg2rad(float deg) {
+	return deg / (360.0f / (2.0f * M_PI));
+}
+
+float Helpers::rad2deg(float rad) {
+	return   rad * (360.0f / (2.0f * M_PI));
+}

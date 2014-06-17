@@ -67,3 +67,8 @@ void Model::loadShaders() {
 		// TODO: what to do with single shaders??
 	  }
 }
+
+void Model::setPosition(GLfloat x, GLfloat y, GLfloat z) {
+	// For now we use just the first geometry, think of something better
+	addInitialPosition(0, glm::vec3(x,y,z));
+}

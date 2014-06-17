@@ -24,18 +24,27 @@ public:
 	  virtual ~Obj3D();
 	  
 	  /**
-	   * A list of all files (with path) that are necessary to build 
-	   * this model. 
-	   * The program will decide on the basis of the file extensions
-	   * what to do.
+	   * Give the name(s) of the models that make up this object
+	   * They will be loaded from the models/shaders/textures/...
+	   * folders  (for simplicity only ose one for now)
 	   */
-	  void initialise(std::vector<std::string> files);
+	  void initialise(std::vector<std::string> modelnames);
+	  
+	  /**
+	   * Put the initialised model into the world
+	   * at the given coordinates
+           */
+	  void spawnAt(GLfloat x, GLfloat y, GLfloat z);
+	  void draw();
 	  void translate();
 	  void rotate();
 	  void animate();
 	  
 private:
-	  std::vector<Mesh3D>* meshes;
+	  /**
+	   * For simplicity we will only use one mesh for now
+	   */
+	  std::vector<Mesh3D*> meshes;
 };
 
 #endif	/* OBJ3D_H */
