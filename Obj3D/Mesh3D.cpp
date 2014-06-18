@@ -34,29 +34,44 @@ void Mesh3D::addModel(std::string name) {
 		std::string firstmodel = modelfiles.at(0);
 		std::string ext = Helpers::getExt(firstmodel);
 		if(ext == "3ds" || ext == "3DS" || ext == "3Ds" || ext == "3dS") {
-			  model = new Model3DS(firstmodel);
+			model = new Model3DS(firstmodel);
 		} else if (ext == "obj" || ext == "OBJ" || ext == "OBj" || ext == "ObJ") {
-			  model = new ModelObj(firstmodel);
+			model = new ModelObj(firstmodel);
+			std::cout << "Created new .obj model\n";
+		} else {
+			std::cout << "No module to load this model!\n";
+			return;
 		}
-		
-	} else if(Helpers::folderExists(shaderspath)) {
+		model->loadModel();
+	}
+	
+	if(Helpers::folderExists(shaderspath)) {
 		  if(model) { // It would make no sense to add a shader to a non existing model
 			  std::vector<std::string> shaderfiles = Helpers::getFilesFromFolder(shaderspath);
 			  for( std::string s : shaderfiles ) {
 				    model->addShaderPath(s);
+				    std::cout << "Added shader path\n";
 			  }
 		  }
-	} else if (Helpers::folderExists(texturespath)) {
+	}
+	
+	if (Helpers::folderExists(texturespath)) {
 		  if(model) { // It would make no sense to add a texture to a non existing model
 			std::vector<std::string> texturefiles = Helpers::getFilesFromFolder(texturespath);
 			for( std::string t : texturefiles ) {
 				model->addTexturePath(t);
 				model->addTexture(t);
+				std::cout << "Added Texture\n";
 			}  
 		  }
 	}
 	
+	std::cout << "Added everything we have\n";
+	
 	model->loadShaders();
+	
+	std::cout << "Loaded shaders\n";
+	
 	Models.push_back(model);
 }
 

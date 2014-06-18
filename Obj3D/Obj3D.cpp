@@ -24,6 +24,12 @@ void Obj3D::initialise(std::vector<std::string> modelnames) {
 	  }
 }
 
+void Obj3D::initialise(std::string modelname) {
+	  std::vector<std::string> models;
+	  models.push_back(modelname);
+	  initialise(models);
+}
+
 void Obj3D::spawnAt(GLfloat x, GLfloat y, GLfloat z) {
 	  for(Mesh3D* mesh3d : this->meshes) {
 		    mesh3d->setInitialPosition(x, y, z);
@@ -33,7 +39,7 @@ void Obj3D::spawnAt(GLfloat x, GLfloat y, GLfloat z) {
 void Obj3D::draw() {
 	  for(Mesh3D* mesh : this->meshes) {
 		    for(Model* model : mesh->getModels()) {
-			      model->render();
+			model->render();
 		    }
 	  }
 }

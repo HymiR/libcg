@@ -114,7 +114,9 @@ void Renderable::addLight(glm::vec3 position) {
 }
 
 void Renderable::addTexture(std::string path_texture) {
+	std::cout << "Creating texture with oogl::loadTexture\n";
 	this->textures.push_back(oogl::loadTexture(path_texture));
+	std::cout << "creating texture finished\n";
 }
 
 void Renderable::render() {

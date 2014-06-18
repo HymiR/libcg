@@ -9,6 +9,7 @@
 #define	OBJ3D_H
 #include "Mesh3D.h"
 #include <vector>
+#include <cstring>
 
 /**
  * This is the main class for all 3D objects that will be used in the 3D
@@ -29,6 +30,13 @@ public:
 	   * folders  (for simplicity only ose one for now)
 	   */
 	  void initialise(std::vector<std::string> modelnames);
+	  
+	  /**
+	   * The same as initialise(std::vector<std::string>)
+	   * but only for one model
+           * @param modelname
+           */
+	  void initialise(std::string modelname);
 	  
 	  /**
 	   * Put the initialised model into the world
