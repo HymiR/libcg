@@ -66,7 +66,9 @@ class Renderable {
 		    void addCoordinates(std::vector<glm::vec3> vertices, 
 					std::vector<glm::vec2> uvs,
 					std::vector<glm::vec3> normals);
-		    void addShader(std::string path_vs, std::string path_fs);
+		    void addShader(std::string path_vs,
+				   std::string path_fs,
+				   bool standard = false);
 		    
 		    void addTexture(std::string path_texture);
 		    
@@ -80,6 +82,7 @@ class Renderable {
 		    std::vector<Shader> shaders;
 		    std::vector<Light> lights;
 		    std::vector<oogl::Texture*>textures;
+		    static Shader standardShader;
 };
 
 #endif	/* RENDERABLE_H */

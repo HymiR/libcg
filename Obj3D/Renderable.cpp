@@ -19,6 +19,8 @@ Renderable::~Renderable() {
 	  }
 }
 
+Shader Renderable::standardShader = {0,0,0,0,0,0,0,0};
+
 void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 				std::vector<glm::vec2> uvs,
 				std::vector<glm::vec3> normals)
@@ -77,7 +79,9 @@ void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {
 	geometries.at(geomnumber).InitialPosition = position;
 }
 
-void Renderable::addShader(std::string path_vs, std::string path_fs) {
+void Renderable::addShader(std::string path_vs,
+			   std::string path_fs,
+			   bool standard) {
 	
 	Shader shader;
 	  
@@ -103,7 +107,11 @@ void Renderable::addShader(std::string path_vs, std::string path_fs) {
 	shader.vertexPosition_modelspaceHandle = glGetAttribLocation(programID, "vertexPosition_modelspace");
 	shader.vertexUVHandle = glGetAttribLocation(programID, "vertexUV");
 	
-	shaders.push_back(shader);
+	if(standard) {
+		standardShader = shader;  
+	} else {
+		shaders.push_back(shader);
+	}
 }
 
 void Renderable::addLight(glm::vec3 position) {
@@ -134,30 +142,46 @@ void Renderable::render() {
 	// For now we only use first geometric object and first shader
 	// later we will use a little bit more sophisticated selection procedure
 	// (vector.at(0))
+	
+	// Choose shader
+	Shader* currentshader = NULL;
+	if(shaders.size() > 0) {
+		// Choose a special shader
+		currentshader = &shaders.at(0);
+	} else {
+		currentshader = &standardShader;
+	}
 	  
 	// Use our shader
-	glUseProgram(shaders.at(0).GLSLProgramHandle);
+	glUseProgram(currentshader->GLSLProgramHandle);
+	
+	Geometry* currentgeometry = NULL;
+	if(geometries.size() > 0) {
+		// Choose our geometry
+		currentgeometry = &geometries.at(0);
+	} else {
+		// TODO Think of what to do if we don't have geometry
+	}
 	
 	// we do the lights later
 	if(this->lights.size() > 0) {
 		for(Light l : this->lights) {
 			glUniform3f(l.LightHandle, l.position.x, l.position.y, l.position.z);
-			glUniformMatrix4fv(shaders.at(0).VHandle, 1, GL_FALSE, &(Pipeline.getPipeline()->V[0][0]));	  
+			glUniformMatrix4fv(currentshader->VHandle, 1, GL_FALSE, &(Pipeline.getPipeline()->V[0][0]));	  
 		}
 	}
 	
 	
 	// We just use the global View Matrix
-	glUniformMatrix4fv(shaders.at(0).VHandle,
-			   1,
-			   GL_FALSE,
-			   &(Pipeline.getPipeline()->V[0][0])
+	glUniformMatrix4fv(currentshader->VHandle,
+		1,
+		GL_FALSE,
+		&(Pipeline.getPipeline()->V[0][0])
 	);
-		
+	
 	// We want to render this at its initial coordinates relative to (0,0,0)
 	glm::mat4 ModelMatrix = glm::translate(Pipeline.getIdentityMatrix(),
-					       geometries.at(0).InitialPosition
-	);
+			        currentgeometry->InitialPosition);
 		
 	// We create a new MVP matrix for this object using global Perspective Matrix
 	// and global View Matrix
@@ -167,69 +191,68 @@ void Renderable::render() {
 
 	// Send our transformation to the currently bound shader, 
 	// in the "MVP" uniform of our currently loaded shader
-	glUniformMatrix4fv(shaders.at(0).MVPHandle, 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(shaders.at(0).MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
+	glUniformMatrix4fv(currentshader->MVPHandle, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(currentshader->MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
 	
 	// We activate the texture of this object if we have one
 	if(this->textures.at(0)) {
-		  this->textures.at(0)->bind(0);
+		this->textures.at(0)->bind(0);
 	}
 
 	// Activate and configure the geometry we want to render
 	// Vertices:
-	glEnableVertexAttribArray(shaders.at(0).vertexPosition_modelspaceHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).vertexbuffer);
+	glEnableVertexAttribArray(currentshader->vertexPosition_modelspaceHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, currentgeometry->vertexbuffer);
 	glVertexAttribPointer(
-		shaders.at(0).vertexPosition_modelspaceHandle, // The attribute we want to configure
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
+		  currentshader->vertexPosition_modelspaceHandle, // The attribute we want to configure
+		  3,                  // size
+		  GL_FLOAT,           // type
+		  GL_FALSE,           // normalized?
+		  0,                  // stride
+		  (void*)0            // array buffer offset
 	);
 
 	// UVs:
-	glEnableVertexAttribArray(shaders.at(0).vertexUVHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).uvbuffer);
+	glEnableVertexAttribArray(currentshader->vertexUVHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, currentgeometry->uvbuffer);
 	glVertexAttribPointer(
-		shaders.at(0).vertexUVHandle,     // The attribute we want to configure
-		2,                                // size : U+V => 2
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
+		  currentshader->vertexUVHandle,     // The attribute we want to configure
+		  2,                                // size : U+V => 2
+		  GL_FLOAT,                         // type
+		  GL_FALSE,                         // normalized?
+		  0,                                // stride
+		  (void*)0                          // array buffer offset
 	);
 
 	// Normals:
-	glEnableVertexAttribArray(shaders.at(0).vertexNormal_modelspaceHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, geometries.at(0).normalbuffer);
+	glEnableVertexAttribArray(currentshader->vertexNormal_modelspaceHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, currentgeometry->normalbuffer);
 	glVertexAttribPointer(
-		shaders.at(0).vertexNormal_modelspaceHandle, // The attribute we want to configure
-		3,                                // size
-		GL_FLOAT,                         // type
-		GL_FALSE,                         // normalized?
-		0,                                // stride
-		(void*)0                          // array buffer offset
+		  currentshader->vertexNormal_modelspaceHandle, // The attribute we want to configure
+		  3,                                // size
+		  GL_FLOAT,                         // type
+		  GL_FALSE,                         // normalized?
+		  0,                                // stride
+		  (void*)0                          // array buffer offset
 	);
 
 	// Index buffer
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, geometries.at(0).elementbuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, currentgeometry->elementbuffer);
 
 	// Draw the triangles !
 	glDrawElements(
-		GL_TRIANGLES,      // mode
-		geometries.at(0).ind.size(),    // count
-		GL_UNSIGNED_SHORT,   // type
-		(void*)0           // element array buffer offset
+		  GL_TRIANGLES,      // mode
+		  currentgeometry->ind.size(),    // count
+		  GL_UNSIGNED_SHORT,   // type
+		  (void*)0           // element array buffer offset
 	);
 	
-	glDisableVertexAttribArray(shaders.at(0).vertexPosition_modelspaceHandle);
-	glDisableVertexAttribArray(shaders.at(0).vertexUVHandle);
-	glDisableVertexAttribArray(shaders.at(0).vertexNormal_modelspaceHandle);
+	glDisableVertexAttribArray(currentshader->vertexPosition_modelspaceHandle);
+	glDisableVertexAttribArray(currentshader->vertexUVHandle);
+	glDisableVertexAttribArray(currentshader->vertexNormal_modelspaceHandle);
 	
 	if(this->textures.at(0)){
-		  this->textures.at(0)->unbind();
-		  glDisable(GL_TEXTURE_2D);
+		    this->textures.at(0)->unbind();
+		    glDisable(GL_TEXTURE_2D);
 	}
-	
 }

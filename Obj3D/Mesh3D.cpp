@@ -65,10 +65,11 @@ void Mesh3D::addModel(std::string name) {
 			}  
 		  }
 	}
-	
-	std::cout << "Added everything we have\n";
-	
+		
 	model->loadShaders();
+	model->addShader(SHADERPATH + "/" + "standard.vertexshader",
+			 SHADERPATH + "/" + "standard.fragmentshader",
+			 true);
 	
 	std::cout << "Loaded shaders\n";
 	
