@@ -73,7 +73,7 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 	geoms.InitialPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	
 	geometries.push_back(geoms);
-	std::cout << "Loaded a new model with: " << indices.size() << " indices\n";
+	std::cout << "Loaded a new model with: " << indices.size() << " indices and vertexbuffer: " << geoms.vertexbuffer << "\n";
 }
 
 void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {
@@ -156,6 +156,7 @@ void Renderable::render() {
 	// Use our shader
 	glUseProgram(currentshader->GLSLProgramHandle);
 	
+	// Choose geometry
 	Geometry* currentgeometry = NULL;
 	if(geometries.size() > 0) {
 		// Choose our geometry
@@ -163,6 +164,13 @@ void Renderable::render() {
 	} else {
 		// TODO Think of what to do if we don't have geometry
 	}
+	
+	// Choose texture
+	oogl::Texture* currenttexture = NULL;
+	if(textures.size() > 0) {
+	  currenttexture = textures.at(0);
+	}
+	
 	
 	// we do the lights later
 	if(this->lights.size() > 0) {
@@ -195,11 +203,10 @@ void Renderable::render() {
 	glUniformMatrix4fv(currentshader->MVPHandle, 1, GL_FALSE, &MVP[0][0]);
 	glUniformMatrix4fv(currentshader->MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
 	
-	// We activate the texture of this object if we have one
-	if(this->textures.at(0)) {
-		this->textures.at(0)->bind(0);
-	}
-
+	// We use the texture of this object if we have one
+	if(currenttexture)
+	  currenttexture->bind(0);
+	
 	// Activate and configure the geometry we want to render
 	// Vertices:
 	glEnableVertexAttribArray(currentshader->vertexPosition_modelspaceHandle);
@@ -252,8 +259,8 @@ void Renderable::render() {
 	glDisableVertexAttribArray(currentshader->vertexUVHandle);
 	glDisableVertexAttribArray(currentshader->vertexNormal_modelspaceHandle);
 	
-	if(this->textures.at(0)){
-		    this->textures.at(0)->unbind();
+	if(currenttexture){
+		    currenttexture->unbind();
 		    glDisable(GL_TEXTURE_2D);
 	}
 }
