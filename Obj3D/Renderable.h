@@ -63,9 +63,10 @@ class Renderable {
 		    Renderable(const Renderable& orig);
 		    virtual ~Renderable();
 		    virtual void render();
-		    void addCoordinates(std::vector<glm::vec3> vertices, 
+		    void addGeometry(std::vector<glm::vec3> vertices, 
 					std::vector<glm::vec2> uvs,
 					std::vector<glm::vec3> normals);
+		    
 		    void addShader(std::string path_vs,
 				   std::string path_fs,
 				   bool standard = false);
@@ -73,6 +74,8 @@ class Renderable {
 		    void addTexture(std::string path_texture);
 		    
 		    void addLight(glm::vec3 position);
+		    
+		    void addMaterial(Material material);
 		    
 		    void addInitialPosition(uint geomnumber, glm::vec3 position);
 		    

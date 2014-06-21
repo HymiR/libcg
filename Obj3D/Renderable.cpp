@@ -21,7 +21,7 @@ Renderable::~Renderable() {
 
 Shader Renderable::standardShader = {0,0,0,0,0,0,0,0};
 
-void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
+void Renderable::addGeometry(std::vector<glm::vec3> vertices,
 				std::vector<glm::vec2> uvs,
 				std::vector<glm::vec3> normals)
 {
@@ -113,6 +113,9 @@ void Renderable::addShader(std::string path_vs,
 	} else {
 		shaders.push_back(shader);
 	}
+}
+
+void Renderable::addMaterial(Material material) {
 }
 
 void Renderable::addLight(glm::vec3 position) {

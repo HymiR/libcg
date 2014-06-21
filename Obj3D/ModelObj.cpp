@@ -55,6 +55,6 @@ bool ModelObj::loadModel() {
 	}
 	*/
 	
-	addCoordinates(vertices, uvs, normals);
+	addGeometry(vertices, uvs, normals);
 	return true;
 }
