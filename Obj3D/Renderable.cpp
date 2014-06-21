@@ -14,9 +14,9 @@ Renderable::Renderable(const Renderable& orig) {
 }
 
 Renderable::~Renderable() {
-	  if(textures.at(0)) {
-		  delete textures.at(0);
-	  }
+  for(oogl::Texture* tex : textures) {
+    delete tex;
+  }
 }
 
 Shader Renderable::standardShader = {0,0,0,0,0,0,0,0};
@@ -73,6 +73,7 @@ void Renderable::addCoordinates(std::vector<glm::vec3> vertices,
 	geoms.InitialPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	
 	geometries.push_back(geoms);
+	std::cout << "Loaded a new model with: " << indices.size() << " indices\n";
 }
 
 void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {

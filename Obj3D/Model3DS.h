@@ -15,7 +15,7 @@ public:
 	  Model3DS(std::string path);
 	  Model3DS(const Model3DS& orig);
 	  virtual ~Model3DS();
-	  void loadModel();
+	  bool loadModel();
 protected:
 
 };

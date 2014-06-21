@@ -22,7 +22,7 @@ public:
 	   * normals, uv coordinates, smoothing groups, material information etc.
 	   * and save it to the corresponding arrays.
 	   */
-	  virtual void loadModel() = 0;
+	  virtual bool loadModel() = 0;
 	  
 	  /*
 	   * Loading shaders works always the same so we need just a simple

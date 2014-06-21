@@ -17,5 +17,5 @@ Model3DS::Model3DS(const Model3DS& orig) {
 Model3DS::~Model3DS() {
 }
 
-void Model3DS::loadModel() {
+bool Model3DS::loadModel() {
 }
