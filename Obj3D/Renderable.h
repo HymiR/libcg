@@ -40,6 +40,7 @@ typedef struct SHADER {
 	  GLuint MVPHandle;
 	  GLuint VHandle;
 	  GLuint MHandle;
+	  GLuint textureHandle;
 	  GLuint vertexPosition_modelspaceHandle;
 	  GLuint vertexUVHandle;
 	  GLuint vertexNormal_modelspaceHandle;

@@ -73,7 +73,6 @@ void Renderable::addGeometry(std::vector<glm::vec3> vertices,
 	geoms.InitialPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	
 	geometries.push_back(geoms);
-	std::cout << "Loaded a new model with: " << indices.size() << " indices and vertexbuffer: " << geoms.vertexbuffer << "\n";
 }
 
 void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {
@@ -104,10 +103,11 @@ void Renderable::addShader(std::string path_vs,
 	shader.MVPHandle = glGetUniformLocation(programID, "MVP");
 	shader.MHandle = glGetUniformLocation(programID, "M");
 	shader.VHandle = glGetUniformLocation(programID, "V");
+	shader.textureHandle = glGetUniformLocation(programID, "myTextureSampler");
 	shader.vertexNormal_modelspaceHandle = glGetAttribLocation(programID, "vertexNormal_modelspace");
 	shader.vertexPosition_modelspaceHandle = glGetAttribLocation(programID, "vertexPosition_modelspace");
 	shader.vertexUVHandle = glGetAttribLocation(programID, "vertexUV");
-	
+		
 	if(standard) {
 		standardShader = shader;  
 	} else {
@@ -126,9 +126,7 @@ void Renderable::addLight(glm::vec3 position) {
 }
 
 void Renderable::addTexture(std::string path_texture) {
-	std::cout << "Creating texture with oogl::loadTexture\n";
 	this->textures.push_back(oogl::loadTexture(path_texture));
-	std::cout << "creating texture finished\n";
 }
 
 void Renderable::render() {
@@ -168,13 +166,6 @@ void Renderable::render() {
 		// TODO Think of what to do if we don't have geometry
 	}
 	
-	// Choose texture
-	oogl::Texture* currenttexture = NULL;
-	if(textures.size() > 0) {
-	  currenttexture = textures.at(0);
-	}
-	
-	
 	// we do the lights later
 	if(this->lights.size() > 0) {
 		for(Light l : this->lights) {
@@ -206,9 +197,14 @@ void Renderable::render() {
 	glUniformMatrix4fv(currentshader->MVPHandle, 1, GL_FALSE, &MVP[0][0]);
 	glUniformMatrix4fv(currentshader->MHandle, 1, GL_FALSE, &ModelMatrix[0][0]);
 	
-	// We use the texture of this object if we have one
-	if(currenttexture)
-	  currenttexture->bind(0);
+	// Choose texture
+	oogl::Texture* currenttexture = NULL;
+	if(textures.size() > 0) {
+	  currenttexture = textures.at(0);
+	  // We use the texture of this object if we have one
+	  currenttexture->bind();
+	  glUniform1i(currentshader->textureHandle, currenttexture->getBindedTexture());
+	}
 	
 	// Activate and configure the geometry we want to render
 	// Vertices:

@@ -41,7 +41,16 @@ namespace oogl
 				return name;
 			}
 
+			GLuint getID()
+			{
+				return textureId;
+			}
 
+			int getBindedTexture()
+			{
+				return bindedTexture;
+			}
+			
 			virtual void bind(glm::uint toTexture = 0);
 			virtual void unbind();
 

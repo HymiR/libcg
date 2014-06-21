@@ -52,7 +52,7 @@ void Mesh3D::addModel(std::string name) {
                     std::vector<std::string> shaderfiles = Helpers::getFilesFromFolder(shaderspath);
                     for( std::string s : shaderfiles ) {
                         model->addShaderPath(s);
-                        std::cout << "Added shader path\n";
+                        std::cout << "Added shader path: " << s << "\n";
                     }
                 }
 

@@ -43,7 +43,7 @@ namespace oogl
 			toTexture -= GL_TEXTURE0;
 
 		bindedTexture = toTexture;
-		//glEnable(textureType);
+		glEnable(textureType);
 		glActiveTexture(GL_TEXTURE0 + toTexture);
 		glBindTexture(textureType, textureId);
 	}
