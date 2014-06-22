@@ -16,15 +16,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "vboindexer.hpp"
-#include "UVArray.h"
-#include "NormalArray.h"
-#include "VertexArray.h"
 #include "TheMatrix.h"
 
 typedef struct GEOMETRY {
-	UVArray uv, iuv; // original geometry and indexed geometry of UV ...
-	NormalArray no, ino; // ... Normals
-	VertexArray vt, ivt; // ... Vertices
+	std::vector<glm::vec2> uv, iuv; // original geometry and indexed geometry of UV ...
+	std::vector<glm::vec3> no, ino; // ... Normals
+	std::vector<glm::vec3> vt, ivt; // ... Vertices
 	std::vector<unsigned short> ind;
 	GLuint vertexbuffer; // Handlers for the Vertex Buffer Objects: Vertices...
 	GLuint uvbuffer; // ... UVs
@@ -87,6 +84,7 @@ class Renderable {
 		    std::vector<Light> lights;
 		    std::vector<oogl::Texture*>textures;
 		    static Shader standardShader;
+		    void loadVBO(Geometry& geometry);
 };
 
 #endif	/* RENDERABLE_H */

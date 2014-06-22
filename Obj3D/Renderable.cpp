@@ -25,55 +25,68 @@ void Renderable::addGeometry(std::vector<glm::vec3> vertices,
 				std::vector<glm::vec2> uvs,
 				std::vector<glm::vec3> normals)
 {
-	Geometry geoms;
-	geoms.vt = VertexArray(vertices);
-	geoms.uv = UVArray(uvs);
-	geoms.no = NormalArray(normals);
-	  
-	std::vector<unsigned short> indices;
+  	std::vector<unsigned short> indices;
 	std::vector<glm::vec3> indexed_vertices;
 	std::vector<glm::vec2> indexed_uvs;
 	std::vector<glm::vec3> indexed_normals;
-	  
-	// index those coodinates
-	indexVBO(vertices, uvs, normals, indices, indexed_vertices, indexed_uvs, indexed_normals);
-	  
-	geoms.ivt = VertexArray(indexed_vertices);
-	geoms.iuv = UVArray(indexed_uvs);
-	geoms.ino = NormalArray(indexed_normals);
+  
+  
+	Geometry geoms;
+	geoms.vt = vertices;
+	geoms.uv = uvs;
+	geoms.no = normals;
 	geoms.ind = indices;
-	  
-	// initialise VBO and load coordinates
-	GLuint vertexbuffer;
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0], GL_STATIC_DRAW);
-
-	GLuint uvbuffer;
-	glGenBuffers(1, &uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, indexed_uvs.size() * sizeof(glm::vec2), &indexed_uvs[0], GL_STATIC_DRAW);
-
-	GLuint normalbuffer;
-	glGenBuffers(1, &normalbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-	glBufferData(GL_ARRAY_BUFFER, indexed_normals.size() * sizeof(glm::vec3), &indexed_normals[0], GL_STATIC_DRAW);
-
-	// Generate a buffer for the indices as well
-	GLuint elementbuffer;
-	glGenBuffers(1, &elementbuffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0] , GL_STATIC_DRAW);
+	geoms.ivt = indexed_vertices;
+	geoms.iuv = indexed_uvs;
+	geoms.ino = indexed_normals;
 	
-	geoms.vertexbuffer = vertexbuffer;
-	geoms.uvbuffer = uvbuffer;
-	geoms.normalbuffer = normalbuffer;
-	geoms.elementbuffer = elementbuffer;
+	// index those coodinates
+	indexVBO(geoms.vt,
+		 geoms.uv,
+		 geoms.no,
+		 geoms.ind,
+		 geoms.ivt,
+		 geoms.iuv,
+		 geoms.ino);
+	
+	loadVBO(geoms);
+	  
 	// Think of something to make this modifyable
 	geoms.InitialPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 	
 	geometries.push_back(geoms);
 }
+
+void Renderable::loadVBO(Geometry& geometry)
+{
+	// initialise VBO and load coordinates
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, geometry.ivt.size() * sizeof(glm::vec3), &geometry.ivt[0], GL_STATIC_DRAW);
+
+	GLuint uvbuffer;
+	glGenBuffers(1, &uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, geometry.iuv.size() * sizeof(glm::vec2), &geometry.iuv[0], GL_STATIC_DRAW);
+
+	GLuint normalbuffer;
+	glGenBuffers(1, &normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, geometry.ino.size() * sizeof(glm::vec3), &geometry.ino[0], GL_STATIC_DRAW);
+
+	// Generate a buffer for the indices as well
+	GLuint elementbuffer;
+	glGenBuffers(1, &elementbuffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, geometry.ind.size() * sizeof(unsigned short), &geometry.ind[0] , GL_STATIC_DRAW);
+	
+	geometry.vertexbuffer = vertexbuffer;
+	geometry.uvbuffer = uvbuffer;
+	geometry.normalbuffer = normalbuffer;
+	geometry.elementbuffer = elementbuffer;
+}
+
 
 void Renderable::addInitialPosition(uint geomnumber, glm::vec3 position) {
 	geometries.at(geomnumber).InitialPosition = position;
@@ -83,6 +96,8 @@ void Renderable::addShader(std::string path_vs,
 			   std::string path_fs,
 			   bool standard) {
 	
+	std::cout << "shader: " << path_vs << " " << path_fs << "\n";
+  
 	Shader shader;
 	  
 	//create program
@@ -151,6 +166,7 @@ void Renderable::render() {
 		// Choose a special shader
 		currentshader = &shaders.at(0);
 	} else {
+		std::cout << "STANDARD\n";
 		currentshader = &standardShader;
 	}
 	  

@@ -34,10 +34,8 @@ void Mesh3D::addModel(std::string name) {
             std::string ext = Helpers::getExt(thismodel);
             if(ext == "3ds" || ext == "3DS" || ext == "3Ds" || ext == "3dS") {
                 model = new Model3DS(thismodel);
-                std::cout << "Created new 3DS model\n";
             } else if (ext == "obj" || ext == "OBJ" || ext == "OBj" || ext == "ObJ") {
                 model = new ModelObj(thismodel);
-                std::cout << "Created new .obj model\n";
             } else {
                 std::cout << "No module to load this model: " << thismodel << "\n";
                 continue;
@@ -52,7 +50,6 @@ void Mesh3D::addModel(std::string name) {
                     std::vector<std::string> shaderfiles = Helpers::getFilesFromFolder(shaderspath);
                     for( std::string s : shaderfiles ) {
                         model->addShaderPath(s);
-                        std::cout << "Added shader path: " << s << "\n";
                     }
                 }
 
@@ -61,7 +58,6 @@ void Mesh3D::addModel(std::string name) {
                     for( std::string t : texturefiles ) {
                         model->addTexturePath(t);
                         model->addTexture(t);
-                        std::cout << "Added Texture\n";
                     }
                 }
 
@@ -69,8 +65,6 @@ void Mesh3D::addModel(std::string name) {
                 model->addShader(SHADERPATH + "/" + "standard.vertexshader",
                                  SHADERPATH + "/" + "standard.fragmentshader",
                                  true);
-
-                std::cout << "Loaded shaders\n";
 
                 Models.push_back(model);
 		model = NULL;
