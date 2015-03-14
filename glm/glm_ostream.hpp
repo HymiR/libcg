@@ -21,28 +21,28 @@
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tvec1<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tvec1<U, P> &v)
 {
 	return ostr << GLM_FORMATTING << "(" << v.x << ")";
 }
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tvec2<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tvec2<U, P> &v)
 {
 	return ostr << GLM_FORMATTING << "(" << v.x << "," << v.y << ")";
 }
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tvec3<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tvec3<U, P> &v)
 {
 	return ostr << GLM_FORMATTING << "(" << v.x << "," << v.y << "," << v.z << ")";
 }
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tvec4<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tvec4<U, P> &v)
 {
 	return ostr
 		<< GLM_FORMATTING << "(" << v.x << "," << v.y
@@ -51,11 +51,11 @@ std::ostream &operator<<(std::ostream &ostr, const glm::detail::tvec4<U, P> &v)
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat2x2<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tmat2x2<U, P> &v)
 {
 	ostr << std::endl;
 
-	glm::detail::tvec2<U, P> row = glm::row(v, 0);
+	glm::tvec2<U, P> row = glm::row(v, 0);
 	ostr << "[" << GLM_FORMATTING << row.x << "," << row.y << " " << std::endl;
 	row = glm::row(v, 1);
 	ostr << " " << GLM_FORMATTING << row.x << "," << row.y << "]" << std::endl;
@@ -64,10 +64,10 @@ std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat2x2<U, P> &v
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat3x3<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tmat3x3<U, P> &v)
 {
 	ostr << std::endl;
-	glm::detail::tvec3<U, P> row = glm::row(v, 0);
+	glm::tvec3<U, P> row = glm::row(v, 0);
 
 	ostr << "[" << GLM_FORMATTING
 		<< row.x << "," << row.y
@@ -90,10 +90,10 @@ std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat3x3<U, P> &v
 
 
 template<typename U, glm::precision P>
-std::ostream &operator<<(std::ostream &ostr, const glm::detail::tmat4x4<U, P> &v)
+std::ostream &operator<<(std::ostream &ostr, const glm::tmat4x4<U, P> &v)
 {
 	ostr << std::endl;
-	glm::detail::tvec4<U, P> row = glm::row(v, 0);
+	glm::tvec4<U, P> row = glm::row(v, 0);
 
 	ostr << "[" << GLM_FORMATTING
 		<< row.x << "," << row.y
