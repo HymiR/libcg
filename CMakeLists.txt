@@ -113,11 +113,11 @@ set(HDR
 # to check for info and variables set hit: cmake --help-module Find<ModuleName> in your terminal.
 find_package(DevIL REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(GLM REQUIRED)
 
 # our custom find-modules in ./cmake/modules
 find_package(GLee REQUIRED)
 find_package(Glm REQUIRED)
-find_package(GLM REQUIRED)
 find_package(Lib3ds REQUIRED)
 
 # Anti-Masochist-Library
