@@ -26,11 +26,11 @@
  */
 
 
-#include <cmath>
-
-
 #ifndef MATH_HPP
 #define MATH_HPP
+
+#include <cmath>
+
 
 namespace cgutil
 {

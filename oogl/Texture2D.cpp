@@ -5,8 +5,8 @@
  *      Author: sam
  */
 
-#include <oogl/Texture2D.hpp>
 
+#include <oogl/Texture2D.hpp>
 
 #include <oogl/Texture.hpp>
 #include <oogl/gl_error.hpp>

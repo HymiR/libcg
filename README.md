@@ -8,9 +8,10 @@ which defaults to /usr/include/libcglutils.
 
 ## Requirements
 Following packages have to be installed on your system to build and use libcglutils:
+
 1. OpenGL - the rendering pipeline, for example Mesa
-2. glm - header-only math library for matrix operations [http://glm.g-truc.net/0.9.5/index.html]
-..* minimum required version: glm-0.9.5.1*
+2. glm - header-only math library for matrix operations [http://glm.g-truc.net/0.9.6/index.html]
+..* minimum required version: glm-0.9.6*
 3. glm-obj - Wavefront OBJ file library [http://devernay.free.fr/hacks/glm/]
 4. lib3ds - for loading 3DsMax models
 5. DevIL - Texture loading library

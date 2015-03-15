@@ -6,12 +6,11 @@
  */
 
 
-#include <string>
-#include <cgutil/timer.hpp>
-
-
 #ifndef OOGL_TIMER_HPP
 #define OOGL_TIMER_HPP
+
+#include <string>
+#include <cgutil/timer.hpp>
 
 
 namespace oogl

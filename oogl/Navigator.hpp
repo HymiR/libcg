@@ -6,11 +6,10 @@
  */
 
 
-#include <glm/glm.hpp>
-
-
 #ifndef NAVIGATOR_HPP
 #define NAVIGATOR_HPP
+
+#include <glm/glm.hpp>
 
 
 namespace oogl

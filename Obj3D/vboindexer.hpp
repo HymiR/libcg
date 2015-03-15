@@ -1,5 +1,15 @@
+/**
+ *
+ */
+
+
 #ifndef VBOINDEXER_HPP
 #define VBOINDEXER_HPP
+
+#include <vector>
+
+#include <glm/fwd.hpp>
+
 
 void indexVBO(
 	std::vector<glm::vec3> & in_vertices,

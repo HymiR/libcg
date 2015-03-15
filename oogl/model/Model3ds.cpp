@@ -18,6 +18,7 @@
 	Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 	*/
 
+
 #include <oogl/model/Model3ds.hpp>
 #include <oogl/Texture.hpp>
 #include <oogl/gl_error.hpp>
@@ -42,7 +43,7 @@ namespace oogl
 		 */
 		Model3ds::Model3ds(std::string fileName, Model::LoadOptions options)
 			: Model(fileName, options), currentFrame(0)
-			{loadFile();}
+		{loadFile();}
 
 
 		/**

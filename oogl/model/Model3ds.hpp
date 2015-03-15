@@ -6,8 +6,8 @@
  */
 
 
-
-#pragma once
+#ifndef MODEL3DS_HPP
+#define MODEL3DS_HPP
 
 #include <lib3ds.h>
 
@@ -51,3 +51,5 @@ namespace oogl
 	}
 }
 
+
+#endif // MODEL3DS_HPP

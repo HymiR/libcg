@@ -5,6 +5,7 @@
  *      Author: sam
  */
 
+
 #include <oogl/Texture.hpp>
 #include <oogl/Texture2D.hpp>
 #include <oogl/Texture3D.hpp>
@@ -15,6 +16,7 @@
 #include <sstream>
 #include <stdexcept>
 
+#include <glm/glm.hpp>
 #include <glm/glm_ostream.hpp>
 
 

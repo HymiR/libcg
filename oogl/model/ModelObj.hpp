@@ -5,7 +5,9 @@
  *      Author: sam
  */
 
-#pragma once
+
+#ifndef MODEL_OBJ_HPP
+#define MODEL_OBJ_HPP
 
 #include <glm.h> // this is the glm-obj library for loading models, not the glm math stuff
 
@@ -38,3 +40,7 @@ namespace oogl
 		};
 	}
 }
+
+
+#endif // MODEL_OBJ_HPP
+

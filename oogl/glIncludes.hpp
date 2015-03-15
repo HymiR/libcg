@@ -6,6 +6,9 @@
  */
 
 
+#ifndef GL_INCLUDES_HPP
+#define GL_INCLUDES_HPP
+
 #include <GL/GLee.h>
 #ifdef WIN32
 # include <GL/glu.h>
@@ -14,3 +17,5 @@
 #else
 # include <GL/glu.h>
 #endif
+
+#endif // GL_INCLUDES_HPP

@@ -6,6 +6,9 @@
  */
 
 
+#ifndef FRAMEBUFFEROBJECT_HPP
+#define FRAMEBUFFEROBJECT_HPP
+
 #include <oogl/glIncludes.hpp>
 #include <oogl/Texture2D.hpp>
 
@@ -13,10 +16,6 @@
 
 #include <vector>
 #include <memory>
-
-
-#ifndef FRAMEBUFFEROBJECT_HPP
-#define FRAMEBUFFEROBJECT_HPP
 
 
 namespace oogl

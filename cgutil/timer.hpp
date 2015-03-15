@@ -5,11 +5,11 @@
  *      Author: sam
  */
 
-#include <string>
-
-
 #ifndef TIMER_HPP
 #define TIMER_HPP
+
+#include <string>
+
 
 struct timer_;
 

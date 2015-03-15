@@ -6,14 +6,13 @@
  */
 
 
+#ifndef MODEL_HPP
+#define MODEL_HPP
+
 #include <glm/glm.hpp>
 
 #include <string>
 #include <memory>
-
-
-#ifndef MODEL_HPP
-#define MODEL_HPP
 
 
 namespace oogl

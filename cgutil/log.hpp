@@ -6,13 +6,13 @@
  */
 
 
+#ifndef LOG_HPP
+#define LOG_HPP
+
 #include <iostream>
 
 #include <cgutil/loglevels.hpp>
 
-
-#ifndef LOG_HPP
-#define LOG_HPP
 
 //which log level as default
 #ifndef LOG_LEVEL

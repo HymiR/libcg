@@ -6,17 +6,16 @@
  */
 
 
+#ifndef TEXTURE_HPP
+#define TEXTURE_HPP
+
 #include <cgutil/log.hpp>
 
 #include <utility>
 #include <memory>
 
 #include <oogl/glIncludes.hpp>
-#include <glm/glm.hpp>
-
-
-#ifndef TEXTURE_HPP
-#define TEXTURE_HPP
+#include <glm/fwd.hpp>
 
 
 namespace oogl

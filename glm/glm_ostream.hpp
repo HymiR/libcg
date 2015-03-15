@@ -6,15 +6,14 @@
  */
 
 
-#include <glm/glm.hpp>
+#ifndef GLM_OSTREAM_HPP
+#define GLM_OSTREAM_HPP
+
+#include <glm/fwd.hpp>
 #include <glm/gtc/matrix_access.hpp>
 
 #include <ostream>
 #include <iomanip>
-
-
-#ifndef GLM_OSTREAM_HPP
-#define GLM_OSTREAM_HPP
 
 
 #define GLM_FORMATTING std::setw(5) << std::setw(3) << std::fixed << std::setfill('0')

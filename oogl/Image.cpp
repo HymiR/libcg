@@ -5,6 +5,7 @@
  *      Author: sam
  */
 
+
 #include <stdexcept>
 
 #include <IL/il.h>
@@ -15,11 +16,13 @@
 #include <oogl/gl_error.hpp>
 #include <cgutil/log.hpp>
 
+#include <glm/glm.hpp>
+
 
 namespace oogl
 {
 
-	#define LOG_DEVIL_ERRORS() \
+#define LOG_DEVIL_ERRORS() \
 	{\
 		for(ILenum err = ilGetError(); err != IL_NO_ERROR; err = ilGetError()) { \
 			LOG_ERROR << "DevIL_ERROR: " << iluErrorString(err) << std::endl; \
@@ -53,7 +56,7 @@ namespace oogl
 		ILuint img;
 		ilGenImages(1, &img);
 		ilBindImage(img);
-		
+
 		if (!ilLoadImage(fileName.c_str())) {
 			LOG_ERROR << "can't load image: " << fileName << std::endl;
 			LOG_DEVIL_ERRORS()
@@ -101,6 +104,18 @@ namespace oogl
 	{
 		ilBindImage(img);
 		return ilGetInteger(IL_IMAGE_DEPTH);
+	}
+
+
+	glm::uvec3 Image::getDimensions()
+	{
+		return glm::uvec3(getWidth(), getHeight(), getDepth());
+	}
+
+
+	std::string Image::getName()
+	{
+		return fileName;
 	}
 
 

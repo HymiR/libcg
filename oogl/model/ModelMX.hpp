@@ -22,8 +22,8 @@
  */
 
 
-#ifndef MODMX_H
-#define
+#ifndef MODELMX_HPP
+#define MODELMX_HPP
 
 #include <oogl/Texture.hpp>
 #include <oogl/Model.hpp>
@@ -61,4 +61,4 @@ namespace oogl
 	}
 }
 
-#endif // MODX_H
+#endif // MODELMX_HPP

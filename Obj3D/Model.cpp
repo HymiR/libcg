@@ -18,43 +18,43 @@ Model::~Model() {
 }
 
 void Model::setFilepath(std::string path) {
-	  this->filepath = path;
+	this->filepath = path;
 }
 
 void Model::addTexturePath(std::string texturepath) {
-	  this->texturepaths.push_back(texturepath);
+	this->texturepaths.push_back(texturepath);
 }
 
 void Model::addShaderPath(std::string shaderpath) {
-	  this->shaderpaths.push_back(shaderpath);
+	this->shaderpaths.push_back(shaderpath);
 }
 
 std::string Model::getFilepath() {
-	  return this->filepath;
+	return this->filepath;
 }
 
 std::vector<std::string> Model::getTextures() {
-	  return this->texturepaths;
+	return this->texturepaths;
 }
 
 std::vector<std::string> Model::getShaders() {
-	  return this->shaderpaths;
+	return this->shaderpaths;
 }
 
 void Model::loadShaders() {
-	  std::vector<std::string> vertexshaders;
-	  std::vector<std::string> fragmentshaders;
-	  
+	std::vector<std::string> vertexshaders;
+	std::vector<std::string> fragmentshaders;
+
 	for(std::string shader : this->shaderpaths) {
 		if(Helpers::getExt(shader) == "vertexshader" || Helpers::getExt(shader) == "vertex") {
 			vertexshaders.push_back(shader);
 		} else if(Helpers::getExt(shader) == "fragmentshader" || Helpers::getExt(shader) == "fragment") {
 			fragmentshaders.push_back(shader);
 		} else {
-			  std::cout << "Shader: " + shader + " : unknown extension!\n";
+			std::cout << "Shader: " + shader + " : unknown extension!\n";
 		}
 	}
-	
+
 	// TODO: REALLY test this abominable shit later on!
 	for(size_t v = 0; v < vertexshaders.size(); v++) {
 		for(size_t f = 0; f < fragmentshaders.size(); f++) {
@@ -65,7 +65,7 @@ void Model::loadShaders() {
 			}
 		}
 		// TODO: what to do with single shaders??
-	  }
+	}
 }
 
 void Model::setPosition(GLfloat x, GLfloat y, GLfloat z) {

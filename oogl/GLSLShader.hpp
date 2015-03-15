@@ -6,13 +6,12 @@
  */
 
 
+#ifndef GLSL_SHADER_HPP
+#define GLSL_SHADER_HPP
+
 #include <oogl/glIncludes.hpp>
 
 #include <cgutil/log.hpp>
-
-
-#ifndef GLSL_SHADER_HPP
-#define GLSL_SHADER_HPP
 
 
 namespace oogl

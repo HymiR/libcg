@@ -5,9 +5,9 @@
  *      Author: sam
  */
 
+
 #include <oogl/Texture3D.hpp>
 #include <oogl/gl_error.hpp>
-#include <oogl/Image.hpp>
 
 #include <exception>
 #include <sstream>
@@ -71,7 +71,7 @@ namespace oogl
 
 
 	Texture3D::~Texture3D() {}
-	
+
 
 	/**
 	 *

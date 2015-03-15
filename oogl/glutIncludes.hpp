@@ -13,6 +13,9 @@
  */
 
 
+#ifndef GLUT_INCLUDES_HPP
+#define GLUT_INCLUDES_HPP
+
 #include <GL/GLee.h>
 
 #ifdef WIN32
@@ -25,3 +28,5 @@
 # include <GL/glu.h>
 # include <GL/glut.h>
 #endif
+
+#endif // GLUT_INCLUDES_HPP

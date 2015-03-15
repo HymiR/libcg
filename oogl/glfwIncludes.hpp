@@ -6,11 +6,10 @@
  */
 
 
-#include <GL/GLee.h>
-
-
 #ifndef GLFW_INCLUDES_HPP
 #define GLFW_INCLUDES_HPP
+
+#include <GL/GLee.h>
 
 
 #define GLFW_INCLUDE_GLU

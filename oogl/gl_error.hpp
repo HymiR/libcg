@@ -6,6 +6,9 @@
  */
 
 
+#ifndef GL_ERROR_HPP
+#define GL_ERROR_HPP
+
 #include <oogl/glIncludes.hpp>
 
 #if defined(__APPLE__) || defined(__APPLE_CC__)
@@ -15,9 +18,6 @@
 #endif
 #include <cgutil/log.hpp>
 
-
-#ifndef GL_ERROR_HPP
-#define GL_ERROR_HPP
 
 #define LOG_GL_ERRORS() \
 {\

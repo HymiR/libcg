@@ -36,13 +36,13 @@ std::string Helpers::getFileName(std::string path) {
 std::vector<std::string> Helpers::getFilesFromFolder(std::string path) {
 	boost::filesystem::path meshfilepath(path);
 	std::vector<std::string> files;
-	  
+
 	boost::filesystem::directory_iterator end_itr;
 	for(boost::filesystem::directory_iterator itr( meshfilepath );
-	    itr != end_itr; ++itr ) {
+			itr != end_itr; ++itr ) {
 		files.push_back(itr->path().c_str());
 	}
-	  
+
 	return files;
 }
 

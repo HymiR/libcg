@@ -6,14 +6,13 @@
  */
 
 
-#include <string>
-#include <glm/glm.hpp>
-
-#include <oogl/glIncludes.hpp>
-
-
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
+
+#include <string>
+#include <glm/fwd.hpp>
+
+#include <oogl/glIncludes.hpp>
 
 
 namespace oogl
@@ -33,18 +32,8 @@ namespace oogl
 			int getType();
 			int getBytesPerPixel();
 
-
-			glm::uvec3 getDimensions()
-			{
-				return glm::uvec3(getWidth(), getHeight(), getDepth());
-			}
-
-
-			std::string getName()
-			{
-				return fileName;
-			}
-
+			glm::uvec3 getDimensions();
+			std::string getName();
 
 			unsigned char* getData();
 

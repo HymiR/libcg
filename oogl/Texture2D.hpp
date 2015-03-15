@@ -6,12 +6,13 @@
  */
 
 
+#ifndef TEXTURE_2D_HPP
+#define TEXTURE_2D_HPP
+
 #include <oogl/Texture.hpp>
 #include <oogl/Image.hpp>
 
-
-#ifndef TEXTURE_2D_HPP
-#define TEXTURE_2D_HPP
+#include <glm/glm.hpp>
 
 
 namespace oogl

@@ -6,21 +6,20 @@
  */
 
 
+#ifndef GLSL_PROGRAM_HPP
+#define GLSL_PROGRAM_HPP
+
 #include <oogl/glIncludes.hpp>
 #include <oogl/GLSLShader.hpp>
 #include <oogl/Texture.hpp>
 
 #include <cgutil/log.hpp>
 
-#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
 
 #include <vector>
 #include <map>
 #include <memory>
-
-
-#ifndef GLSL_PROGRAM_HPP
-#define GLSL_PROGRAM_HPP
 
 
 namespace oogl
