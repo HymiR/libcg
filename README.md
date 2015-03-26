@@ -11,7 +11,7 @@ Following packages have to be installed on your system to build and use libcglut
 
 1. OpenGL - the rendering pipeline, for example Mesa
 2. glm - header-only math library for matrix operations [http://glm.g-truc.net/0.9.6/index.html]
-..* minimum required version: glm-0.9.6*
+.. *minimum required version: glm-0.9.6*
 3. glm-obj - Wavefront OBJ file library [http://devernay.free.fr/hacks/glm/]
 4. lib3ds - for loading 3DsMax models
 5. DevIL - Texture loading library
@@ -83,8 +83,7 @@ __There are following namespaces defined:__
 
 ## TODO
 __Following things have to be done as soon as possible:__
-+ Change all glm functions of the oogl module which take angles as parameter
-  to radians as the new parameter as angle parameters are deprecated now. See build warnings.
++ Delete deprecated stuff as soon as everything has been ported <-- new version tag.
 + Porting from GLee to glew librar as the Glee library is outdated and unmaintained now.
 + Add distinct build targets for RELEASE and DEBUG, having their specific CXXFLAGS.
   (see cmake -DCMAKE BUILD TYPE=<RELEASE|DEBUG> switch)
