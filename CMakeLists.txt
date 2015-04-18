@@ -1,6 +1,6 @@
 #
 # CMakeLists.txt
-# This is the cmake file for the cgutils package.
+# This is the cmake file for the cg package.
 #
 #	Authors:
 # 	Christian Rauecker
@@ -12,10 +12,10 @@
 cmake_minimum_required(VERSION 2.6)
 
 # project name and package version numbers
-project(cgutils)
+project(cg)
 set(V_MAJOR 0)
 set(V_MINOR 2)
-set(V_PATCH 1)
+set(V_PATCH 2)
 set(V_LIB ${V_MAJOR}.${V_MINOR}.${V_PATCH})
 set(LIBNAME ${PROJECT_NAME})
 
@@ -27,10 +27,10 @@ set(CMAKE_MODULE_PATH
 
 # define a list containing the directories of our "library modules"
 set(MODULES
-	${PROJECT_SOURCE_DIR}/cgutil
-	${PROJECT_SOURCE_DIR}/oogl
-	${PROJECT_SOURCE_DIR}/glm
-	${PROJECT_SOURCE_DIR}/Obj3D
+	${PROJECT_SOURCE_DIR}/cg/util
+	${PROJECT_SOURCE_DIR}/cg/oogl
+	${PROJECT_SOURCE_DIR}/cg/io
+	${PROJECT_SOURCE_DIR}/cg/new
 )
 
 # cflags to prevent build from failing
@@ -42,69 +42,69 @@ add_definitions(-std=c++11 -Wall)
 # incremental builds. (bug-fixing or development...)
 # source file list
 set(SRC
-	"cgutil/timer.cpp"
-	"oogl/Model.cpp"
-	"oogl/FrameBufferObject.cpp"
-	"oogl/Navigator.cpp"
-	"oogl/Image.cpp"
-	"oogl/timer.cpp"
-	"oogl/DisplayList.cpp"
-	"oogl/gl_error.cpp"
-	"oogl/GLSLShader.cpp"
-	"oogl/Texture2D.cpp"
-	"oogl/Texture.cpp"
-	"oogl/Texture3D.cpp"
-	"oogl/GLSLProgram.cpp"
-	"oogl/model/ModelObj.cpp"
-	"oogl/model/Model3ds.cpp"
-	"Obj3D/Mesh3D.cpp"
-	"Obj3D/Obj3D.cpp"
-	"Obj3D/vboindexer.cpp"
-	"Obj3D/Model.cpp"
-	"Obj3D/objloader.cpp"
-	"Obj3D/ModelObj.cpp"
-	"Obj3D/Model3DS.cpp"
-	"Obj3D/Renderable.cpp"
-	"Obj3D/TheMatrix.cpp"
-	"Obj3D/Helpers.cpp"
+	"cg/util/timer.cpp"
+	"cg/oogl/Model.cpp"
+	"cg/oogl/FrameBufferObject.cpp"
+	"cg/oogl/Navigator.cpp"
+	"cg/oogl/Image.cpp"
+	"cg/oogl/timer.cpp"
+	"cg/oogl/DisplayList.cpp"
+	"cg/oogl/gl_error.cpp"
+	"cg/oogl/GLSLShader.cpp"
+	"cg/oogl/Texture2D.cpp"
+	"cg/oogl/Texture.cpp"
+	"cg/oogl/Texture3D.cpp"
+	"cg/oogl/GLSLProgram.cpp"
+	"cg/oogl/model/ModelObj.cpp"
+	"cg/oogl/model/Model3ds.cpp"
+	"cg/new/Mesh3D.cpp"
+	"cg/new/Obj3D.cpp"
+	"cg/new/vboindexer.cpp"
+	"cg/new/Model.cpp"
+	"cg/new/objloader.cpp"
+	"cg/new/ModelObj.cpp"
+	"cg/new/Model3DS.cpp"
+	"cg/new/Renderable.cpp"
+	"cg/new/TheMatrix.cpp"
+	"cg/new/Helpers.cpp"
 )
 
 # header file list
 set(HDR
-	"cgutil/timer.hpp"
-	"cgutil/shader.hpp"
-	"cgutil/log.hpp"
-	"cgutil/loglevels.hpp"
-	"cgutil/math.hpp"
-	"oogl/glfwIncludes.hpp"
-	"oogl/Model.hpp"
-	"oogl/glIncludes.hpp"
-	"oogl/Texture.hpp"
-	"oogl/Navigator.hpp"
-	"oogl/timer.hpp"
-	"oogl/DisplayList.hpp"
-	"oogl/FrameBufferObject.hpp"
-	"oogl/gl_error.hpp"
-	"oogl/GLSLProgram.hpp"
-	"oogl/GLSLShader.hpp"
-	"oogl/Image.hpp"
-	"oogl/Texture2D.hpp"
-	"oogl/Texture3D.hpp"
-	"oogl/model/Model3ds.hpp"
-	"oogl/model/ModelObj.hpp"
-	"glm/glm_ostream.hpp"
-	"Obj3D/Mesh3D.h"
-	"Obj3D/ModelObj.h"
-	"Obj3D/Obj3D.h"
-	"Obj3D/Model.h"
-	"Obj3D/Renderable.h"
-	"Obj3D/objloader.hpp"
-	"Obj3D/vboindexer.hpp"
-	"Obj3D/Matrices.h"
-	"Obj3D/TheMatrix.h"
-	"Obj3D/Paths.h"
-	"Obj3D/Model3DS.h"
-	"Obj3D/Helpers.h"
+	"cg/util/timer.hpp"
+	"cg/util/shader.hpp"
+	"cg/util/log.hpp"
+	"cg/util/loglevels.hpp"
+	"cg/util/math.hpp"
+	"cg/oogl/glfwIncludes.hpp"
+	"cg/oogl/Model.hpp"
+	"cg/oogl/glIncludes.hpp"
+	"cg/oogl/Texture.hpp"
+	"cg/oogl/Navigator.hpp"
+	"cg/oogl/timer.hpp"
+	"cg/oogl/DisplayList.hpp"
+	"cg/oogl/FrameBufferObject.hpp"
+	"cg/oogl/gl_error.hpp"
+	"cg/oogl/GLSLProgram.hpp"
+	"cg/oogl/GLSLShader.hpp"
+	"cg/oogl/Image.hpp"
+	"cg/oogl/Texture2D.hpp"
+	"cg/oogl/Texture3D.hpp"
+	"cg/oogl/model/Model3ds.hpp"
+	"cg/oogl/model/ModelObj.hpp"
+	"cg/io/glm_ostream.hpp"
+	"cg/new/Mesh3D.h"
+	"cg/new/ModelObj.h"
+	"cg/new/Obj3D.h"
+	"cg/new/Model.h"
+	"cg/new/Renderable.h"
+	"cg/new/objloader.hpp"
+	"cg/new/vboindexer.hpp"
+	"cg/new/Matrices.h"
+	"cg/new/TheMatrix.h"
+	"cg/new/Paths.h"
+	"cg/new/Model3DS.h"
+	"cg/new/Helpers.h"
 )
 
 
