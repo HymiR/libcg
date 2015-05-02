@@ -93,18 +93,18 @@ set(HDR
 	"cg/oogl/model/Model3ds.hpp"
 	"cg/oogl/model/ModelObj.hpp"
 	"cg/io/glm_ostream.hpp"
-	"cg/new/Mesh3D.h"
-	"cg/new/ModelObj.h"
-	"cg/new/Obj3D.h"
-	"cg/new/Model.h"
-	"cg/new/Renderable.h"
+	"cg/new/Mesh3D.hpp"
+	"cg/new/ModelObj.hpp"
+	"cg/new/Obj3D.hpp"
+	"cg/new/Model.hpp"
+	"cg/new/Renderable.hpp"
 	"cg/new/objloader.hpp"
 	"cg/new/vboindexer.hpp"
-	"cg/new/Matrices.h"
-	"cg/new/TheMatrix.h"
-	"cg/new/Paths.h"
-	"cg/new/Model3DS.h"
-	"cg/new/Helpers.h"
+	"cg/new/Matrices.hpp"
+	"cg/new/TheMatrix.hpp"
+	"cg/new/Paths.hpp"
+	"cg/new/Model3DS.hpp"
+	"cg/new/Helpers.hpp"
 )
 
 
@@ -137,7 +137,7 @@ include_directories(
 # build a shared lib from the source files and link against libs
 add_library (${LIBNAME} SHARED ${SRC})
 
-# link against found libraries and 
+# link against found libraries and
 target_link_libraries(${LIBNAME}
 	${IL_LIBRARIES}
 	${ILU_LIBRARIES}
