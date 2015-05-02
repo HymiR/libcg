@@ -5,7 +5,9 @@
  * Created on 03. Juni 2014, 16:24
  */
 
+
 #include "TheMatrix.hpp"
+
 
 const glm::mat4 TheMatrix::IdentityMatrix = glm::mat4(1);
 Matrices TheMatrix::PipelineMatrices = {

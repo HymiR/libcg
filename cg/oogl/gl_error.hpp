@@ -19,11 +19,11 @@
 #endif
 
 
-#define LOG_GL_ERRORS()                                                          \
-	{                                                                            \
-		for(GLenum err = glGetError(); err != GL_NO_ERROR; err = glGetError()) { \
-			LOG_ERROR << "GL_ERROR: " << gluErrorString(err) << std::endl;       \
-		}                                                                        \
+#define LOG_GL_ERRORS()																												\
+	{																																						\
+		for(GLenum err = glGetError(); err != GL_NO_ERROR; err = glGetError()) {	\
+			LOG_ERROR << "GL_ERROR: " << gluErrorString(err) << std::endl;					\
+		}																																					\
 	}
 
 
