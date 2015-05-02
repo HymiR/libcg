@@ -64,8 +64,8 @@ And your're done.
 ## Modules and namespaces
 The library is organised into several "submodules":
 1. oogl - contains classes for model-loading (OpenGL and 3DsMax) and texture loading from image files
-2. cglutil - several helper stuff like math functions, logger, timer...
-3. glm - glm-related stuff and extensions. currently only stream operators for pretty-printing.
+2. util - several helper stuff like math functions, logger, timer...
+3. io - io structures, currently only stream operators for pretty-printing.
 
 __Your are able to include the needed headers according the module structure, like__
 `
@@ -75,10 +75,10 @@ __Your are able to include the needed headers according the module structure, li
 `
 
 __There are following namespaces defined:__
-+ glm - extensions for the glm library
++ io - io stuff, stream operators
 + oogl - oogl specific stuff
 + oogl::model Model loading extensions
-+ cgutil - several utilities
++ util - several utilities, e.g. math stuff.
 
 
 ## TODO
