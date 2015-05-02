@@ -11,7 +11,7 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-# project name and package version numbers
+# project name and package version numbers (allways sync with appropriate version-tag!)
 project(cg)
 set(V_MAJOR 0)
 set(V_MINOR 2)
@@ -30,7 +30,6 @@ set(MODULES
 	${PROJECT_SOURCE_DIR}/cg/util
 	${PROJECT_SOURCE_DIR}/cg/oogl
 	${PROJECT_SOURCE_DIR}/cg/io
-	${PROJECT_SOURCE_DIR}/cg/new
 )
 
 # cflags to prevent build from failing
@@ -57,16 +56,6 @@ set(SRC
 	"cg/oogl/GLSLProgram.cpp"
 	"cg/oogl/model/ModelObj.cpp"
 	"cg/oogl/model/Model3ds.cpp"
-	"cg/new/Mesh3D.cpp"
-	"cg/new/Obj3D.cpp"
-	"cg/new/vboindexer.cpp"
-	"cg/new/Model.cpp"
-	"cg/new/objloader.cpp"
-	"cg/new/ModelObj.cpp"
-	"cg/new/Model3DS.cpp"
-	"cg/new/Renderable.cpp"
-	"cg/new/TheMatrix.cpp"
-	"cg/new/Helpers.cpp"
 )
 
 # header file list
@@ -93,18 +82,6 @@ set(HDR
 	"cg/oogl/model/Model3ds.hpp"
 	"cg/oogl/model/ModelObj.hpp"
 	"cg/io/glm_ostream.hpp"
-	"cg/new/Mesh3D.hpp"
-	"cg/new/ModelObj.hpp"
-	"cg/new/Obj3D.hpp"
-	"cg/new/Model.hpp"
-	"cg/new/Renderable.hpp"
-	"cg/new/objloader.hpp"
-	"cg/new/vboindexer.hpp"
-	"cg/new/Matrices.hpp"
-	"cg/new/TheMatrix.hpp"
-	"cg/new/Paths.hpp"
-	"cg/new/Model3DS.hpp"
-	"cg/new/Helpers.hpp"
 )
 
 
@@ -119,9 +96,6 @@ find_package(GLM REQUIRED)
 find_package(GLee REQUIRED)
 find_package(Glm REQUIRED)
 find_package(Lib3ds REQUIRED)
-
-# Anti-Masochist-Library
-find_package(Boost REQUIRED)
 
 # add the determined header dirs as well as the project root to be used by cmake
 include_directories(
