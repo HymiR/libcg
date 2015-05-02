@@ -15,69 +15,70 @@
 #include <memory>
 
 
-namespace oogl
+namespace cg
 {
-	struct BoundingBox
+	namespace oogl
 	{
-		glm::vec3 min;
-		glm::vec3 max;
-	};
-
-
-	struct BoundingSphere
-	{
-		float radius;
-		glm::vec3 center;
-	};
-
-
-	class Model
-	{
-	public:
-		typedef unsigned int RenderOptions;
-		typedef unsigned int LoadOptions;
-
-		enum RenderOption {
-			RENDER_NO_TEXTURES = 1 << 0,
-			RENDER_NO_MATERIALS = 1 << 1,
-			RENDER_NO_CULL_FACE = 1 << 2,
-			RENDER_NO_DISLAYLIST = 1 << 3
-		};
-
-		enum LoadOption {
-			LOAD_NO_NORMALIZATION = 1 << 0,
-			LOAD_NORMALIZE_TWO = 1 << 1,
-			LOAD_SET_SMOOTHING_GROUP = 1 << 2
+		struct BoundingBox {
+			glm::vec3 min;
+			glm::vec3 max;
 		};
 
 
-		Model(const std::string fileName, Model::LoadOptions options);
-		virtual ~Model();
-
-		virtual void render(RenderOptions options = 0) = 0;
-
-		std::string getFileName() const { return fileName; }
-
-		BoundingBox getBoundingBox() const { return boundingBox; }
+		struct BoundingSphere {
+			float radius;
+			glm::vec3 center;
+		};
 
 
-		BoundingSphere getBoundingSphere() const
+		class Model
 		{
-			BoundingSphere bs;
-			bs.center = (boundingBox.min + boundingBox.max) * 0.5f;
-			bs.radius = (glm::max(boundingBox.max.x - boundingBox.min.x, glm::max(boundingBox.max.y - boundingBox.min.y, boundingBox.max.z - boundingBox.min.z))) * 0.5f;
-			return bs;
-		}
+		public:
+			typedef unsigned int RenderOptions;
+			typedef unsigned int LoadOptions;
+
+			enum RenderOption {
+				RENDER_NO_TEXTURES = 1 << 0,
+				RENDER_NO_MATERIALS = 1 << 1,
+				RENDER_NO_CULL_FACE = 1 << 2,
+				RENDER_NO_DISLAYLIST = 1 << 3
+			};
+
+			enum LoadOption {
+				LOAD_NO_NORMALIZATION = 1 << 0,
+				LOAD_NORMALIZE_TWO = 1 << 1,
+				LOAD_SET_SMOOTHING_GROUP = 1 << 2
+			};
 
 
-	protected:
-		BoundingBox boundingBox;
-		std::string fileName;
-		LoadOptions loadOptions;
-	};
+			Model(const std::string fileName, Model::LoadOptions options);
+			virtual ~Model();
+
+			virtual void render(RenderOptions options = 0) = 0;
+
+			std::string getFileName() const { return fileName; }
+
+			BoundingBox getBoundingBox() const { return boundingBox; }
 
 
-	Model* loadModel(const std::string& fileName, Model::LoadOptions options = 0);
+			BoundingSphere getBoundingSphere() const
+			{
+				BoundingSphere bs;
+				bs.center = (boundingBox.min + boundingBox.max) * 0.5f;
+				bs.radius = (glm::max(boundingBox.max.x - boundingBox.min.x, glm::max(boundingBox.max.y - boundingBox.min.y, boundingBox.max.z - boundingBox.min.z))) * 0.5f;
+				return bs;
+			}
+
+
+		protected:
+			BoundingBox boundingBox;
+			std::string fileName;
+			LoadOptions loadOptions;
+		};
+
+
+		Model* loadModel(const std::string& fileName, Model::LoadOptions options = 0);
+	}
 }
 
 

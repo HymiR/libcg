@@ -15,29 +15,32 @@
 #include <glm.h> // this is the glm-obj library for loading models, not the glm math stuff
 
 
-namespace oogl
+namespace cg
 {
-	namespace model
+	namespace oogl
 	{
-		/**
+		namespace model
+		{
+			/**
 		 *
 		 */
-		class ModelObj : public Model
-		{
-		public:
-			ModelObj(std::string fileName, Model::LoadOptions options);
-			virtual ~ModelObj();
+			class ModelObj : public Model
+			{
+			public:
+				ModelObj(std::string fileName, Model::LoadOptions options);
+				virtual ~ModelObj();
 
-			virtual void render(RenderOptions options = 0);
+				virtual void render(RenderOptions options = 0);
 
 
-		private:
-			GLMmodel* model;
-			oogl::DisplayList* displayList;
+			private:
+				GLMmodel* model;
+				oogl::DisplayList* displayList;
 
-			void loadFile();
-			void dump();
-		};
+				void loadFile();
+				void dump();
+			};
+		}
 	}
 }
 

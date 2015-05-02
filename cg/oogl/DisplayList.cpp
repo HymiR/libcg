@@ -9,49 +9,52 @@
 #include "DisplayList.hpp"
 
 
-namespace oogl
+namespace cg
 {
-	/**
-	 *
-	 */
-	DisplayList::DisplayList() { id = glGenLists(1); }
-
-
-	/**
-	 *
-	 */
-	DisplayList::~DisplayList()
+	namespace oogl
 	{
-		glDeleteLists(id, 1);
-		id = 0;
-	}
-
-
-	/**
+		/**
 	 *
 	 */
-	void DisplayList::begin() { glNewList(id, GL_COMPILE); }
+		DisplayList::DisplayList() { id = glGenLists(1); }
 
 
-	/**
+		/**
 	 *
 	 */
-	void DisplayList::beginAndRender() { glNewList(id, GL_COMPILE_AND_EXECUTE); }
+		DisplayList::~DisplayList()
+		{
+			glDeleteLists(id, 1);
+			id = 0;
+		}
 
 
-	/**
+		/**
 	 *
 	 */
-	void DisplayList::end() { glEndList(); }
+		void DisplayList::begin() { glNewList(id, GL_COMPILE); }
 
 
-	/**
+		/**
 	 *
 	 */
-	void DisplayList::render()
-	{
-		glPushMatrix();
-		glCallList(id);
-		glPopMatrix();
+		void DisplayList::beginAndRender() { glNewList(id, GL_COMPILE_AND_EXECUTE); }
+
+
+		/**
+	 *
+	 */
+		void DisplayList::end() { glEndList(); }
+
+
+		/**
+	 *
+	 */
+		void DisplayList::render()
+		{
+			glPushMatrix();
+			glCallList(id);
+			glPopMatrix();
+		}
 	}
 }

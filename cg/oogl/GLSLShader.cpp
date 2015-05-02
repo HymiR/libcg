@@ -16,127 +16,130 @@
 #include <string>
 
 
-namespace oogl
+namespace cg
 {
-	GLSLShader* GLSLShader::create(const ShaderType shaderType, const std::string& filename)
+	namespace oogl
 	{
-		return new GLSLShader(shaderType, filename, false);
-	}
-
-
-	GLSLShader* GLSLShader::createFromSource(const ShaderType shaderType, const std::string& code)
-	{
-		return new GLSLShader(shaderType, code, true);
-	}
-
-
-	GLuint GLSLShader::load(const ShaderType shaderType, const std::string& filename)
-	{
-		GLSLShader s(shaderType, filename, false, false);
-		return s.shader;
-	}
-
-
-	GLSLShader::GLSLShader(const ShaderType type, const std::string& filename, bool isCode, bool cleanUpOnFree)
-		: type(type)
-		, cleanUpOnFree(cleanUpOnFree)
-	{
-		this->filename = isCode ? "<custom>" : filename;
-		shader = glCreateShader(type);
-
-		if(!shader) {
-			LOG_ERROR << "failed creating shader of type: " << toString(type) << std::endl;
-			throw std::runtime_error("failed creating shader");
+		GLSLShader* GLSLShader::create(const ShaderType shaderType, const std::string& filename)
+		{
+			return new GLSLShader(shaderType, filename, false);
 		}
 
-		if(isCode)
-			load(filename);
-		else
-			loadFromFile(filename);
-	}
 
-
-	GLSLShader::~GLSLShader()
-	{
-		if(cleanUpOnFree) {
-			LOG_DEBUG << "free shader " << filename << std::endl;
-			glDeleteShader(shader);
+		GLSLShader* GLSLShader::createFromSource(const ShaderType shaderType, const std::string& code)
+		{
+			return new GLSLShader(shaderType, code, true);
 		}
-	}
 
 
-	const char* GLSLShader::toString(const ShaderType type) const
-	{
-		switch(type) {
-		case VERTEX:
-			return "Vertex";
-		case FRAGMENT:
-			return "Fragment";
-		case GEOMETRY:
-			return "Geometry";
-		default:
-			return "Unknown";
+		GLuint GLSLShader::load(const ShaderType shaderType, const std::string& filename)
+		{
+			GLSLShader s(shaderType, filename, false, false);
+			return s.shader;
 		}
-	}
 
 
-	std::string GLSLShader::getInfoLog(GLuint shaderId)
-	{
-		GLint infolen;
-		glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infolen);
+		GLSLShader::GLSLShader(const ShaderType type, const std::string& filename, bool isCode, bool cleanUpOnFree)
+			: type(type)
+			, cleanUpOnFree(cleanUpOnFree)
+		{
+			this->filename = isCode ? "<custom>" : filename;
+			shader = glCreateShader(type);
 
-		if(infolen <= 0)
-			return "";
+			if(!shader) {
+				LOG_ERROR << "failed creating shader of type: " << toString(type) << std::endl;
+				throw std::runtime_error("failed creating shader");
+			}
 
-		char* log = new char[infolen];
-		assert(log);
-		glGetShaderInfoLog(shaderId, infolen, NULL, log);
-		std::string slog(log);
-		delete[] log;
-		return slog;
-	}
+			if(isCode)
+				load(filename);
+			else
+				loadFromFile(filename);
+		}
 
 
-	void GLSLShader::load(const std::string& code)
-	{
-		GLint status;
-		const GLchar* tmp[2] = { code.c_str(), 0 };
-		glShaderSource(shader, 1, tmp, NULL);
-		glCompileShader(shader);
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
-		std::string log = getInfoLog(shader);
-
-		if(!status) {
-			LOG_ERROR << filename << "(" << toString(type) << "): can't compile shader: \n" << log << std::endl;
-			throw std::runtime_error("can't compile shader: " + log);
-		} else {
-			/* maybe there are warnings? */
-			if(log == "" || log == "No errors.") {
-				LOG_DEBUG << filename << "(" << toString(type) << "): compiled shader: -> no warnings" << std::endl;
-			} else {
-				LOG_WARN << filename << "(" << toString(type) << "): shader warnings:\n" << log << std::endl;
+		GLSLShader::~GLSLShader()
+		{
+			if(cleanUpOnFree) {
+				LOG_DEBUG << "free shader " << filename << std::endl;
+				glDeleteShader(shader);
 			}
 		}
-	}
 
 
-	void GLSLShader::loadFromFile(const std::string& filename)
-	{
-		LOG_DEBUG << "loading file: " << filename << std::endl;
-		std::ifstream in(filename.c_str());
-
-		if(!in) {
-			LOG_ERROR << "invalid file: " << filename << std::endl;
-			return;
+		const char* GLSLShader::toString(const ShaderType type) const
+		{
+			switch(type) {
+			case VERTEX:
+				return "Vertex";
+			case FRAGMENT:
+				return "Fragment";
+			case GEOMETRY:
+				return "Geometry";
+			default:
+				return "Unknown";
+			}
 		}
 
-		load(std::string(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()));
-		in.close();
-	}
+
+		std::string GLSLShader::getInfoLog(GLuint shaderId)
+		{
+			GLint infolen;
+			glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &infolen);
+
+			if(infolen <= 0)
+				return "";
+
+			char* log = new char[infolen];
+			assert(log);
+			glGetShaderInfoLog(shaderId, infolen, NULL, log);
+			std::string slog(log);
+			delete[] log;
+			return slog;
+		}
 
 
-	GLuint loadShader(const std::string& filename, GLenum type)
-	{
-		return GLSLShader::load((GLSLShader::ShaderType)type, filename);
+		void GLSLShader::load(const std::string& code)
+		{
+			GLint status;
+			const GLchar* tmp[2] = { code.c_str(), 0 };
+			glShaderSource(shader, 1, tmp, NULL);
+			glCompileShader(shader);
+			glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
+			std::string log = getInfoLog(shader);
+
+			if(!status) {
+				LOG_ERROR << filename << "(" << toString(type) << "): can't compile shader: \n" << log << std::endl;
+				throw std::runtime_error("can't compile shader: " + log);
+			} else {
+				/* maybe there are warnings? */
+				if(log == "" || log == "No errors.") {
+					LOG_DEBUG << filename << "(" << toString(type) << "): compiled shader: -> no warnings" << std::endl;
+				} else {
+					LOG_WARN << filename << "(" << toString(type) << "): shader warnings:\n" << log << std::endl;
+				}
+			}
+		}
+
+
+		void GLSLShader::loadFromFile(const std::string& filename)
+		{
+			LOG_DEBUG << "loading file: " << filename << std::endl;
+			std::ifstream in(filename.c_str());
+
+			if(!in) {
+				LOG_ERROR << "invalid file: " << filename << std::endl;
+				return;
+			}
+
+			load(std::string(std::istreambuf_iterator<char>(in), std::istreambuf_iterator<char>()));
+			in.close();
+		}
+
+
+		GLuint loadShader(const std::string& filename, GLenum type)
+		{
+			return GLSLShader::load((GLSLShader::ShaderType)type, filename);
+		}
 	}
 }

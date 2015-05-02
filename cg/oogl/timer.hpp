@@ -14,17 +14,20 @@
 #include <string>
 
 
-namespace oogl
+namespace cg
 {
-	class timer : cgutil::timer
+	namespace oogl
 	{
-	public:
-		timer(const std::string& name);
+		class timer : util::timer
+		{
+		public:
+			timer(const std::string& name);
 
-	protected:
-		virtual void start();
-		virtual void stop();
-	};
+		protected:
+			virtual void start();
+			virtual void stop();
+		};
+	}
 }
 
 

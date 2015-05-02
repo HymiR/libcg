@@ -19,8 +19,7 @@
 #endif
 
 #ifdef WIN32
-struct timer_div_freq
-{
+struct timer_div_freq {
 	static double freq()
 	{
 		static double f = init_freq();
@@ -37,8 +36,7 @@ struct timer_div_freq
 };
 
 
-struct timer_
-{
+struct timer_ {
 	timer_() { QueryPerformanceCounter((LARGE_INTEGER*)&start_time_); }
 
 	~timer_() {}
@@ -56,8 +54,7 @@ struct timer_
 
 
 #else
-struct timer_
-{
+struct timer_ {
 	timer_() { gettimeofday(&begin_, NULL); }
 
 	~timer_() {}
@@ -80,37 +77,40 @@ struct timer_
 #endif
 
 
-namespace cgutil
+namespace cg
 {
-	timer::timer(const std::string& name)
-		: name(name)
+	namespace util
 	{
-#ifndef DISABLE_TIMING
-		start();
-#endif
-	}
+		timer::timer(const std::string& name)
+			: name(name)
+		{
+		#ifndef DISABLE_TIMING
+			start();
+		#endif
+		}
 
 
-	timer::~timer()
-	{
-#ifndef DISABLE_TIMING
-		stop();
-#endif
-	}
+		timer::~timer()
+		{
+		#ifndef DISABLE_TIMING
+			stop();
+		#endif
+		}
 
 
-	void timer::start()
-	{
-		LOG_DEBUG << "\"" << name << "\"" << std::endl;
-		impl_ = new timer_();
-	}
+		void timer::start()
+		{
+			LOG_DEBUG << "\"" << name << "\"" << std::endl;
+			impl_ = new timer_();
+		}
 
 
-	void timer::stop()
-	{
-		double duration = impl_->stop();
-		LOG_INFO << "\"" << name << "\" " << duration << "ms" << std::endl;
-		delete impl_;
-		impl_ = NULL;
+		void timer::stop()
+		{
+			double duration = impl_->stop();
+			LOG_INFO << "\"" << name << "\" " << duration << "ms" << std::endl;
+			delete impl_;
+			impl_ = NULL;
+		}
 	}
 }

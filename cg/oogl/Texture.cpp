@@ -20,62 +20,65 @@
 #include <stdexcept>
 
 
-namespace oogl
+namespace cg
 {
-	Texture::Texture(const std::string& name, const GLuint textureId, GLint format, GLenum textureType)
-		: name(name)
-		, textureId(textureId)
-		, format(format)
-		, textureType(textureType)
-		, bindedTexture(-1)
+	namespace oogl
 	{
-	}
+		Texture::Texture(const std::string& name, const GLuint textureId, GLint format, GLenum textureType)
+			: name(name)
+			, textureId(textureId)
+			, format(format)
+			, textureType(textureType)
+			, bindedTexture(-1)
+		{
+		}
 
 
-	Texture::~Texture()
-	{
-		LOG_DEBUG << "free texture " << name << std::endl;
+		Texture::~Texture()
+		{
+			LOG_DEBUG << "free texture " << name << std::endl;
 
-		if(textureId)
-			glDeleteTextures(1, &textureId);
-	}
-
-
-	void Texture::bind(glm::uint toTexture)
-	{
-		if(toTexture >= GL_TEXTURE0)
-			toTexture -= GL_TEXTURE0;
-
-		bindedTexture = toTexture;
-		glEnable(textureType);
-		glActiveTexture(GL_TEXTURE0 + toTexture);
-		glBindTexture(textureType, textureId);
-	}
+			if(textureId)
+				glDeleteTextures(1, &textureId);
+		}
 
 
-	void Texture::unbind()
-	{
-		if(bindedTexture < 0)
-			return;
+		void Texture::bind(glm::uint toTexture)
+		{
+			if(toTexture >= GL_TEXTURE0)
+				toTexture -= GL_TEXTURE0;
 
-		glActiveTexture(GL_TEXTURE0 + bindedTexture);
-		glBindTexture(textureType, GL_NONE);
-		bindedTexture = -1;
-	}
+			bindedTexture = toTexture;
+			glEnable(textureType);
+			glActiveTexture(GL_TEXTURE0 + toTexture);
+			glBindTexture(textureType, textureId);
+		}
 
 
-	Texture* loadTexture(const std::string& fileName)
-	{
-		LOG_DEBUG << "load texture: " << fileName << std::endl;
-		Image* image = oogl::loadImage(fileName);
+		void Texture::unbind()
+		{
+			if(bindedTexture < 0)
+				return;
 
-		Texture* tex = NULL;
-		if(image->getDepth() <= 1)
-			tex = Texture2D::load(image);
-		else
-			tex = Texture3D::load(image);
+			glActiveTexture(GL_TEXTURE0 + bindedTexture);
+			glBindTexture(textureType, GL_NONE);
+			bindedTexture = -1;
+		}
 
-		delete image;
-		return tex;
+
+		Texture* loadTexture(const std::string& fileName)
+		{
+			LOG_DEBUG << "load texture: " << fileName << std::endl;
+			Image* image = oogl::loadImage(fileName);
+
+			Texture* tex = NULL;
+			if(image->getDepth() <= 1)
+				tex = Texture2D::load(image);
+			else
+				tex = Texture3D::load(image);
+
+			delete image;
+			return tex;
+		}
 	}
 }

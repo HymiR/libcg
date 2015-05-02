@@ -15,35 +15,38 @@
 #include <glm/glm.hpp>
 
 
-namespace oogl
+namespace cg
 {
-	/**
-	 *
-	 */
-	class Texture2D : public Texture
+	namespace oogl
 	{
-	public:
-		static Texture2D* load(Image* image);
-		static Texture2D* createDepth(const glm::uvec2& dim, const GLint format);
-		static Texture2D* createColor(const glm::uvec2& dim, const GLint format);
-		static Texture2D* createContainer(const GLint format);
-		virtual ~Texture2D();
+		/**
+		 * @brief The Texture2D class
+		 */
+		class Texture2D : public Texture
+		{
+		public:
+			static Texture2D* load(Image* image);
+			static Texture2D* createDepth(const glm::uvec2& dim, const GLint format);
+			static Texture2D* createColor(const glm::uvec2& dim, const GLint format);
+			static Texture2D* createContainer(const GLint format);
+			virtual ~Texture2D();
 
-		glm::uint getWidth() { return dim.x; }
+			glm::uint getWidth() { return dim.x; }
 
-		glm::uint getHeight() { return dim.y; }
+			glm::uint getHeight() { return dim.y; }
 
-		glm::uvec2 getDimensions() { return dim; }
+			glm::uvec2 getDimensions() { return dim; }
 
-		void setSize(const glm::uint& width, const glm::uint& height);
-		void render();
+			void setSize(const glm::uint& width, const glm::uint& height);
+			void render();
 
-	protected:
-		Texture2D(const std::string& name, const glm::uvec2& dim, const GLuint textureId, GLint format);
+		protected:
+			Texture2D(const std::string& name, const glm::uvec2& dim, const GLuint textureId, GLint format);
 
-	private:
-		glm::uvec2 dim;
-	};
+		private:
+			glm::uvec2 dim;
+		};
+	}
 }
 
 
