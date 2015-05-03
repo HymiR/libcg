@@ -106,6 +106,21 @@ set(HDR
 	"cg/ger/Helpers.hpp"
 )
 
+# other files which aree considered as part of the project.
+set(MISC
+	"README.md"
+	"LICENSE"
+	"cmake-clean"
+)
+
+# cmake modules delivered by this package should be considered as part of this project.
+set(MODS
+	"cmake/modules/FindGLee.cmake"
+	"cmake/modules/FindGlm.cmake"
+	"cmake/modules/FindLib3ds.cmake"
+)
+
+
 
 # determine some libraries (the ones which cmake has a find_module for) to link against
 # to check for existing find_modules  hit: cmake --help-module-list in your terminal.
@@ -136,6 +151,16 @@ include_directories(
 # build a shared lib from the source files and link against libs
 add_library (${LIBNAME} SHARED ${SRC})
 
+# add non-build targets as project files
+# this does nothing, its only for convenience to have these files as project files e.g. in qtcreator.
+add_custom_target(Headers SOURCES ${HDR})
+
+add_custom_target(Stuff SOURCES ${MISC})
+
+add_custom_target(Modules SOURCES ${MODS})
+
+
+
 # link against found libraries and
 target_link_libraries(${LIBNAME}
 	${IL_LIBRARIES}
@@ -155,6 +180,8 @@ set_target_properties (${LIBNAME} PROPERTIES
 )
 
 
+# TODO install targets for the other non-source files like modules and reandme if needed...
+
 # install targets
 install (# install the lib
 	TARGETS ${LIBNAME}
@@ -166,5 +193,3 @@ install (# install header files preserving dir structure
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBNAME}
 	FILES_MATCHING PATTERN "*.hpp"
 )
-
-
