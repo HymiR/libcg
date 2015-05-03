@@ -72,7 +72,6 @@ set(SRC
 # header file list
 set(HDR
 	"cg/util/timer.hpp"
-	"cg/util/shader.hpp"
 	"cg/util/log.hpp"
 	"cg/util/loglevels.hpp"
 	"cg/util/math.hpp"
