@@ -18,21 +18,27 @@
 #include <sys/stat.h>
 
 
-class Helpers
+namespace cg
 {
-public:
-	Helpers();
-	Helpers(const Helpers& orig);
-	virtual ~Helpers();
+	namespace ger
+	{
+		class Helpers
+		{
+		public:
+			Helpers();
+			Helpers(const Helpers& orig);
+			virtual ~Helpers();
 
-	static std::string getExt(std::string path);
-	static std::vector<std::string> getFilesFromFolder(std::string path);
-	static bool folderExists(std::string path);
-	static std::string getFileName(std::string path);
-	static float rad2deg(float rad);
-	static float deg2rad(float deg);
+			static std::string getExt(std::string path);
+			static std::vector<std::string> getFilesFromFolder(std::string path);
+			static bool folderExists(std::string path);
+			static std::string getFileName(std::string path);
+			static float rad2deg(float rad);
+			static float deg2rad(float deg);
 
-private:
-};
+		private:
+		};
+	}
+}
 
 #endif /* HELPERS_H */

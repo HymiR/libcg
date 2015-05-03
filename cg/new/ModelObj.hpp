@@ -14,15 +14,21 @@
 #include "cstring"
 
 
-class ModelObj : public Model
+namespace cg
 {
-public:
-	ModelObj(std::string path);
-	ModelObj(const ModelObj& orig);
-	virtual ~ModelObj();
-	bool loadModel();
+	namespace ger
+	{
+		class ModelObj : public Model
+		{
+		public:
+			ModelObj(std::string path);
+			ModelObj(const ModelObj& orig);
+			virtual ~ModelObj();
+			bool loadModel();
 
-protected:
-};
+		protected:
+		};
+	}
+}
 
 #endif /* MODELOBJ_H */

@@ -9,40 +9,46 @@
 #include "TheMatrix.hpp"
 
 
-const glm::mat4 TheMatrix::IdentityMatrix = glm::mat4(1);
-Matrices TheMatrix::PipelineMatrices = {
-	glm::mat4(),
-	glm::mat4(),
-	glm::mat4(),
-	glm::mat4()
-};
-
-TheMatrix::TheMatrix()
+namespace cg
 {
-}
+	namespace ger
+	{
+		const glm::mat4 TheMatrix::IdentityMatrix = glm::mat4(1);
+		Matrices TheMatrix::PipelineMatrices = {
+			glm::mat4(),
+			glm::mat4(),
+			glm::mat4(),
+			glm::mat4()
+		};
 
-TheMatrix::TheMatrix(const TheMatrix& orig)
-{
-}
+		TheMatrix::TheMatrix()
+		{
+		}
 
-TheMatrix::~TheMatrix()
-{
-}
+		TheMatrix::TheMatrix(const TheMatrix& orig)
+		{
+		}
 
-Matrices* TheMatrix::getPipeline()
-{
-	return &PipelineMatrices;
-}
+		TheMatrix::~TheMatrix()
+		{
+		}
 
-const glm::mat4 TheMatrix::getIdentityMatrix()
-{
-	return IdentityMatrix;
-}
+		Matrices* TheMatrix::getPipeline()
+		{
+			return &PipelineMatrices;
+		}
 
-void TheMatrix::setPipeline(Matrices m)
-{
-	PipelineMatrices.M = m.M;
-	PipelineMatrices.MVP = m.MVP;
-	PipelineMatrices.P = m.P;
-	PipelineMatrices.V = m.V;
+		const glm::mat4 TheMatrix::getIdentityMatrix()
+		{
+			return IdentityMatrix;
+		}
+
+		void TheMatrix::setPipeline(Matrices m)
+		{
+			PipelineMatrices.M = m.M;
+			PipelineMatrices.MVP = m.MVP;
+			PipelineMatrices.P = m.P;
+			PipelineMatrices.V = m.V;
+		}
+	}
 }

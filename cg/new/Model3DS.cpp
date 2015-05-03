@@ -9,19 +9,25 @@
 #include "Model3DS.hpp"
 
 
-Model3DS::Model3DS(std::string path)
+namespace cg
 {
-	this->filepath = path;
-}
+	namespace ger
+	{
+		Model3DS::Model3DS(std::string path)
+		{
+			this->filepath = path;
+		}
 
-Model3DS::Model3DS(const Model3DS& orig)
-{
-}
+		Model3DS::Model3DS(const Model3DS& orig)
+		{
+		}
 
-Model3DS::~Model3DS()
-{
-}
+		Model3DS::~Model3DS()
+		{
+		}
 
-bool Model3DS::loadModel()
-{
+		bool Model3DS::loadModel()
+		{
+		}
+	}
 }

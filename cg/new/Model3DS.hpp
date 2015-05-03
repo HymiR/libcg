@@ -14,15 +14,21 @@
 #include <cstring>
 
 
-class Model3DS : public Model
+namespace cg
 {
-public:
-	Model3DS(std::string path);
-	Model3DS(const Model3DS& orig);
-	virtual ~Model3DS();
-	bool loadModel();
+	namespace ger
+	{
+		class Model3DS : public Model
+		{
+		public:
+			Model3DS(std::string path);
+			Model3DS(const Model3DS& orig);
+			virtual ~Model3DS();
+			bool loadModel();
 
-protected:
-};
+		protected:
+		};
+	}
+}
 
 #endif /* MODEL3DS_H */

@@ -12,22 +12,28 @@
 #include "Matrices.hpp"
 
 
-class TheMatrix
+namespace cg
 {
-public:
-	TheMatrix();
-	TheMatrix(const TheMatrix& orig);
-	virtual ~TheMatrix();
+	namespace ger
+	{
+		class TheMatrix
+		{
+		public:
+			TheMatrix();
+			TheMatrix(const TheMatrix& orig);
+			virtual ~TheMatrix();
 
-	static Matrices* getPipeline();
-	static void setPipeline(Matrices m);
-	const static glm::mat4 getIdentityMatrix();
+			static Matrices* getPipeline();
+			static void setPipeline(Matrices m);
+			const static glm::mat4 getIdentityMatrix();
 
-private:
-	static Matrices PipelineMatrices;
-	const static glm::mat4 IdentityMatrix;
-};
+		private:
+			static Matrices PipelineMatrices;
+			const static glm::mat4 IdentityMatrix;
+		};
 
-static TheMatrix Pipeline;
+		static TheMatrix Pipeline;
+	}
+}
 
 #endif /* THEMATRIX_H */

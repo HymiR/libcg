@@ -15,45 +15,51 @@
 #include <vector>
 
 
-class Model : public Renderable
+namespace cg
 {
-public:
-	Model();
-	Model(const Model& orig);
-	virtual ~Model();
+	namespace ger
+	{
+		class Model : public Renderable
+		{
+		public:
+			Model();
+			Model(const Model& orig);
+			virtual ~Model();
 
-	/*
-	 * This method will be implemented by specialised model loaders.
-	 * The purpose of the model loader is to extract the vertices,
-	 * normals, uv coordinates, smoothing groups, material information etc.
-	 * and save it to the corresponding arrays.
-	 */
-	virtual bool loadModel() = 0;
+			/*
+			 * This method will be implemented by specialised model loaders.
+			 * The purpose of the model loader is to extract the vertices,
+			 * normals, uv coordinates, smoothing groups, material information etc.
+			 * and save it to the corresponding arrays.
+			 */
+			virtual bool loadModel() = 0;
 
-	/*
-	 * Loading shaders works always the same so we need just a simple
-	 * non abstract function to add the vertex and fragment shaders
-	 * to our model
-	 *
-	 * IMPORTANT: Shaders come ALWAYS in pairs: one vertex and one fragment
-	 * with the same file name and vertexshader/fragmentshader as extension
-	 */
-	void loadShaders();
+			/*
+			 * Loading shaders works always the same so we need just a simple
+			 * non abstract function to add the vertex and fragment shaders
+			 * to our model
+			 *
+			 * IMPORTANT: Shaders come ALWAYS in pairs: one vertex and one fragment
+			 * with the same file name and vertexshader/fragmentshader as extension
+			 */
+			void loadShaders();
 
-	void setPosition(GLfloat x, GLfloat y, GLfloat z);
+			void setPosition(GLfloat x, GLfloat y, GLfloat z);
 
-	std::string getFilepath();
-	std::vector<std::string> getTextures();
-	std::vector<std::string> getShaders();
+			std::string getFilepath();
+			std::vector<std::string> getTextures();
+			std::vector<std::string> getShaders();
 
-	void setFilepath(std::string path);
-	void addTexturePath(std::string texturepath);
-	void addShaderPath(std::string shaderpath);
+			void setFilepath(std::string path);
+			void addTexturePath(std::string texturepath);
+			void addShaderPath(std::string shaderpath);
 
-protected:
-	std::string filepath;
-	std::vector<std::string> shaderpaths;
-	std::vector<std::string> texturepaths;
-};
+		protected:
+			std::string filepath;
+			std::vector<std::string> shaderpaths;
+			std::vector<std::string> texturepaths;
+		};
+	}
+}
 
 #endif /* MODEL_H */
