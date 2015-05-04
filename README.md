@@ -64,10 +64,10 @@ And your're done.
 
 ## Modules and namespaces
 The library is organised into several modules:
-1. **oogl** - contains classes for model-loading (OpenGL and 3DsMax) and texture loading from image files
-2. **util** - several helper stuff like math functions, logger, timer...
-3. **io** - io structures, currently only stream operators for pretty-printing.
-4. **ger** - gerfrieds new model loader architecture
++ **oogl** - contains classes for model-loading (OpenGL and 3DsMax) and texture loading from image files
++ **util** - several helper stuff like math functions, logger, timer...
++ **io** - io structures, currently only stream operators for pretty-printing.
++ **ger** - gerfrieds new model loader architecture
 
 __Your are able to include the needed headers according the module structure, like__
 ```c++
