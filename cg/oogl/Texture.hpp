@@ -18,63 +18,66 @@
 #include <memory>
 
 
-namespace oogl
+namespace cg
 {
-	/**
-	 *
-	 */
-	class Texture
+	namespace oogl
 	{
-	public:
-		virtual ~Texture();
-
-
-		GLint getFormat()
+		/**
+		 * @brief The Texture class
+		 */
+		class Texture
 		{
-			return format;
-		}
+		public:
+			virtual ~Texture();
 
 
-		std::string getName() const
-		{
-			return name;
-		}
+			GLint getFormat()
+			{
+				return format;
+			}
 
-		GLuint getID()
-		{
-			return textureId;
-		}
 
-		int getBindedTexture()
-		{
-			return bindedTexture;
-		}
+			std::string getName() const
+			{
+				return name;
+			}
 
-		virtual void bind(glm::uint toTexture = 0);
-		virtual void unbind();
+			GLuint getID()
+			{
+				return textureId;
+			}
 
-		virtual void render() = 0;
+			int getBindedTexture()
+			{
+				return bindedTexture;
+			}
 
-	protected:
-		friend class GLSLAttrib;
-		friend class FrameBufferObject;
+			virtual void bind(glm::uint toTexture = 0);
+			virtual void unbind();
 
-		Texture(const std::string& name, const GLuint textureId, GLint format, GLenum textureType);
+			virtual void render() = 0;
 
-		bool isBound() const
-		{
-			return bindedTexture >= 0;
-		}
+		protected:
+			friend class GLSLAttrib;
+			friend class FrameBufferObject;
 
-	private:
-		std::string name;
-		GLuint textureId;
-		GLint format;
-		GLenum textureType;
-		int bindedTexture;
-	};
+			Texture(const std::string& name, const GLuint textureId, GLint format, GLenum textureType);
 
-	Texture* loadTexture(const std::string& fileName);
+			bool isBound() const
+			{
+				return bindedTexture >= 0;
+			}
+
+		private:
+			std::string name;
+			GLuint textureId;
+			GLint format;
+			GLenum textureType;
+			int bindedTexture;
+		};
+
+		Texture* loadTexture(const std::string& fileName);
+	}
 }
 
 

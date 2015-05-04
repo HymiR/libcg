@@ -15,30 +15,33 @@
 #include <glm/glm.hpp>
 
 
-namespace oogl
+namespace cg
 {
-	class Texture3D : public Texture
+	namespace oogl
 	{
-	public:
-		static Texture3D* load(Image* image);
-		virtual ~Texture3D();
+		class Texture3D : public Texture
+		{
+		public:
+			static Texture3D* load(Image* image);
+			virtual ~Texture3D();
 
-		glm::uint getWidth() { return dim.x; }
+			glm::uint getWidth() { return dim.x; }
 
-		glm::uint getHeight() { return dim.y; }
+			glm::uint getHeight() { return dim.y; }
 
-		glm::uint getDepth() { return dim.z; }
+			glm::uint getDepth() { return dim.z; }
 
-		glm::uvec3 getDimensions() { return dim; }
+			glm::uvec3 getDimensions() { return dim; }
 
-		void render();
+			void render();
 
-	protected:
-		Texture3D(const std::string& name, const glm::uvec3& dim, const GLuint textureId, GLint format);
+		protected:
+			Texture3D(const std::string& name, const glm::uvec3& dim, const GLuint textureId, GLint format);
 
-	private:
-		glm::uvec3 dim;
-	};
+		private:
+			glm::uvec3 dim;
+		};
+	}
 }
 
 

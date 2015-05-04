@@ -9,9 +9,9 @@
 #ifndef LOG_HPP
 #define LOG_HPP
 
-#include <iostream>
-
 #include <cg/util/loglevels.hpp>
+
+#include <iostream>
 
 
 //which log level as default

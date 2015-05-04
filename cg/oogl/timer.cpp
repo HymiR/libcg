@@ -10,33 +10,36 @@
 #include <cg/oogl/timer.hpp>
 
 
-namespace oogl
+namespace cg
 {
-	/**
-	 *
-	 */
-	timer::timer(const std::string& name)
-		: cgutil::timer(name)
+	namespace oogl
 	{
-	}
+		/**
+		 *
+		 */
+		timer::timer(const std::string& name)
+			: util::timer(name)
+		{
+		}
 
 
-	/**
-	 *
-	 */
-	void timer::start()
-	{
-		glFinish();
-		cgutil::timer::start();
-	}
+		/**
+		 *
+		 */
+		void timer::start()
+		{
+			glFinish();
+			util::timer::start();
+		}
 
 
-	/**
-	 *
-	 */
-	void timer::stop()
-	{
-		glFinish();
-		cgutil::timer::stop();
+		/**
+		 *
+		 */
+		void timer::stop()
+		{
+			glFinish();
+			util::timer::stop();
+		}
 	}
 }

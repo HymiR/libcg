@@ -1,4 +1,4 @@
-# libcgutils - library of several useful utilities for developing with OpenGL and glm
+# libcg - library of several useful utilities for developing with OpenGL and glm
 All the utilities braught to you with this library are packed into one
 dynamic library which is installed to $(prefix)/lib, which defaults to /usr.
 This library also contains header files which are installed to $(prefix)/include/libcglutils,

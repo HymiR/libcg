@@ -12,26 +12,29 @@
 #include "glIncludes.hpp"
 
 
-namespace oogl
+namespace cg
 {
-	/**
+	namespace oogl
+	{
+		/**
 	 *
 	 */
-	class DisplayList
-	{
-	public:
-		DisplayList();
-		virtual ~DisplayList();
+		class DisplayList
+		{
+		public:
+			DisplayList();
+			virtual ~DisplayList();
 
-		void begin();
-		void beginAndRender();
-		void end();
-		void render();
+			void begin();
+			void beginAndRender();
+			void end();
+			void render();
 
 
-	private:
-		GLuint id;
-	};
+		private:
+			GLuint id;
+		};
+	}
 }
 
 #endif // DISPLAY_LIST_HPP

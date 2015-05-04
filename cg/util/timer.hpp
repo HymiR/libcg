@@ -14,22 +14,25 @@
 
 struct timer_;
 
-namespace cgutil
+namespace cg
 {
-	class timer
+	namespace util
 	{
-	public:
-		timer(const std::string& name);
-		~timer();
+		class timer
+		{
+		public:
+			timer(const std::string& name);
+			~timer();
 
-	protected:
-		virtual void start();
-		virtual void stop();
+		protected:
+			virtual void start();
+			virtual void stop();
 
-	private:
-		std::string name;
-		timer_* impl_;
-	};
+		private:
+			std::string name;
+			timer_* impl_;
+		};
+	}
 }
 
 #endif // TIMER_HPP

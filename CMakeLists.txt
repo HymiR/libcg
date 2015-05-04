@@ -11,7 +11,7 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-# project name and package version numbers
+# project name and package version numbers (allways sync with appropriate version-tag!)
 project(cg)
 set(V_MAJOR 0)
 set(V_MINOR 2)
@@ -30,7 +30,7 @@ set(MODULES
 	${PROJECT_SOURCE_DIR}/cg/util
 	${PROJECT_SOURCE_DIR}/cg/oogl
 	${PROJECT_SOURCE_DIR}/cg/io
-	${PROJECT_SOURCE_DIR}/cg/new
+	${PROJECT_SOURCE_DIR}/cg/ger
 )
 
 # cflags to prevent build from failing
