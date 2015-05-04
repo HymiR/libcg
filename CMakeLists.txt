@@ -30,7 +30,6 @@ set(MODULES
 	${PROJECT_SOURCE_DIR}/cg/util
 	${PROJECT_SOURCE_DIR}/cg/oogl
 	${PROJECT_SOURCE_DIR}/cg/io
-	${PROJECT_SOURCE_DIR}/cg/ger
 )
 
 # cflags to prevent build from failing
@@ -57,16 +56,6 @@ set(SRC
 	"cg/oogl/GLSLProgram.cpp"
 	"cg/oogl/model/ModelObj.cpp"
 	"cg/oogl/model/Model3ds.cpp"
-	"cg/ger/Mesh3D.cpp"
-	"cg/ger/Obj3D.cpp"
-	"cg/ger/vboindexer.cpp"
-	"cg/ger/Model.cpp"
-	"cg/ger/objloader.cpp"
-	"cg/ger/ModelObj.cpp"
-	"cg/ger/Model3DS.cpp"
-	"cg/ger/Renderable.cpp"
-	"cg/ger/TheMatrix.cpp"
-	"cg/ger/Helpers.cpp"
 )
 
 # header file list
@@ -92,18 +81,6 @@ set(HDR
 	"cg/oogl/model/Model3ds.hpp"
 	"cg/oogl/model/ModelObj.hpp"
 	"cg/io/glm_ostream.hpp"
-	"cg/ger/Mesh3D.hpp"
-	"cg/ger/ModelObj.hpp"
-	"cg/ger/Obj3D.hpp"
-	"cg/ger/Model.hpp"
-	"cg/ger/Renderable.hpp"
-	"cg/ger/objloader.hpp"
-	"cg/ger/vboindexer.hpp"
-	"cg/ger/Matrices.hpp"
-	"cg/ger/TheMatrix.hpp"
-	"cg/ger/Paths.hpp"
-	"cg/ger/Model3DS.hpp"
-	"cg/ger/Helpers.hpp"
 )
 
 # other files which aree considered as part of the project.
@@ -133,9 +110,6 @@ find_package(GLM REQUIRED)
 find_package(GLee REQUIRED)
 find_package(Glm REQUIRED)
 find_package(Lib3ds REQUIRED)
-
-# Anti-Masochist-Library
-find_package(Boost REQUIRED)
 
 # add the determined header dirs as well as the project root to be used by cmake
 include_directories(
