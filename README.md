@@ -22,7 +22,7 @@ Following packages have to be installed on your system to build and use libcglut
 Unpack the library and in your terminal do following:
 ```bash
 cd ./libcg-version
-cmake -DCMAKE_INSTALL_PREFIX=<whatever_you_want>
+cmake -DCMAKE_INSTALL_PREFIX='<whatever_you_want>'
 make
 make install
 ```
@@ -34,7 +34,7 @@ __To add your own CXXFLAGS, you can pass them to cmake:__
 
 __To use another compiler, pass it to cmake as following:__
 ```bash
-	-DCMAKE_CXX_COMPILER=clang++
+	-DCMAKE_CXX_COMPILER='clang++'
 ```
 
 __If this packages fails building because of headers it can't locate, you can pass
@@ -67,7 +67,7 @@ The library is organised into several modules:
 1. **oogl** - contains classes for model-loading (OpenGL and 3DsMax) and texture loading from image files
 2. **util** - several helper stuff like math functions, logger, timer...
 3. **io** - io structures, currently only stream operators for pretty-printing.
-3. **ger** - gerfrieds new model loader architecture
+4. **ger** - gerfrieds new model loader architecture
 
 __Your are able to include the needed headers according the module structure, like__
 ```c++
