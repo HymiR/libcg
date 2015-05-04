@@ -24,8 +24,8 @@ namespace cg
 		namespace model
 		{
 			/**
-		 *
-		 */
+			 * @brief The Model3ds class
+			 */
 			class Model3ds : public Model
 			{
 			public:

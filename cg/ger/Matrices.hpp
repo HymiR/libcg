@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   Matrices.h
  * Author: vidar
  *
@@ -15,13 +15,21 @@
 extern "C" {
 #endif
 
-typedef struct MATRICES
+namespace cg
 {
-	glm::mat4 MVP;
-	glm::mat4 M;
-	glm::mat4 V;
-	glm::mat4 P;
-} Matrices;
+	namespace ger
+	{
+		/**
+		 * @brief MVP Matrix structure.
+		 */
+		typedef struct MATRICES {
+			glm::mat4 MVP;
+			glm::mat4 M;
+			glm::mat4 V;
+			glm::mat4 P;
+		} Matrices;
+	}
+}
 
 #ifdef __cplusplus
 }

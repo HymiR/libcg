@@ -17,8 +17,8 @@ namespace cg
 	namespace oogl
 	{
 		/**
-	 *
-	 */
+		 * @brief The DisplayList class
+		 */
 		class DisplayList
 		{
 		public:

@@ -14,14 +14,14 @@ namespace cg
 	namespace oogl
 	{
 		/**
-	 *
-	 */
+		 * @brief DisplayList::DisplayList
+		 */
 		DisplayList::DisplayList() { id = glGenLists(1); }
 
 
 		/**
-	 *
-	 */
+		 * @brief DisplayList::~DisplayList
+		 */
 		DisplayList::~DisplayList()
 		{
 			glDeleteLists(id, 1);
@@ -30,26 +30,26 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief DisplayList::begin
+		 */
 		void DisplayList::begin() { glNewList(id, GL_COMPILE); }
 
 
 		/**
-	 *
-	 */
+		 * @brief DisplayList::beginAndRender
+		 */
 		void DisplayList::beginAndRender() { glNewList(id, GL_COMPILE_AND_EXECUTE); }
 
 
 		/**
-	 *
-	 */
+		 * @brief DisplayList::end
+		 */
 		void DisplayList::end() { glEndList(); }
 
 
 		/**
-	 *
-	 */
+		 * @brief DisplayList::render
+		 */
 		void DisplayList::render()
 		{
 			glPushMatrix();

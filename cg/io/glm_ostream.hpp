@@ -44,8 +44,8 @@ template <typename U, glm::precision P>
 std::ostream& operator<<(std::ostream& ostr, const glm::tvec4<U, P>& v)
 {
 	return ostr
-		   << GLM_FORMATTING << "(" << v.x << "," << v.y
-		   << "," << v.z << "," << v.w << ")";
+			 << GLM_FORMATTING << "(" << v.x << "," << v.y
+			 << "," << v.z << "," << v.w << ")";
 }
 
 
