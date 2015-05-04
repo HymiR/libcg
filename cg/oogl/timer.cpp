@@ -15,7 +15,8 @@ namespace cg
 	namespace oogl
 	{
 		/**
-		 *
+		 * @brief timer::timer
+		 * @param name
 		 */
 		timer::timer(const std::string& name)
 			: util::timer(name)
@@ -24,7 +25,7 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief timer::start
 		 */
 		void timer::start()
 		{
@@ -34,7 +35,7 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief timer::stop
 		 */
 		void timer::stop()
 		{

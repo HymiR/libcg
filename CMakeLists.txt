@@ -30,6 +30,7 @@ set(MODULES
 	${PROJECT_SOURCE_DIR}/cg/util
 	${PROJECT_SOURCE_DIR}/cg/oogl
 	${PROJECT_SOURCE_DIR}/cg/io
+	${PROJECT_SOURCE_DIR}/cg/ger
 )
 
 # cflags to prevent build from failing
@@ -56,12 +57,21 @@ set(SRC
 	"cg/oogl/GLSLProgram.cpp"
 	"cg/oogl/model/ModelObj.cpp"
 	"cg/oogl/model/Model3ds.cpp"
+	"cg/ger/Mesh3D.cpp"
+	"cg/ger/Obj3D.cpp"
+	"cg/ger/vboindexer.cpp"
+	"cg/ger/Model.cpp"
+	"cg/ger/objloader.cpp"
+	"cg/ger/ModelObj.cpp"
+	"cg/ger/Model3DS.cpp"
+	"cg/ger/Renderable.cpp"
+	"cg/ger/TheMatrix.cpp"
+	"cg/ger/Helpers.cpp"
 )
 
 # header file list
 set(HDR
 	"cg/util/timer.hpp"
-	"cg/util/shader.hpp"
 	"cg/util/log.hpp"
 	"cg/util/loglevels.hpp"
 	"cg/util/math.hpp"
@@ -82,7 +92,34 @@ set(HDR
 	"cg/oogl/model/Model3ds.hpp"
 	"cg/oogl/model/ModelObj.hpp"
 	"cg/io/glm_ostream.hpp"
+	"cg/ger/Mesh3D.hpp"
+	"cg/ger/ModelObj.hpp"
+	"cg/ger/Obj3D.hpp"
+	"cg/ger/Model.hpp"
+	"cg/ger/Renderable.hpp"
+	"cg/ger/objloader.hpp"
+	"cg/ger/vboindexer.hpp"
+	"cg/ger/Matrices.hpp"
+	"cg/ger/TheMatrix.hpp"
+	"cg/ger/Paths.hpp"
+	"cg/ger/Model3DS.hpp"
+	"cg/ger/Helpers.hpp"
 )
+
+# other files which aree considered as part of the project.
+set(MISC
+	"README.md"
+	"LICENSE"
+	"cmake-clean"
+)
+
+# cmake modules delivered by this package should be considered as part of this project.
+set(MODS
+	"cmake/modules/FindGLee.cmake"
+	"cmake/modules/FindGlm.cmake"
+	"cmake/modules/FindLib3ds.cmake"
+)
+
 
 
 # determine some libraries (the ones which cmake has a find_module for) to link against
@@ -97,6 +134,9 @@ find_package(GLee REQUIRED)
 find_package(Glm REQUIRED)
 find_package(Lib3ds REQUIRED)
 
+# Anti-Masochist-Library
+find_package(Boost REQUIRED)
+
 # add the determined header dirs as well as the project root to be used by cmake
 include_directories(
 	${PROJECT_SOURCE_DIR}
@@ -110,6 +150,16 @@ include_directories(
 
 # build a shared lib from the source files and link against libs
 add_library (${LIBNAME} SHARED ${SRC})
+
+# add non-build targets as project files
+# this does nothing, its only for convenience to have these files as project files e.g. in qtcreator.
+add_custom_target(Headers SOURCES ${HDR})
+
+add_custom_target(Stuff SOURCES ${MISC})
+
+add_custom_target(Modules SOURCES ${MODS})
+
+
 
 # link against found libraries and
 target_link_libraries(${LIBNAME}
@@ -130,6 +180,8 @@ set_target_properties (${LIBNAME} PROPERTIES
 )
 
 
+# TODO install targets for the other non-source files like modules and reandme if needed...
+
 # install targets
 install (# install the lib
 	TARGETS ${LIBNAME}
@@ -141,5 +193,3 @@ install (# install header files preserving dir structure
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBNAME}
 	FILES_MATCHING PATTERN "*.hpp"
 )
-
-

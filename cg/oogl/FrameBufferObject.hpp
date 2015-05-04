@@ -22,8 +22,8 @@ namespace cg
 	namespace oogl
 	{
 		/**
-	 *
-	 */
+		 * @brief The FrameBufferObject class
+		 */
 		class FrameBufferObject
 		{
 		public:

@@ -39,8 +39,10 @@ namespace cg
 		namespace model
 		{
 			/**
-		 *
-		 */
+			 * @brief Model3ds::Model3ds
+			 * @param fileName
+			 * @param options
+			 */
 			Model3ds::Model3ds(std::string fileName, Model::LoadOptions options)
 				: Model(fileName, options), currentFrame(0)
 			{
@@ -49,8 +51,8 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief Model3ds::~Model3ds
+			 */
 			Model3ds::~Model3ds()
 			{
 				LOG_DEBUG << "free model " << fileName << std::endl;
@@ -65,8 +67,11 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief MaterialComparer
+			 * @param a
+			 * @param b
+			 * @return
+			 */
 			inline bool MaterialComparer(const Lib3dsFace& a, const Lib3dsFace& b)
 			{
 				return a.material < b.material;
@@ -74,8 +79,8 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief Model3ds::loadFile
+			 */
 			void Model3ds::loadFile()
 			{
 				LOG_DEBUG << "load 3ds file" << fileName << std::endl;
@@ -93,11 +98,11 @@ namespace cg
 					for(int i = 0; i < file->nmeshes; ++i) {
 						Lib3dsMesh* mesh = file->meshes[i];
 						Lib3dsNode* node = lib3ds_node_new(LIB3DS_NODE_MESH_INSTANCE);
-#if WIN32
+						#if WIN32
 						strcpy_s(node->name, 64, mesh->name);
-#else
+						#else
 						strcpy(node->name, mesh->name);
-#endif
+						#endif
 						lib3ds_file_insert_node(file, node, NULL);
 					}
 				}
@@ -147,9 +152,11 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::render
+			 * @param options
+			 */
 			void Model3ds::render(RenderOptions options)
 			{
 				LOG_DEBUG << "render " << fileName << std::endl;
@@ -177,9 +184,12 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::renderNode
+			 * @param node
+			 * @param options
+			 */
 			void Model3ds::renderNode(Lib3dsNode* node, RenderOptions options)
 			{
 				assert(file != NULL);
@@ -215,9 +225,12 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::renderMeshNode
+			 * @param node
+			 * @param options
+			 */
 			void Model3ds::renderMeshNode(Lib3dsNode* node, RenderOptions options)
 			{
 				//LOG_DEBUG << "render mesh node " << node->name << std::endl;
@@ -256,9 +269,13 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::applyMaterial
+			 * @param material
+			 * @param options
+			 * @return
+			 */
 			oogl::Texture* Model3ds::applyMaterial(Lib3dsMaterial* material, RenderOptions options)
 			{
 				if(!(options & RENDER_NO_CULL_FACE)) {
@@ -311,8 +328,10 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief Model3ds::getDirectory
+			 * @param fileName
+			 * @return
+			 */
 			std::string Model3ds::getDirectory(const std::string& fileName)
 			{
 				if(fileName.find_last_of("/") != std::string::npos)
@@ -323,9 +342,13 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::renderMeshImpl
+			 * @param node
+			 * @param mesh
+			 * @param options
+			 */
 			void Model3ds::renderMeshImpl(Lib3dsMeshInstanceNode* node, Lib3dsMesh* mesh, RenderOptions options)
 			{
 				LOG_DEBUG << "render mesh impl " << node->base.name << std::endl;
@@ -433,9 +456,10 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief Model3ds::dump
+			 */
 			void Model3ds::dump()
 			{
 				if(!LOG_IS_DEBUG_ENABLED)

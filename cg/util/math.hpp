@@ -32,34 +32,43 @@
 #include <cmath>
 
 
-namespace util
+namespace cg
 {
-	/**
-	 * Calculates the floating point remains for given number as numerator and 360 degrees as denominator.
-	 * So this function can be used to convert any number to a valid positive angle.
-	 */
-	inline double afmod(double angle)
+	namespace util
 	{
-		return fmod(faps(angle), 360);
-	};
+		/**
+		 * @brief afmod Calculates the floating point remains for given number as numerator and 360 degrees as denominator.
+		 * So this function can be used to convert any number to a valid positive angle.
+		 * @param angle
+		 * @return
+		 */
+		inline double afmod(double angle)
+		{
+			return fmod(faps(angle), 360);
+		}
 
 
-	/**
-	 * Calculate radians from a given angle in degrees.
-	 */
-	inline double rad(double deg)
-	{
-		return ((double)afmod(deg) * M_PI / 180);
-	};
+		/**
+		 * @brief rad Calculate radians from a given angle in degrees.
+		 * @param deg
+		 * @return
+		 */
+		inline double rad(double deg)
+		{
+			return ((double)afmod(deg) * M_PI / 180);
+		}
 
 
-	/**
-	 * Calculate angle in degrees from given radians.
-	 */
-	inline double deg(double rad)
-	{
-		return afmod(180 / M_PI * rad);
-	};
+		/**
+		 * @brief deg  Calculate angle in degrees from given radians.
+		 * @param rad
+		 * @return
+		 */
+		inline double deg(double rad)
+		{
+			return afmod(180 / M_PI * rad);
+		}
+	}
 }
 
 #endif // MATH_HPP

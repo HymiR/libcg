@@ -22,8 +22,8 @@ namespace cg
 		namespace model
 		{
 			/**
-		 *
-		 */
+			 * @brief The ModelObj class
+			 */
 			class ModelObj : public Model
 			{
 			public:

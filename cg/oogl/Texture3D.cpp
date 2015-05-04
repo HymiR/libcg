@@ -67,7 +67,11 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief Texture3D::Texture3D
+		 * @param name
+		 * @param dim
+		 * @param textureId
+		 * @param format
 		 */
 		Texture3D::Texture3D(const std::string& name, const glm::uvec3& dim, const GLuint textureId, GLint format)
 			: Texture(name, textureId, format, GL_TEXTURE_3D)
@@ -80,7 +84,7 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief Texture3D::render
 		 */
 		void Texture3D::render()
 		{

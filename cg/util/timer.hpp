@@ -18,6 +18,9 @@ namespace cg
 {
 	namespace util
 	{
+		/**
+		 * @brief The timer class
+		 */
 		class timer
 		{
 		public:

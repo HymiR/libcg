@@ -20,8 +20,10 @@ namespace cg
 		namespace model
 		{
 			/**
-		 *
-		 */
+			 * @brief ModelObj::ModelObj
+			 * @param fileName
+			 * @param options
+			 */
 			ModelObj::ModelObj(std::string fileName, Model::LoadOptions options)
 				: Model(fileName, options)
 				, displayList(NULL)
@@ -31,8 +33,8 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief ModelObj::~ModelObj
+			 */
 			ModelObj::~ModelObj()
 			{
 				LOG_DEBUG << "free model " << fileName << std::endl;
@@ -45,8 +47,8 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief ModelObj::loadFile
+			 */
 			void ModelObj::loadFile()
 			{
 				LOG_DEBUG << "load obj file " << fileName << std::endl;
@@ -73,8 +75,9 @@ namespace cg
 
 
 			/**
-		 *
-		 */
+			 * @brief ModelObj::render
+			 * @param options
+			 */
 			void ModelObj::render(RenderOptions options)
 			{
 				LOG_DEBUG << "render obj file " << fileName << std::endl;
@@ -86,14 +89,16 @@ namespace cg
 					glCullFace(GL_BACK);
 				}
 
-				/* mode  - a bitwise OR of values describing what is to be rendered.
-			 *             GLM_NONE     -  render with only vertices
-			 *             GLM_FLAT     -  render with facet normals
-			 *             GLM_SMOOTH   -  render with vertex normals
-			 *             GLM_TEXTURE  -  render with texture coords
-			 *             GLM_COLOR    -  render with colors (color material)
-			 *             GLM_MATERIAL -  render with materials
-			 */
+
+				/**
+				 * @brief glmMode - a bitwise OR of values describing what is to be rendered.
+				 *             GLM_NONE     -  render with only vertices
+				 *             GLM_FLAT     -  render with facet normals
+				 *             GLM_SMOOTH   -  render with vertex normals
+				 *             GLM_TEXTURE  -  render with texture coords
+				 *             GLM_COLOR    -  render with colors (color material)
+				 *             GLM_MATERIAL -  render with materials
+				 */
 				GLuint glmMode = 0;
 				GLint shadeModel;
 				glGetIntegerv(GL_SHADE_MODEL, &shadeModel);
@@ -132,9 +137,10 @@ namespace cg
 			}
 
 
+
 			/**
-		 *
-		 */
+			 * @brief ModelObj::dump
+			 */
 			void ModelObj::dump()
 			{
 				if(!LOG_IS_DEBUG_ENABLED)

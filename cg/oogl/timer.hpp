@@ -18,6 +18,9 @@ namespace cg
 {
 	namespace oogl
 	{
+		/**
+		 * @brief The timer class
+		 */
 		class timer : util::timer
 		{
 		public:

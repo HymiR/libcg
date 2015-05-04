@@ -16,7 +16,10 @@ namespace cg
 	namespace oogl
 	{
 		/**
-		 *
+		 * @brief Navigator::Navigator
+		 * @param rotateFactor
+		 * @param scaleFactor
+		 * @param translateFactor
 		 */
 		Navigator::Navigator(glm::vec2 rotateFactor, float scaleFactor, glm::vec2 translateFactor)
 			: buttonState(0)
@@ -28,13 +31,17 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief Navigator::~Navigator
 		 */
 		Navigator::~Navigator() {}
 
 
 		/**
-		 *
+		 * @brief Navigator::mouse
+		 * @param button
+		 * @param state
+		 * @param x
+		 * @param y
 		 */
 		void Navigator::mouse(int button, int state, int x, int y)
 		{
@@ -58,7 +65,9 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief Navigator::mouseMotion
+		 * @param x
+		 * @param y
 		 */
 		void Navigator::mouseMotion(int x, int y)
 		{
@@ -88,7 +97,10 @@ namespace cg
 
 
 		/**
-		 *
+		 * @brief Navigator::keyboard
+		 * @param key
+		 * @param x
+		 * @param y
 		 */
 		void Navigator::keyboard(unsigned char key, int x, int y)
 		{

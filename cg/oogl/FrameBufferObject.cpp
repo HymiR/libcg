@@ -18,8 +18,13 @@ namespace cg
 	namespace oogl
 	{
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::create
+		 * @param dim
+		 * @param textureCount
+		 * @param textureFormat
+		 * @param depthFormat
+		 * @return
+		 */
 		FrameBufferObject* FrameBufferObject::create(
 				glm::uvec2 dim,
 				const unsigned textureCount,
@@ -42,17 +47,24 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::createDepthOnly
+		 * @param dim
+		 * @param depthFormat
+		 * @return
+		 */
 		FrameBufferObject* FrameBufferObject::createDepthOnly(glm::uvec2 dim, const GLint depthFormat)
 		{
 			return create(dim, 0, 0, depthFormat);
 		}
 
 
+
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::FrameBufferObject
+		 * @param dim
+		 * @param textures
+		 * @param depthTexture
+		 */
 		FrameBufferObject::FrameBufferObject(glm::uvec2 dim, const std::vector<Texture2D*>& textures, Texture2D* depthTexture)
 			: dim(dim)
 			, textures(textures)
@@ -95,8 +107,8 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::checkError
+		 */
 		void FrameBufferObject::checkError()
 		{
 			GLuint status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -143,8 +155,8 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::~FrameBufferObject
+		 */
 		FrameBufferObject::~FrameBufferObject()
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, GL_NONE);
@@ -163,8 +175,8 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::beginCommon
+		 */
 		void FrameBufferObject::beginCommon()
 		{
 			glPushAttrib(GL_VIEWPORT_BIT | GL_COLOR_BUFFER_BIT | GL_PIXEL_MODE_BIT);
@@ -176,8 +188,9 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::begin
+		 * @param target
+		 */
 		void FrameBufferObject::begin(unsigned int target)
 		{
 			beginCommon();
@@ -195,8 +208,8 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::beginAll
+		 */
 		void FrameBufferObject::beginAll()
 		{
 			beginCommon();
@@ -212,8 +225,8 @@ namespace cg
 
 
 		/**
-	 *
-	 */
+		 * @brief FrameBufferObject::end
+		 */
 		void FrameBufferObject::end()
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, GL_NONE);
