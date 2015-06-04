@@ -3,9 +3,9 @@
 # This is the cmake file for the cg package.
 #
 #	Authors:
-# 	Christian Rauecker
-# 	Gerfried Essler
-# 	Armin Leghissa
+# 	Christian Rauecker <rauecker@vcnc.org>
+# 	Gerfried Essler <mangamaniakku@gmx.at>
+# 	Armin Leghissa <armin@dirty-worms.at>
 #
 
 
@@ -95,6 +95,7 @@ set(MODS
 	"cmake/modules/FindGLee.cmake"
 	"cmake/modules/FindGlm.cmake"
 	"cmake/modules/FindLib3ds.cmake"
+	"cmake/modules/FindCG.cmake"
 )
 
 
@@ -154,7 +155,7 @@ set_target_properties (${LIBNAME} PROPERTIES
 )
 
 
-# TODO install targets for the other non-source files like modules and reandme if needed...
+# TODO install targets for the other non-source files like reandme if needed...
 
 # install targets
 install (# install the lib
@@ -166,4 +167,9 @@ install (# install header files preserving dir structure
 	DIRECTORY ${MODULES}
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBNAME}
 	FILES_MATCHING PATTERN "*.hpp"
+)
+
+install (
+	TARGETS ${MODS}/FindCG.cmake
+	DESTINATION ${CMAKE_INSTALL_PREFIX}share/cmake/Modules
 )
