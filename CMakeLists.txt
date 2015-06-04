@@ -95,9 +95,12 @@ set(MODS
 	"cmake/modules/FindGLee.cmake"
 	"cmake/modules/FindGlm.cmake"
 	"cmake/modules/FindLib3ds.cmake"
-	"cmake/modules/FindCG.cmake"
 )
 
+# cmake modules to be installed.
+set(FINDME
+	"cmake/modules/FindCG.cmake"
+)
 
 
 # determine some libraries (the ones which cmake has a find_module for) to link against
@@ -129,10 +132,9 @@ add_library (${LIBNAME} SHARED ${SRC})
 # add non-build targets as project files
 # this does nothing, its only for convenience to have these files as project files e.g. in qtcreator.
 add_custom_target(Headers SOURCES ${HDR})
-
 add_custom_target(Stuff SOURCES ${MISC})
-
 add_custom_target(Modules SOURCES ${MODS})
+add_custom_target(FindMe SOURCES ${FINDME})
 
 
 
@@ -156,6 +158,7 @@ set_target_properties (${LIBNAME} PROPERTIES
 
 
 # TODO install targets for the other non-source files like reandme if needed...
+# TODO integrate config.h.in : see http://www.cmake.org/cmake-tutorial/
 
 # install targets
 install (# install the lib
@@ -169,7 +172,7 @@ install (# install header files preserving dir structure
 	FILES_MATCHING PATTERN "*.hpp"
 )
 
-install (
-	TARGETS ${MODS}/FindCG.cmake
-	DESTINATION ${CMAKE_INSTALL_PREFIX}share/cmake/Modules
+install (# install the find module of this lib.
+	FILES ${FINDME}
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/Modules
 )
