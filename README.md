@@ -10,12 +10,14 @@ which defaults to /usr/include/libcglutils.
 Following packages have to be installed on your system to build and use libcglutils:
 
 1. **OpenGL** - the rendering pipeline, for example Mesa
-2. **[glm](http://glm.g-truc.net/0.9.6/index.html)** - header-only math library for matrix operations
-   *minimum required version: glm-0.9.6*
+2. **[glm](http://glm.g-truc.net/0.9.7/index.html)** - header-only math library for matrix operations
+   *minimum required version: 0.9.7*
 3. **[glm-obj](http://devernay.free.fr/hacks/glm/)** - Wavefront OBJ file library
 4. **lib3ds** - for loading 3DsMax models
+   *minimum required version: 2.0*
 5. **DevIL** - Texture loading library
-6. **[GLee](http://sourceforge.net/projects/glee/)** - extension handling library
+6. **[GLew](http://glew.sourceforge.net/)** - extension handling library
+   *minimum required version: 1.11*
 
 
 ## Building the library
@@ -86,9 +88,6 @@ __There are following namespaces defined:__
 
 ## TODO
 __Following things have to be done as soon as possible:__
-+ Porting from GLee to glew librar as the Glee library is outdated and unmaintained now.
-+ Add distinct build targets for RELEASE and DEBUG, having their specific CXXFLAGS.
-  (see `cmake -DCMAKE BUILD TYPE=<RELEASE|DEBUG>` switch)
 + Add FORSAKEN model loader (see oogl module and the forsaken-git porject) :)
 + Add target for doxygen documentation generation.
 + Add test rutines to ensure correctness

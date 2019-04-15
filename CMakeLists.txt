@@ -1,87 +1,55 @@
+# This file is part of the cg project.
+# Copyright 2019 CyberViking Softwareschmiede GbR <leghissa@cyber-viking.com>.
 #
-# CMakeLists.txt
-# This is the cmake file for the cg package.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
 #
-#	Authors:
-# 	Christian Rauecker <rauecker@vcnc.org>
-# 	Gerfried Essler <mangamaniakku@gmx.at>
-# 	Armin Leghissa <armin@dirty-worms.at>
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
 #
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-cmake_minimum_required(VERSION 2.6)
-
-# project name and package version numbers (allways sync with appropriate version-tag!)
-project(cg)
-set(V_MAJOR 0)
-set(V_MINOR 2)
-set(V_PATCH 2)
-set(V_LIB ${V_MAJOR}.${V_MINOR}.${V_PATCH})
-set(LIBNAME ${PROJECT_NAME})
-
+# we want the cool stuff
+cmake_minimum_required(VERSION 3.13)
+include(cmake/grabgitversion.cmake)
+project(cg LANGUAGES CXX VERSION ${VERSION_STR})
+include(include/files.cmake)
+include(src/files.cmake)
+set(LIB_NAME lib${PROJECT_NAME}) # libcg in this case
+set (CMAKE_CXX_STANDARD 11)
 # tell cmake to use our custom find-modules:
-set(CMAKE_MODULE_PATH
-	${CMAKE_MODULE_PATH}
-	"${PROJECT_SOURCE_DIR}/cmake/modules/"
+list(INSERT CMAKE_MODULE_PATH 0 "${CMAKE_SOURCE_DIR}/cmake/modules/")
+
+
+# determine some libraries (the ones which cmake has a find_module for) to link against
+# to check for existing find_modules  hit: cmake --help-module-list in your terminal.
+# to check for info and variables set hit: cmake --help-module Find<ModuleName> in your terminal.
+find_package(OpenGL REQUIRED)
+find_package(GLEW 1.11 REQUIRED)
+find_package(DevIL REQUIRED)
+find_package(glm 0.9.7 REQUIRED)
+
+# dependencies via pkgconfig:
+#find_package(PkgConfig REQUIRED)
+#pkg_search_module(GLFW REQUIRED glfw3)
+
+# our custom find-modules in ./cmake/modules
+find_package(Glm REQUIRED) # not to be confused with glm, the gl math library
+find_package(Lib3ds 2 REQUIRED)
+
+
+# generate config cpp file and append to sources
+configure_file(
+	cmake/config.inc
+	src/cg/util/config.cpp
 )
-
-# define a list containing the directories of our "library modules"
-set(MODULES
-	${PROJECT_SOURCE_DIR}/cg/util
-	${PROJECT_SOURCE_DIR}/cg/oogl
-	${PROJECT_SOURCE_DIR}/cg/io
-)
-
-# cflags to prevent build from failing
-add_definitions(-std=c++11 -Wall)
-
-
-# listing the source files hardcoded instead by a find command has the
-# advantage that only changed files were recompiled on performing
-# incremental builds. (bug-fixing or development...)
-# source file list
-set(SRC
-	"cg/util/timer.cpp"
-	"cg/oogl/Model.cpp"
-	"cg/oogl/FrameBufferObject.cpp"
-	"cg/oogl/Navigator.cpp"
-	"cg/oogl/Image.cpp"
-	"cg/oogl/timer.cpp"
-	"cg/oogl/DisplayList.cpp"
-	"cg/oogl/gl_error.cpp"
-	"cg/oogl/GLSLShader.cpp"
-	"cg/oogl/Texture2D.cpp"
-	"cg/oogl/Texture.cpp"
-	"cg/oogl/Texture3D.cpp"
-	"cg/oogl/GLSLProgram.cpp"
-	"cg/oogl/model/ModelObj.cpp"
-	"cg/oogl/model/Model3ds.cpp"
-)
-
-# header file list
-set(HDR
-	"cg/util/timer.hpp"
-	"cg/util/log.hpp"
-	"cg/util/loglevels.hpp"
-	"cg/util/math.hpp"
-	"cg/oogl/glfwIncludes.hpp"
-	"cg/oogl/Model.hpp"
-	"cg/oogl/glIncludes.hpp"
-	"cg/oogl/Texture.hpp"
-	"cg/oogl/Navigator.hpp"
-	"cg/oogl/timer.hpp"
-	"cg/oogl/DisplayList.hpp"
-	"cg/oogl/FrameBufferObject.hpp"
-	"cg/oogl/gl_error.hpp"
-	"cg/oogl/GLSLProgram.hpp"
-	"cg/oogl/GLSLShader.hpp"
-	"cg/oogl/Image.hpp"
-	"cg/oogl/Texture2D.hpp"
-	"cg/oogl/Texture3D.hpp"
-	"cg/oogl/model/Model3ds.hpp"
-	"cg/oogl/model/ModelObj.hpp"
-	"cg/io/glm_ostream.hpp"
-)
+LIST(APPEND ${PROJECT_NAME}_SOURCES "src/cg/util/config.cpp")
 
 # other files which aree considered as part of the project.
 set(MISC
@@ -89,90 +57,78 @@ set(MISC
 	"LICENSE"
 	"cmake-clean"
 )
-
-# cmake modules delivered by this package should be considered as part of this project.
-set(MODS
-	"cmake/modules/FindGLee.cmake"
+# generated library config files for finding this lib
+set(FINDME
+	"${CMAKE_BINARY_DIR}/${LIB_NAME}-config.cmake"
+	"${CMAKE_BINARY_DIR}/${LIB_NAME}-config-version.cmake"
+)
+# cmake modules to be installed.
+set(CMAKE
+	"cmake/config.inc"
+	"cmake/grabgitversion.cmake"
+	"cmake/generateconfig.cmake"
 	"cmake/modules/FindGlm.cmake"
 	"cmake/modules/FindLib3ds.cmake"
-)
-
-# cmake modules to be installed.
-set(FINDME
-	"cmake/modules/FindCG.cmake"
+	"cmake/modules/${LIB_NAME}-config.cmake.in"
 )
 
 
-# determine some libraries (the ones which cmake has a find_module for) to link against
-# to check for existing find_modules  hit: cmake --help-module-list in your terminal.
-# to check for info and variables set hit: cmake --help-module Find<ModuleName> in your terminal.
-find_package(DevIL REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(GLM REQUIRED)
+# the target and it's properties
+# build a shared lib (also add misc files here, in order to see them in the ide)
+add_library (${PROJECT_NAME} SHARED
+	${${PROJECT_NAME}_SOURCES}
+	${${PROJECT_NAME}_HEADERS}
+	${MISC}
+	${MODS}
+	${FINDME}
+	${CMAKE}
+)
 
-# our custom find-modules in ./cmake/modules
-find_package(GLee REQUIRED)
-find_package(Glm REQUIRED)
-find_package(Lib3ds REQUIRED)
+# target properties for naming the lib according version number
+set_target_properties (${PROJECT_NAME} PROPERTIES
+	VERSION ${VERSION_STR}
+	SOVERSION ${VERSION_MAJOR}
+)
 
 # add the determined header dirs as well as the project root to be used by cmake
 include_directories(
-	${PROJECT_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/include
+	${OpenGL_INCLUDE_DIR}
+	${GLEW_INCLUDE_DIRS}
+	#${GLFW_INCLUDE_DIRS}
 	${IL_INCLUDE_DIRS}
-	${OpenGL_INCLUDE_DIRS}
-	${GLEE_INCLUDE_DIR}
-	${Glm_INCLUDE_DIR}
 	${GLM_INCLUDE_DIRS}
+	${Glm_INCLUDE_DIR} # not to be confused with glm, the gl math library
 	${Lib3ds_INCLUDE_DIRS}
 )
 
-# build a shared lib from the source files and link against libs
-add_library (${LIBNAME} SHARED ${SRC})
-
-# add non-build targets as project files
-# this does nothing, its only for convenience to have these files as project files e.g. in qtcreator.
-add_custom_target(Headers SOURCES ${HDR})
-add_custom_target(Stuff SOURCES ${MISC})
-add_custom_target(Modules SOURCES ${MODS})
-add_custom_target(FindMe SOURCES ${FINDME})
-
-
-
 # link against found libraries and
-target_link_libraries(${LIBNAME}
+target_link_libraries(${PROJECT_NAME} PUBLIC
+	${OPENGL_opengl_LIBRARY}
+	${OPENGL_glu_LIBRARY} # NOTE this is for legacy stuff, like glm-obj
+	${GLEW_LIBRARIES}
+	#${GLFW_LIBRARIES}
 	${IL_LIBRARIES}
 	${ILU_LIBRARIES}
 	${ILUT_LIBRARIES}
-	${OpenGL_LIBRARIES}
-	${GLEE_LIB}
-	${Glm_LIB}
+	${Glm_LIB} # not to be confused with glm, the gl math library
 	${Lib3ds_LIBRARIES}
 )
 
+include(cmake/generateconfig.cmake)
 
-# target properties for naming the lib according version number
-set_target_properties (${LIBNAME} PROPERTIES
-	VERSION ${V_LIB}
-	SOVERSION ${V_MAJOR}
-)
-
-
-# TODO install targets for the other non-source files like reandme if needed...
-# TODO integrate config.h.in : see http://www.cmake.org/cmake-tutorial/
 
 # install targets
 install (# install the lib
-	TARGETS ${LIBNAME}
+	TARGETS ${PROJECT_NAME}
 	DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
 )
-
-install (# install header files preserving dir structure
-	DIRECTORY ${MODULES}
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${LIBNAME}
-	FILES_MATCHING PATTERN "*.hpp"
-)
-
 install (# install the find module of this lib.
 	FILES ${FINDME}
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/Modules
+	DESTINATION lib/cmake/${LIB_NAME}
+)
+install (# install header files preserving dir structure
+	DIRECTORY include/
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}
+	FILES_MATCHING PATTERN "*.hpp"
 )

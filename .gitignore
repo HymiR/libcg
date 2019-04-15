@@ -1,1 +1,5 @@
 *.user
+*.autosave
+config.cpp
+*_old
+*_new
