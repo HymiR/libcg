@@ -129,6 +129,6 @@ install (# install the find module of this lib.
 )
 install (# install header files preserving dir structure
 	DIRECTORY include/
-	DESTINATION ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}
+	DESTINATION ${CMAKE_INSTALL_PREFIX}/include
 	FILES_MATCHING PATTERN "*.hpp"
 )

@@ -17,12 +17,9 @@
 
 # set export variables
 get_target_property(LINK_LIBRARIES ${PROJECT_NAME} INTERFACE_LINK_LIBRARIES)
-#set(LINK_LIBRARIES GL GLU GLEW IL ILU ILUT glm 3ds)
 set(EXP_INCLUDE_DIRS include/)
 set(EXP_LIBRARY_DIRS lib/)
 set(EXP_LIBRARIES ${LINK_LIBRARIES} ${PROJECT_NAME})
-
-message("DDD Interface Link Libraries ${LINK_LIBRARIES}")
 
 # generate library config files
 include(CMakePackageConfigHelpers)

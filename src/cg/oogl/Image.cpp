@@ -21,141 +21,140 @@
 
 namespace cg
 {
-	namespace oogl
-	{
+    namespace oogl
+    {
 
-	#define LOG_DEVIL_ERRORS()                                                       \
-	{                                                                            \
-		for(ILenum err = ilGetError(); err != IL_NO_ERROR; err = ilGetError()) { \
-			LOG_ERROR << "DevIL_ERROR: " << iluErrorString(err) << std::endl;    \
-		}                                                                        \
-	}
+    #define LOG_DEVIL_ERRORS()                                                   \
+    {                                                                            \
+        for(ILenum err = ilGetError(); err != IL_NO_ERROR; err = ilGetError()) { \
+            LOG_ERROR << "DevIL_ERROR: " << iluErrorString(err) << std::endl;    \
+        }                                                                        \
+    }
 
-		void Image::initDevIL()
-		{
-			static bool ilInitialized = false;
-			;
+        void Image::initDevIL()
+        {
+            static bool ilInitialized = false;
 
-			if(ilInitialized)
-				return;
+            if(ilInitialized)
+                return;
 
-			LOG_DEBUG << "initialize DevIL" << std::endl;
-			ilInit();
-			iluInit();
-			ilutInit(); //need to initialize to ensure that the loading of images work as expected
-			ilutRenderer(ILUT_OPENGL);
+            LOG_DEBUG << "initialize DevIL" << std::endl;
+            ilInit();
+            iluInit();
+            ilutInit(); //need to initialize to ensure that the loading of images work as expected
+            ilutRenderer(ILUT_OPENGL);
 
-			LOG_DEVIL_ERRORS()
-			ilInitialized = true;
-			LOG_DEBUG << "initialized DevIL" << std::endl;
-		}
-
-
-		Image* Image::load(const std::string& fileName)
-		{
-			initDevIL();
-			LOG_DEBUG << "load image: " << fileName << std::endl;
-
-			ILuint img;
-			ilGenImages(1, &img);
-			ilBindImage(img);
-
-			if(!ilLoadImage(fileName.c_str())) {
-				LOG_ERROR << "can't load image: " << fileName << std::endl;
-				LOG_DEVIL_ERRORS()
-				ilDeleteImages(1, &img);
-				throw std::runtime_error("can't load image: " + fileName);
-			}
-
-			// If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
-			ILinfo imageInfo;
-			iluGetImageInfo(&imageInfo);
-			if(imageInfo.Origin == IL_ORIGIN_UPPER_LEFT) {
-				iluFlipImage();
-			}
-
-			return new Image(fileName, img);
-		}
+            LOG_DEVIL_ERRORS()
+            ilInitialized = true;
+            LOG_DEBUG << "initialized DevIL" << std::endl;
+        }
 
 
-		Image::Image(const std::string& fileName, ILuint img)
-			: fileName(fileName)
-			, img(img)
-		{
-		}
+        Image* Image::load(const std::string& fileName)
+        {
+            initDevIL();
+            LOG_DEBUG << "load image: " << fileName << std::endl;
+
+            ILuint img;
+            ilGenImages(1, &img);
+            ilBindImage(img);
+
+            if(!ilLoadImage(fileName.c_str())) {
+                LOG_ERROR << "can't load image: " << fileName << std::endl;
+                LOG_DEVIL_ERRORS()
+                ilDeleteImages(1, &img);
+                throw std::runtime_error("can't load image: " + fileName);
+            }
+
+            // If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
+            ILinfo imageInfo;
+            iluGetImageInfo(&imageInfo);
+            if(imageInfo.Origin == IL_ORIGIN_UPPER_LEFT) {
+                iluFlipImage();
+            }
+
+            return new Image(fileName, img);
+        }
 
 
-		Image::~Image()
-		{
-			ilDeleteImages(1, &img);
-			LOG_DEVIL_ERRORS();
-		}
+        Image::Image(const std::string& fileName, ILuint img)
+            : fileName(fileName)
+            , img(img)
+        {
+        }
 
 
-		glm::uint Image::getWidth()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_WIDTH);
-		}
+        Image::~Image()
+        {
+            ilDeleteImages(1, &img);
+            LOG_DEVIL_ERRORS()
+        }
 
 
-		glm::uint Image::getHeight()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_HEIGHT);
-		}
+        glm::uint Image::getWidth()
+        {
+            ilBindImage(img);
+            return glm::uint(ilGetInteger(IL_IMAGE_WIDTH));
+        }
 
 
-		glm::uint Image::getDepth()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_DEPTH);
-		}
+        glm::uint Image::getHeight()
+        {
+            ilBindImage(img);
+            return glm::uint(ilGetInteger(IL_IMAGE_HEIGHT));
+        }
 
 
-		glm::uvec3 Image::getDimensions()
-		{
-			return glm::uvec3(getWidth(), getHeight(), getDepth());
-		}
+        glm::uint Image::getDepth()
+        {
+            ilBindImage(img);
+            return glm::uint(ilGetInteger(IL_IMAGE_DEPTH));
+        }
 
 
-		std::string Image::getName()
-		{
-			return fileName;
-		}
+        glm::uvec3 Image::getDimensions()
+        {
+            return glm::uvec3(getWidth(), getHeight(), getDepth());
+        }
 
 
-		unsigned char* Image::getData()
-		{
-			ilBindImage(img);
-			return ilGetData();
-		}
+        std::string Image::getName()
+        {
+            return fileName;
+        }
 
 
-		int Image::getBytesPerPixel()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
-		}
+        unsigned char* Image::getData()
+        {
+            ilBindImage(img);
+            return ilGetData();
+        }
 
 
-		int Image::getFormat()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_FORMAT);
-		}
+        int Image::getBytesPerPixel()
+        {
+            ilBindImage(img);
+            return ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+        }
 
 
-		int Image::getType()
-		{
-			ilBindImage(img);
-			return ilGetInteger(IL_IMAGE_TYPE);
-		}
+        int Image::getFormat()
+        {
+            ilBindImage(img);
+            return ilGetInteger(IL_IMAGE_FORMAT);
+        }
 
 
-		Image* loadImage(const std::string& fileName)
-		{
-			return Image::load(fileName);
-		}
-	}
+        int Image::getType()
+        {
+            ilBindImage(img);
+            return ilGetInteger(IL_IMAGE_TYPE);
+        }
+
+
+        Image* loadImage(const std::string& fileName)
+        {
+            return Image::load(fileName);
+        }
+    }
 }

@@ -45,7 +45,7 @@ namespace cg
          */
         double rad(double deg)
         {
-            return ((double)afmod(deg) * M_PI / 180);
+            return (afmod(deg) * M_PI / 180);
         }
 
 

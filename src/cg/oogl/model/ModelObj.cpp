@@ -6,10 +6,12 @@
  */
 
 #include <cg/oogl/model/ModelObj.hpp>
+#include <cg/oogl/DisplayList.hpp>
 #include <cg/oogl/gl_error.hpp>
 #include <cg/io/glm_ostream.hpp>
 #include <cg/util/log.hpp>
 
+#include <glm.h> // this is the glm-obj library for loading models, not the glm math stuff
 #include <stdexcept>
 
 
@@ -26,7 +28,7 @@ namespace cg
              */
             ModelObj::ModelObj(std::string fileName, Model::LoadOptions options)
                 : Model(fileName, options)
-                , displayList(NULL)
+                , displayList(nullptr)
             {
                 loadFile();
             }
@@ -58,7 +60,6 @@ namespace cg
                     LOG_ERROR << "invalid model " << fileName << std::endl;
                     // TODO remove that! Use valid flag instead and bool() operator.
                     throw std::runtime_error("invalid model: " + fileName);
-                    return;
                 }
 
                 if(!(loadOptions & LOAD_NO_NORMALIZATION))
@@ -68,8 +69,8 @@ namespace cg
                 glmDimensions(model, dim);
                 glmVertexNormals(model, 90.0, GL_TRUE);
 
-                boundingBox.min = glm::vec3(dim[0] * -0.5, dim[1] * -0.5, dim[2] * -0.5);
-                boundingBox.max = glm::vec3(dim[0] * 0.5, dim[1] * 0.5, dim[2] * 0.5);
+                boundingBox.min = glm::vec3(dim[0] * -0.5f, dim[1] * -0.5f, dim[2] * -0.5f);
+                boundingBox.max = glm::vec3(dim[0] * 0.5f, dim[1] * 0.5f, dim[2] * 0.5f);
                 dump();
                 LOG_DEBUG << "loaded obj file " << fileName << std::endl;
             }
@@ -117,7 +118,7 @@ namespace cg
                     glPushMatrix();
                     glmDraw(model, glmMode);
                     glPopMatrix();
-                } else if(displayList == NULL) {
+                } else if(displayList == nullptr) {
                     displayList = new oogl::DisplayList();
                     displayList->beginAndRender();
                     {
@@ -133,7 +134,7 @@ namespace cg
                     displayList->render();
                 }
 
-                LOG_GL_ERRORS();
+                LOG_GL_ERRORS()
                 glPopAttrib();
             }
 

@@ -10,9 +10,6 @@
 #define GLSL_PROGRAM_HPP
 
 #include <cg/oogl/glIncludes.hpp>
-#include <cg/oogl/GLSLShader.hpp>
-#include <cg/oogl/Texture.hpp>
-#include <cg/util/log.hpp>
 
 #include <glm/fwd.hpp>
 
@@ -25,10 +22,15 @@ namespace cg
 {
     namespace oogl
     {
+        class Texture;
+        class GLSLShader;
+
         class GLSLAttrib
         {
         public:
             GLSLAttrib(const std::string name, const GLint id);
+
+            operator bool();
 
             GLSLAttrib& operator=(const int value);
             GLSLAttrib& operator=(const glm::ivec2 value);
@@ -94,8 +96,6 @@ namespace cg
             GLSLProgram(std::vector<GLSLShader*> shaders);
             virtual ~GLSLProgram();
 
-            static std::string getInfoLog(GLuint programId);
-
             void bind() const;
             void unbind() const;
 
@@ -105,6 +105,7 @@ namespace cg
 
             GLSLAttrib operator[](const std::string& arg);
 
+            static std::string getInfoLog(GLuint programId);
             static GLSLProgram* create(const std::string& vertexShaderFile, const std::string& fragmentShaderFile);
             static GLSLProgram* createFromSource(const std::string& vertexShader, const std::string& fragmentShader);
             static GLSLProgram* create(const std::string& vertexShaderFile, const std::string& geometryShaderFile, const std::string& fragmentShaderFile);
