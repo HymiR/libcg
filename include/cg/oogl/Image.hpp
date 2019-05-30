@@ -9,8 +9,6 @@
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
 
-#include <cg/oogl/glIncludes.hpp>
-
 #include <glm/fwd.hpp>
 
 #include <string>
@@ -31,9 +29,9 @@ namespace cg
             glm::uint getHeight();
             glm::uint getDepth();
 
-            int getFormat();
-            int getType();
-            int getBytesPerPixel();
+            glm::uint getFormat();
+            glm::uint getType();
+            glm::uint getBytesPerPixel();
 
             glm::uvec3 getDimensions();
             std::string getName();

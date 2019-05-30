@@ -131,24 +131,24 @@ namespace cg
         }
 
 
-        int Image::getBytesPerPixel()
+        glm::uint Image::getBytesPerPixel()
         {
             ilBindImage(img);
-            return ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+            return glm::uint(ilGetInteger(IL_IMAGE_BPP));
         }
 
 
-        int Image::getFormat()
+        glm::uint Image::getFormat()
         {
             ilBindImage(img);
-            return ilGetInteger(IL_IMAGE_FORMAT);
+            return glm::uint(ilGetInteger(IL_IMAGE_FORMAT));
         }
 
 
-        int Image::getType()
+        glm::uint Image::getType()
         {
             ilBindImage(img);
-            return ilGetInteger(IL_IMAGE_TYPE);
+            return glm::uint(ilGetInteger(IL_IMAGE_TYPE));
         }
 
 
