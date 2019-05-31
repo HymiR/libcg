@@ -44,7 +44,6 @@ namespace cg
             ilutInit(); //need to initialize to ensure that the loading of images work as expected
             ilutRenderer(ILUT_OPENGL);
 
-            LOG_DEVIL_ERRORS()
             ilInitialized = true;
             LOG_DEBUG << "initialized DevIL" << std::endl;
         }
@@ -87,7 +86,6 @@ namespace cg
         Image::~Image()
         {
             ilDeleteImages(1, &img);
-            LOG_DEVIL_ERRORS()
         }
 
 
